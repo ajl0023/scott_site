@@ -1,0 +1,204 @@
+<script>
+	import { image_url } from '../dev';
+	import logoSm from '$lib/images/logo-small.png';
+	import IntersectionObserver from './IntersectionObserver.svelte';
+
+	export let data;
+
+	let main_photo = image_url + data['agent_photo']['data']['attributes']['url'];
+	let bg_photo = image_url + data['background_photo']['data']['attributes']['url'];
+</script>
+
+<div class="wrapper">
+	<IntersectionObserver let:intersecting top="{400}">
+		<div
+			class="banner-container bg-cover bg-no-repeat grayscale"
+			style="background-image: url({bg_photo});"
+		></div>
+
+		<div class="container px-5 lg:mt-[70px]">
+			<div
+				class="main-content flex-col items-center justify-start lg:flex-row lg:items-start lg:mt-[40px] p-5"
+			>
+				<div class="main-photo-container mt-0 lg:w-[calc(100%-58.33333333%)] lg:h-full">
+					<img class:fade-in-left="{intersecting}" src="{main_photo}" alt="" />
+				</div>
+				<div
+					class="right-container {intersecting
+						? 'fade-in-right'
+						: ''} flex flex-col justify-center items-center lg:px-10 lg:translate-y-[-40px] lg:w-[58.33333333%]"
+				>
+					<div class="title-container my-2 text-center lg:text-start lg:m-0 lg:self-start">
+						<div class="sm-logo-container md:mb-3">
+							<img class="max-w-[90px] w-full" src="{logoSm}" alt="Scott James Luxury Estates" />
+						</div>
+						<div class="welcome-title text-6xl">
+							<h2 class="md:text-[130px]">
+								Scott <span class="text-center lg:text-end md:mb-9 md:mt-3">James</span>
+							</h2>
+						</div>
+					</div>
+					<div class="text-container text-center">
+						<h3>{data.header}</h3>
+						<div class="text-content">
+							{#each data.paragraph as paragraph}
+								<p>{paragraph.text}</p>
+							{/each}
+						</div>
+					</div>
+					<div class="button-container lg:pb-6 flex-col flex self-center sm:flex-row">
+						<a class="w-[200px] m-0">read more +</a>
+						<a class="w-[200px]">awards won +</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</IntersectionObserver>
+</div>
+
+<style lang="scss">
+	.button-container {
+		a {
+			height: 53px;
+			display: inline-block;
+			vertical-align: top;
+			color: #1b1b1b;
+			font-size: 12px;
+			font-weight: 500;
+			text-align: center;
+			text-transform: uppercase;
+			line-height: 51px;
+			letter-spacing: 0.2em;
+			border: 1px solid #b3b3b3;
+			transition: all 0.3s ease-in-out;
+			cursor: pointer;
+			&:hover {
+				color: #1b1b1b;
+				background-color: #b7dee8;
+				border: 1px solid #b7dee8;
+			}
+		}
+	}
+	.wrapper {
+		position: relative;
+
+		padding-bottom: 100px;
+
+		.banner-container {
+			z-index: 1;
+			width: 100%;
+			height: 100%;
+			max-height: 696px;
+			content: '';
+			position: absolute;
+			left: 0;
+			bottom: 0;
+
+			pointer-events: none;
+			.banner {
+				background-size: cover;
+				background-position: bottom center;
+				background-repeat: no-repeat;
+				width: 100%;
+				filter: grayscale(100%);
+			}
+		}
+		&:after {
+			display: block;
+			width: 100%;
+			height: 100%;
+			max-height: 696px;
+			content: '';
+			position: absolute;
+			z-index: 3;
+			left: 0;
+			bottom: 0;
+			background-size: cover;
+			background-position: bottom center;
+			background-repeat: no-repeat;
+			background-color: rgba(240, 240, 240, 0.85);
+			pointer-events: none;
+		}
+	}
+	.container {
+		max-width: 1170px;
+		width: 100%;
+		margin: auto;
+		z-index: 4;
+		position: relative;
+	}
+	.main-photo-container {
+		img {
+			height: 100%;
+			width: 100%;
+		}
+	}
+
+	.text-container {
+		h3 {
+			margin-bottom: 10px;
+			color: #494949;
+			font-size: 24px;
+			font-weight: 600;
+			font-family: 'Source Sans Pro', sans-serif;
+			text-transform: uppercase;
+			line-height: 1;
+			letter-spacing: -0.01em;
+		}
+		.text-content {
+			p {
+				color: #666666;
+				font-size: 15px;
+				font-weight: 300;
+				line-height: 26px;
+				margin-bottom: 30px;
+			}
+		}
+	}
+	.main-content {
+		display: flex;
+		background-color: white;
+
+		.welcome-title {
+			h2 {
+				display: inline-block;
+				vertical-align: top;
+				color: #1b1b1b;
+
+				font-weight: 600;
+				font-family: 'Barlow Semi Condensed', sans-serif;
+				text-align: right;
+				text-transform: uppercase;
+				letter-spacing: -0.025em;
+				line-height: 80px;
+				position: relative;
+			}
+			span {
+				display: block;
+				color: #41a7c3;
+				font-size: 55px;
+				font-weight: 400;
+				font-family: 'Source Sans Pro', sans-serif;
+				letter-spacing: -0.05em;
+				line-height: 1;
+			}
+		}
+	}
+	.sm-logo-container {
+		display: inline-block;
+		vertical-align: top;
+		// margin: 0 0 10px 5px;
+		padding-right: 46px;
+		position: relative;
+		font-size: 0;
+		&::after {
+			width: 38px;
+			height: 5px;
+			content: '';
+			position: absolute;
+			bottom: 13px;
+			right: 0;
+			background-color: #41a7c3;
+		}
+	}
+</style>
