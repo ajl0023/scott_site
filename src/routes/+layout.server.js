@@ -1,6 +1,8 @@
+import { url_new } from '../lib/dev';
 export async function load() {
 	const getLayoutData = async () => {
-		const req = await fetch('http://127.0.0.1:1337/api/global?populate=deep', {
+		console.log(`${url_new}/api/global?populate=deep`)
+		const req = await fetch(`${url_new}/api/global?populate=deep`, {
 			headers: {
 				Authorization:
 					'Bearer ***REMOVED***'

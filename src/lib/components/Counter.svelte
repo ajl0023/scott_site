@@ -13,8 +13,8 @@
 	}
 </script>
 
-<div class="wrapper px-4  text-center border-none">
-	<div class="counter text-[#41A7C3] lg:text-[62px] text-[60px] leading-none text-center">
+<div class="wrapper md:px-4 py-5 md:py-0 text-center">
+	<div class="counter text-[#41A7C3] lg:text-[62px] text-[40px] leading-none text-center">
 		{(data['start_char'] ? data['start_char'] : '') +
 			Math.floor($progress) +
 			(data['end_char'] ? data['end_char'] : '')}

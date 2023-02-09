@@ -11,10 +11,10 @@
 </script>
 
 <div class="wrapper">
-	<!-- <Navbar nav_items="{data['layout_data']['navbar']}" /> -->
+	<Navbar nav_items="{data['layout_data']['navbar']}" />
 	<slot />
 
-	<!-- <Footer data="{data['layout_data']['footer']}" /> -->
+	<Footer data="{data['layout_data']['footer']}" />
 </div>
 
 <style lang="postcss">

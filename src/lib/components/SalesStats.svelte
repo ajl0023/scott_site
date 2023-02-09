@@ -47,10 +47,10 @@
 
 		<IntersectionObserver let:intersecting
 			><div
-				class="counter-container flex m-auto justify-center flex-col md:flex-row divide-x divide-[rgba(255,255,255,0.30)]"
+				class="counter-container flex m-auto justify-center items-center md:items-stretch flex-col md:flex-row md:divide-x md:divide-y-0 divide-y divide-[rgba(255,255,255,0.30)] px-20 md:px-0"
 			>
 				{#each d_data as data}
-					<div class="counter-container">
+					<div class="counter-container w-full md:w-auto inline-block">
 						<Counter data="{data}" intersecting="{intersecting}" />
 					</div>
 				{/each}

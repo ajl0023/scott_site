@@ -18,7 +18,7 @@
 </script>
 
 <nav
-	class="navbar bg-black whitespace-nowrap text-xs flex justify-center lg:h-[400px] "
+	class="navbar whitespace-nowrap text-xs flex justify-center lg:h-[400px] "
 >
 	<div class="mobile-top-bar flex bg-white items-center p-3 justify-between md:hidden">
 		<SideNav menu_items="{nav_items}" />
