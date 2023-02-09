@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-netlify": "^2.0.2",
 		"flex-gap-polyfill": "^4.1.2",
 		"gsap": "^3.11.4"
 	}
