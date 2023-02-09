@@ -1,3 +1,3 @@
 import { dev } from '$app/environment';
 
-export const image_url = dev ? 'http://localhost:1337' : 'http://localhost:1337';
+export const image_url = dev ? 'http://localhost:1337' : '/';
