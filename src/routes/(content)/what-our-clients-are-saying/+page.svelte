@@ -11,6 +11,8 @@
 		page: null,
 		pageCount: null
 	};
+	export const prerender = true;
+
 	let reviews = data['page_data']['data'];
 	let form;
 	const page_meta = data['page_data']['meta']['pagination'];

@@ -100,5 +100,6 @@
 				Cancel
 			</button>
 		</div>
+		<input type="hidden" name="form-submission" value="" />
 	</form>
 </div>
