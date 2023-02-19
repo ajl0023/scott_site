@@ -1,8 +1,10 @@
 <script>
 	import gsap from 'gsap';
 	export let nav_item;
+
 	let dropdown;
-	let parentEle;
+
+	let dropdown_pointer = false;
 	const dropDownAnim = (isOver) => {
 		gsap.to(dropdown, {
 			height: isOver ? 'auto' : 0,
@@ -20,18 +22,41 @@ on:blur -->
 	}}"
 	on:mouseleave="{(e) => {
 		dropDownAnim(false);
+		dropdown_pointer = false;
 	}}"
 	class="mr-4 menu-item-container"
 >
 	<li class="list-item">
-		<a class="list-link lg:text-lg" href="">{nav_item['label']}</a>
+		<a
+			on:mouseenter="{() => {
+				dropdown_pointer = true;
+			}}"
+			class="list-link lg:text-lg md:text-sm"
+			href="">{nav_item['label']}</a
+		>
 	</li>
-	<div class="padding-drop-container">
+
+	<div
+		class="padding-drop-container {dropdown_pointer
+			? 'pointer-events-auto'
+			: 'pointer-events-none'}"
+		class:hidden="{nav_item['nav_options'].length <= 0}"
+	>
 		<div bind:this="{dropdown}" class="drop-down-container">
 			<ul class="list-drop-down-container">
 				{#each nav_item['nav_options'] as sub_nav}
-					<li class="list-item-sub">
-						<a class="list-link-sub block" href=""> {sub_nav['label']}</a>
+					<li class="list-item-sub cursor-pointer">
+						{#if sub_nav.is_external_link}<a
+								class="list-link-sub block"
+								target="_blank"
+								rel="noreferrer"
+								href="{sub_nav.link}"
+							>
+								{sub_nav['label']}</a
+							>
+						{:else}
+							<a class="list-link-sub block" href="/{sub_nav['link']}"> {sub_nav['label']}</a>
+						{/if}
 					</li>
 				{/each}
 			</ul>
@@ -39,21 +64,31 @@ on:blur -->
 	</div>
 </div>
 
-<style lang="scss">
+<style lang="postcss">
+	@media (min-width: theme(screens.md)) and (max-width: 1270px) {
+		.list-item {
+			.list-link {
+				@apply text-[12px];
+			}
+		}
+	}
+
 	.padding-drop-container {
 		padding-top: 10px;
+		position: absolute;
+		left: -200%;
+		right: -200%;
+		min-width: 205px;
+
+		max-width: 100%;
+		margin: 0 auto;
 	}
 	.drop-down-container {
 		display: flex;
 		flex-direction: column;
-		position: absolute;
-		min-width: 205px;
+
 		font-size: 14px;
 		background-color: rgba(183, 222, 232, 0.8);
-		left: -200%;
-		right: -200%;
-		margin: 0 auto;
-		max-width: 100%;
 
 		height: 0;
 

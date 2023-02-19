@@ -8,6 +8,9 @@
 	import Mail from '../images/icons/mail.svelte';
 	import Hamburger from '../images/icons/hamburger.svelte';
 	import SideNav from './SideNav.svelte';
+	import { page } from '$app/stores';
+
+	$: is_home = $page.route.id === '/';
 
 	let eleRefs = [];
 	$: {
@@ -18,7 +21,9 @@
 </script>
 
 <nav
-	class="navbar whitespace-nowrap text-xs flex justify-center lg:h-[400px] "
+	class="navbar whitespace-nowrap text-xs md:flex justify-center bg-black {is_home
+		? 'absolute'
+		: 'relative'}"
 >
 	<div class="mobile-top-bar flex bg-white items-center p-3 justify-between md:hidden">
 		<SideNav menu_items="{nav_items}" />
@@ -31,16 +36,22 @@
 		</div>
 	</div>
 
-	<div class="md:justify-between navbar-container p-4 flex justify-center w-full lg:mt-8">
-		<div class="nav-left-logo-container w-60 lg:w-[700px] mr-2">
-			<img class="nav-logo object-contain" src="{sj_logo}" alt="" />
+	<div
+		class="md:justify-between navbar-container px-4 flex justify-center w-full lg:items-center lg:my-20 md:my-10 py-4 md:py-0"
+	>
+		<div class="nav-left-logo-container lg:max-w-[400px] max-w-[200px] w-full">
+			<a href="/" class="block">
+				<img class="nav-logo w-full object-contain" src="{sj_logo}" alt="" /></a
+			>
 		</div>
-		<div class="nav-right-container">
-			<div class="nav-right-logo-container hidden md:block">
-				<img class="nav-logo" src="{de_logo}" alt="" />
+		<div class="nav-right-container text-right">
+			<div class="nav-right-logo-container hidden md:inline-block md:w-[300px] lg:w-[auto]">
+				<a target="_blank" rel="noreferrer" class="block" href="https://www.elliman.com/">
+					<img class="nav-logo object-contain w-full" src="{de_logo}" alt="" />
+				</a>
 			</div>
-			<div class="nav-menu-container">
-				<ul class="nav-menu hidden md:flex md:mt-5 lg:mt-10">
+			<div class="nav-menu-container md:mt-10 lg:mt-20">
+				<ul class="nav-menu hidden md:flex">
 					{#each nav_items as nav_item, i}
 						<NavbarButton nav_item="{nav_item}" />
 					{/each}
@@ -50,60 +61,7 @@
 	</div>
 </nav>
 
-<style lang="scss">
-	.drop-down-container {
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		min-width: 205px;
-		font-size: 14px;
-		background-color: rgba(183, 222, 232, 0.8);
-		left: -200%;
-		right: -200%;
-		margin: 0 auto;
-		max-width: 100%;
-		top: 150%;
-		max-height: 0;
-		overflow: hidden;
-		transition: max-height 0.3s ease-out;
-		.list-item-sub {
-			text-align: center;
-			padding: 5px;
-			font-weight: 500;
-			&:hover {
-				background-color: #41a7c3;
-			}
-		}
-		.list-link-sub {
-			color: white;
-			text-align: center;
-			text-decoration: none;
-		}
-	}
-	.menu-item-container {
-		position: relative;
-		margin: 0 30px;
-		&:first-child {
-			margin-left: 0;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
-	}
-	@keyframes colorChange {
-		from {
-			color: white;
-		}
-		to {
-			color: #41a7c3;
-		}
-	}
-
-	.nav-right-container {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-	}
+<style lang="postcss">
 	.nav-menu-container {
 		display: flex;
 	}
@@ -111,43 +69,14 @@
 		color: white;
 
 		text-transform: uppercase;
-
-		.list-item {
-			font-weight: 500;
-			position: relative;
-
-			&:hover::after {
-				width: 100%;
-			}
-			&::after {
-				position: absolute;
-				content: '';
-				background-color: #41a7c3;
-				height: 1px;
-				left: 0;
-				right: 0;
-				bottom: -5px;
-				margin: auto;
-				width: 0px;
-				transition: width 0.3s ease-out;
-			}
-
-			.list-link {
-				text-decoration: none;
-				color: white;
-				transition: color 0.3s ease-out;
-
-				&:hover {
-					color: #41a7c3;
-				}
-			}
-		}
 	}
 
 	.navbar {
 		width: 100%;
-		position: absolute;
+
 		top: 0;
+		left: 0;
+		right: 0;
 		z-index: 2;
 	}
 </style>

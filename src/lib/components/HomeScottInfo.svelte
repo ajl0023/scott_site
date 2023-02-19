@@ -1,7 +1,7 @@
 <script>
 	import { image_url } from '../dev';
 	import logoSm from '$lib/images/logo-small.png';
-	import IntersectionObserver from './IntersectionObserver.svelte';
+	import IntersectionObserver from 'svelte-intersection-observer';
 
 	export let data;
 
@@ -9,7 +9,7 @@
 	let bg_photo = image_url + data['background_photo']['data']['attributes']['url'];
 </script>
 
-<div class="wrapper">
+<div class="wrapper mt-10 lg:mt-20">
 	<IntersectionObserver let:intersecting top="{400}">
 		<div
 			class="banner-container bg-cover bg-no-repeat grayscale"
@@ -18,7 +18,7 @@
 
 		<div class="container px-5 lg:mt-[70px]">
 			<div
-				class="main-content flex-col items-center justify-start lg:flex-row lg:items-start lg:mt-[40px] p-5"
+				class="main-content flex-col items-center justify-start lg:flex-row lg:items-start lg:mt-[40px] px-3 lg:p-0"
 			>
 				<div class="main-photo-container mt-0 lg:w-[calc(100%-58.33333333%)] lg:h-full">
 					<img class:fade-in-left="{intersecting}" src="{main_photo}" alt="" />
@@ -33,8 +33,11 @@
 							<img class="max-w-[90px] w-full" src="{logoSm}" alt="Scott James Luxury Estates" />
 						</div>
 						<div class="welcome-title text-6xl">
-							<h2 class="md:text-[130px]">
-								Scott <span class="text-center lg:text-end md:mb-9 md:mt-3">James</span>
+							<h2 class="md:text-[130px] text-[90px]">
+								Scott <span
+									class="text-center lg:text-end md:mb-9 md:mt-3 text-[50px] md:text-[70px]"
+									>James</span
+								>
 							</h2>
 						</div>
 					</div>
@@ -46,7 +49,7 @@
 							{/each}
 						</div>
 					</div>
-					<div class="button-container lg:pb-6 flex-col flex self-center sm:flex-row">
+					<div class="button-container lg:pb-6 flex-col flex self-center sm:flex-row m-10 mb:m-0">
 						<a class="w-[200px] m-0">read more +</a>
 						<a class="w-[200px]">awards won +</a>
 					</div>
@@ -176,7 +179,7 @@
 			span {
 				display: block;
 				color: #41a7c3;
-				font-size: 55px;
+
 				font-weight: 400;
 				font-family: 'Source Sans Pro', sans-serif;
 				letter-spacing: -0.05em;

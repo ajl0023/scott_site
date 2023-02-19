@@ -2,8 +2,8 @@
 	import logoSm from '$lib/images/logo-small.png';
 </script>
 
-<div class="logo-container inline-block pr-[46px] relative mb-[10px] ml-[5px]">
-	<img src="{logoSm}" alt="" />
+<div class="logo-container inline-block pr-[46px] relative ml-[5px]">
+	<img class="w-full object-contain" src="{logoSm}" alt="" />
 </div>
 
 <style lang="scss">

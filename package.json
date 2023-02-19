@@ -14,15 +14,19 @@
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
 		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/line-clamp": "^0.4.2",
+		"@tailwindcss/typography": "^0.5.9",
 		"autoprefixer": "^10.4.13",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"postcss": "^8.4.21",
+		"postcss-nested": "^6.0.0",
 		"prettier": "^2.8.3",
 		"prettier-plugin-svelte": "^2.9.0",
 		"sass": "^1.58.0",
 		"svelte": "^3.54.0",
+		"svelte-carousel": "^1.0.22",
 		"svelte-preprocess": "^5.0.1",
 		"tailwindcss": "^3.2.4",
 		"vite": "^4.0.0"
@@ -30,7 +34,16 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-netlify": "^2.0.2",
+		"d3": "^7.8.2",
+		"d3-geo": "^3.1.0",
+		"dotenv": "^16.0.3",
 		"flex-gap-polyfill": "^4.1.2",
-		"gsap": "^3.11.4"
+		"gsap": "^3.11.4",
+		"lodash": "^4.17.21",
+		"lodash-es": "^4.17.21",
+		"moment": "^2.29.4",
+		"postcss-scss": "^4.0.6",
+		"svelte-infinite-scroll": "^2.0.1",
+		"svelte-intersection-observer": "^0.10.0"
 	}
 }

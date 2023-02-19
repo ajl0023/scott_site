@@ -17,12 +17,14 @@
 		<div class="logo-container">
 			<img src="{delogo}" alt="" />
 		</div>
-		<div class="contact-container flex flex-wrap  justify-center items-center">
+		<div
+			class="contact-container flex flex-wrap  justify-center items-center flex-col md:flex-row md:space-y-0 space-y-2"
+		>
 			{#each Object.entries(data['contact']) as [key, val]}
 				{#if key !== 'id'}
 					<div class="contact-item-container flex  items-center px-5">
 						{#if svg_data[key]}
-							<div class="icon-container w-8 mr-2.5">
+							<div class="icon-container md:w-8 w-5 mr-2.5">
 								<svelte:component this="{svg_data[key]}" />
 							</div>
 						{:else}
@@ -34,10 +36,12 @@
 			{/each}
 		</div>
 		<div class="market-area-container">
-			<ul class="market-area-list justify-center flex flex-wrap items-center text-center">
+			<ul
+				class="market-area-list justify-center flex flex-wrap items-center text-center md:flex-row flex-col"
+			>
 				{#each data['market_areas'] as label}
-					<li class="px-3">
-						<a>{label.label}</a>
+					<li class="px-2 my-1 md:before:block before:hidden">
+						<a class="text-[20px] ">{label.label}</a>
 					</li>
 				{/each}
 			</ul>

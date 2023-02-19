@@ -1,7 +1,7 @@
 <script>
 	import { image_url } from '../dev';
 	import Counter from './Counter.svelte';
-	import IntersectionObserver from './IntersectionObserver.svelte';
+	import IntersectionObserver from 'svelte-intersection-observer';
 	import MiniLogo from './MiniLogo.svelte';
 
 	export let data;
@@ -30,6 +30,7 @@
 </script>
 
 <div
+	id="hp_stats"
 	class="wrapper font-barlow bg-cover bg-no-repeat bg-center bg-fixed"
 	style="background-image: url({bg_photo}); "
 >
@@ -40,14 +41,14 @@
 				why work with me
 			</h2>
 			<span
-				class="span-text block text-[#41A7C3] text-[36px] font-[400] uppercase md:text-right mt-3 before:hidden md:before:block md:before:w-[70%] text-center"
+				class="span-text block text-[#41A7C3] text-[36px] font-[400] uppercase md:text-right mt-3 before:hidden md:before:block text-center md:before:max-w-[450px] lg:before:max-w-[530px]"
 				>My Numbers</span
 			>
 		</div>
 
 		<IntersectionObserver let:intersecting
 			><div
-				class="counter-container flex m-auto justify-center items-center md:items-stretch flex-col md:flex-row md:divide-x md:divide-y-0 divide-y divide-[rgba(255,255,255,0.30)] px-20 md:px-0"
+				class="counter-container flex m-auto justify-center items-center md:items-stretch flex-col md:flex-row md:divide-x md:divide-y-0 divide-y divide-[rgba(255,255,255,0.30)] px-20 md:px-2 md:mt-4"
 			>
 				{#each d_data as data}
 					<div class="counter-container w-full md:w-auto inline-block">
@@ -78,12 +79,14 @@
 			.span-text {
 				position: relative;
 				&::before {
-					max-width: 522px;
+					position: absolute;
 					height: 4px;
 					content: '';
-					position: absolute;
-					bottom: 23px;
+					top: 50%;
 					left: 0;
+					transform: translateY(-50%);
+
+					width: 100%;
 					background-color: #818181;
 				}
 			}

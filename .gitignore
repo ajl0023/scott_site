@@ -10,3 +10,7 @@ node_modules
 .output
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+svelte_template.cjs
+git_script.sh
+.vscode
+.netlify

@@ -29,7 +29,6 @@
 		id="side-nav"
 		type="checkbox"
 		class="peer/test opacity-0 absolute -z-10"
-		checked
 	/>
 	<div class="side-nav-container">
 		<ul>

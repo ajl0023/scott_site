@@ -1,7 +1,7 @@
 <script>
 	import { image_url } from '../dev';
 	import mag_icon from '$lib/images/mag-icon.png';
-	import IntersectionObserver from './IntersectionObserver.svelte';
+	import IntersectionObserver from "svelte-intersection-observer";
 	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 	const images = data['url_image'];

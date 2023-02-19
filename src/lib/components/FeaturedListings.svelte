@@ -7,7 +7,7 @@
 
 <div class="container">
 	<div class="fl-container px-5 grid gap-1 md:grid-cols-2 grid-cols-1 lg:grid-cols-3">
-		<div class="title-container flex flex-col justify-center pr-3">
+		<div class="title-container flex flex-col justify-center pr-3 mb-4 md:mb-0">
 			<div class="title-content flex flex-col items-center justify-center lg:items-start">
 				<MiniLogo />
 				<h2 class="inline-block text-[80px]">
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		{/each}
-		<div class="view-more-container">
+		<div class="view-more-container py-7 md:py-0">
 			<a class="view-more-button" href="">view all properties+</a>
 		</div>
 	</div>

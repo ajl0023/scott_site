@@ -1,0 +1,31 @@
+.icon-question {
+	&::before {
+		content: '\b0072';
+	}
+}
+.icon-user {
+	&::before {
+		content: '\b0078';
+	}
+}
+.icon-currency {
+	&::before {
+		content: '\b0051';
+	}
+}
+.icon-square-check {
+	&::before {
+		content: '\b0046';
+	}
+}
+
+.icon-house {
+	&::before {
+		content: '\b0055';
+	}
+}
+.icon-check {
+	&::before {
+		content: '\b0048';
+	}
+}

@@ -16,7 +16,7 @@
 		}}"
 		on:keydown
 		class="py-2 px-3 text-center text-lg text-[#002852]  hover:bg-[#002852] hover:text-white  
-        bg-white"
+        bg-white uppercase"
 		class:parent-menu-expanded="{curr_expanded}"
 	>
 		{data.label}
@@ -24,7 +24,7 @@
 	<div class="{curr_expanded ? 'block' : 'hidden'}">
 		{#each data['nav_options'] as item}
 			<p
-				class="py-2 px-3 bg-[#3f88d5] text-center text-lg text-[#002852] hover:bg-[#002852] hover:text-white not-last:border-b-2 not-last:border-white"
+				class="py-2 px-3 bg-[#3f88d5] text-center text-lg text-[#002852] hover:bg-[#002852] hover:text-white not-last:border-b-2 not-last:border-white uppercase"
 			>
 				{item.label}
 			</p>

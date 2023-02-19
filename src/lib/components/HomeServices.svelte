@@ -3,19 +3,19 @@
 
 	export let data;
 
-	const image_data = data;
+	const services = data;
 </script>
 
-<div class="wrapper mt-32">
+<div class="wrapper pt-32">
 	<div class="grid-container px-3 lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
-		{#each image_data as img}
+		{#each services as {attributes} }
 			<div class="grid-item">
 				<div class="grid-content">
 					<div class="image-container">
-						<img src="{image_url + img['image']['data']['attributes']['url']}" alt="" />
+						<img src="{image_url + attributes['image']['data']['attributes']['url']}" alt="" />
 					</div>
 					<div class="text-container">
-						<span>{img['label']}</span>
+						<span>{attributes['label']}</span>
 					</div>
 				</div>
 				<div class="hover-line"></div>
