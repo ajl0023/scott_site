@@ -1,7 +1,7 @@
 <script>
 	import sj_logo from '$lib/images/header-logo.png';
 	import de_logo from '$lib/images/de-logo.png';
-	export let nav_items;
+
 	import gsap from 'gsap';
 	import NavbarButton from './NavbarButton.svelte';
 	import Phone from '../images/icons/phone.svelte';
@@ -9,7 +9,7 @@
 	import Hamburger from '../images/icons/hamburger.svelte';
 	import SideNav from './SideNav.svelte';
 	import { page } from '$app/stores';
-
+	export let nav_items;
 	$: is_home = $page.route.id === '/';
 
 	let eleRefs = [];

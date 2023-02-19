@@ -1,7 +1,6 @@
 <script>
 	import { quintOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
-	import IntersectionObserver from "svelte-intersection-observer";
 	export let data;
 	export let intersecting;
 	const progress = tweened(0, {

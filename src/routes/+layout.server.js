@@ -1,7 +1,7 @@
 import { url_new } from '../lib/dev';
+export const prerender = true;
 
 export async function load({ fetch }) {
-
 	const getLayoutData = async () => {
 		const data = await fetch(`${url_new}/api/global?populate=deep`, {
 			headers: {

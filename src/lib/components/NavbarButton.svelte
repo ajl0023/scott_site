@@ -11,6 +11,7 @@
 			duration: 0.2
 		});
 	};
+
 </script>
 
 <!-- bind:this={parentEle}
@@ -55,7 +56,7 @@ on:blur -->
 								{sub_nav['label']}</a
 							>
 						{:else}
-							<a class="list-link-sub block" href="/{sub_nav['link']}"> {sub_nav['label']}</a>
+							<a class="list-link-sub block" href="/{sub_nav['link']}"> {sub_nav['label']} </a>
 						{/if}
 					</li>
 				{/each}

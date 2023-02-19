@@ -27,6 +27,7 @@
 			val: 46
 		}
 	];
+	let inter_ele;
 </script>
 
 <div
@@ -46,8 +47,9 @@
 			>
 		</div>
 
-		<IntersectionObserver let:intersecting
+		<IntersectionObserver once="{true}" element="{inter_ele}" let:intersecting
 			><div
+				bind:this="{inter_ele}"
 				class="counter-container flex m-auto justify-center items-center md:items-stretch flex-col md:flex-row md:divide-x md:divide-y-0 divide-y divide-[rgba(255,255,255,0.30)] px-20 md:px-2 md:mt-4"
 			>
 				{#each d_data as data}

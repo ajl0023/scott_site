@@ -3,6 +3,7 @@
 
 	let form;
 	const handleSubmit = (event) => {
+		console.log(23);
 		event.preventDefault();
 
 		const myForm = event.target;
@@ -12,9 +13,7 @@
 			method: 'POST',
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			body: new URLSearchParams(formData).toString()
-		})
-			.then(() => console.log('Form successfully submitted'))
-			.catch((error) => alert(error));
+		});
 	};
 </script>
 

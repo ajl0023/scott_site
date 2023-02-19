@@ -28,7 +28,6 @@
 		zillow: Zillow,
 		youtube: Youtube
 	};
-	;
 </script>
 
 <div class="wrapper inline-flex">
@@ -66,7 +65,7 @@
 			{#each services as { attributes: { label, link, is_external_link }, attributes: { image: { data: image_data } } }}
 				<a
 					class="service-container w-full aspect-w-4 aspect-h-[1.8] relative block odd:bg-[rgba(28,28,28,0.71)] even:bg-[rgba(183,222,232,.65)] even:text-[#444242] odd:text-white"
-					href="/{link}"
+					href="{is_external_link ? link : '/' + link}"
 					target="{is_external_link ? '_blank' : ''}"
 					rel="noreferrer"
 				>

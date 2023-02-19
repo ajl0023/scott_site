@@ -1,6 +1,7 @@
 import _ from 'lodash-es';
 import { url_new } from '../../../lib/dev';
 import { getJson } from '../../../lib/utils/utils';
+export const prerender = true;
 export async function load({ fetch, url }) {
 	const getPageData = async () => {
 		const page_data = await getJson(
@@ -21,4 +22,3 @@ export async function load({ fetch, url }) {
 		page_data: getPageData()
 	};
 }
-
