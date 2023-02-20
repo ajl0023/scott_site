@@ -9,19 +9,21 @@
 	import Slider from '../lib/components/Slider.svelte';
 	import Testimonials from '../lib/components/Testimonials.svelte';
 	export let data;
+
 </script>
 
 <div class="sv-container z-[1] relative">
-	<!-- <div class="s-container">
+	<div class="dummy mt-[300px]"></div>
+	<div class="s-container">
 		<Slider images="{data['page_data']['image_carousel']['data']}" />
 		<div class="container"></div>
-	</div> -->
+	</div>
 
-	<!-- <FeaturedListings /> -->
-	<!-- <HomeScottInfo data="{data['page_data']['home_agent']}" /> -->
-	<!-- <GlobalListings data="{data['page_data']['global_listings']}" /> -->
+	<FeaturedListings />
+	<HomeScottInfo data="{data['page_data']['home_agent']}" />
+	<GlobalListings data="{data['page_data']['global_listings']}" />
 	<HomeServices data="{data['services']}" />
 	<SalesStats data="{data['page_data']['sales_statistics']}" />
-	<!-- <Testimonials data="{data['page_data']['testimonial']}" /> -->
-	<MediaRelationsHome />
+	<Testimonials data="{data['page_data']['testimonial']}" />
+	<MediaRelationsHome data="{data['page_data']['media_relations']}" />
 </div>

@@ -1,23 +1,32 @@
 import { browser, building, dev, version } from '$app/environment';
 import fs from 'fs';
 import { url_new } from '../lib/dev';
+import { getJson } from '../lib/utils/utils';
 export const prerender = true;
 
 export async function load({ fetch }) {
-	const getHomeData = async () => {
-		const req = await fetch(`${url_new}/api/home-page?populate=deep`, {
+	const homeData = await getJson(
+		fetch(`${url_new}/api/home-page?populate=deep`, {
 			headers: {
 				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
 				// 'Content-Type': 'application/x-www-form-urlencoded',
 			}
-		});
-
-		const json = await req.json();
-
-		return json['data']['attributes'];
+		})
+	);
+	const data = homeData['data']['attributes'];
+	data.media_relations = {
+		...data.media_relations,
+		media_posts: await getJson(
+			fetch(`${url_new}/api/media-posts?pagination[limit]=4&populate=deep`, {
+				headers: {
+					Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+				}
+			})
+		)
 	};
 
 	return {
-		page_data: getHomeData()
+		page_data: data
 	};
 }

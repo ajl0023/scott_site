@@ -1,10 +1,11 @@
 <script>
-	import { access_strapi_image, getJson } from '../../../lib/utils/utils';
-	import Stars from './components/Stars.svelte';
-	import moment from 'moment';
 	import _ from 'lodash-es';
-	import InfiniteScroll from 'svelte-infinite-scroll';
+	import moment from 'moment';
+	import { getJson } from '../../../lib/utils/utils';
+	import PaginationBar from '../components/PaginationBar.svelte';
+	import Paginator from '../components/Paginator.svelte';
 	import Form from './components/Form.svelte';
+	import Stars from './components/Stars.svelte';
 
 	export let data;
 	let pagination = {
@@ -12,23 +13,20 @@
 		pageCount: null
 	};
 
-
 	let reviews = data['page_data']['data'];
-	let form;
-	const page_meta = data['page_data']['meta']['pagination'];
 
+	const page_meta = data['page_data']['meta']['pagination'];
+	let pages = Array(page_meta.pageCount);
 	pagination = page_meta;
-	let has_more = pagination.page < pagination.pageCount;
-	let is_loading = false;
-	const fetchData = async () => {
-		is_loading = true;
-		const res_data = await getJson(fetch(`/api/reviews?page=${pagination.page + 1}`));
-		is_loading = false;
-		reviews = [...reviews, ...res_data['data']['data']];
+
+	const fetchData = async (page) => {
+		// is_loading = true;
+		const res_data = await getJson(fetch(`/api/reviews?page=${page}`));
+		// is_loading = false;
+		reviews = res_data['data']['data'];
 		pagination = res_data['data']['meta']['pagination'];
-		has_more = pagination.page < pagination.pageCount;
+		// has_more = pagination.page < pagination.pageCount;
 	};
-	const handleForm = async () => {};
 </script>
 
 <div class="wrapper w-full font-roboto">
@@ -50,13 +48,12 @@
 				</div>
 			</div>
 		{/each}
-		<InfiniteScroll
-			hasMore="{has_more}"
-			window="{true}"
-			threshold="{200}"
-			on:loadMore="{() => {
-				fetchData();
-			}}"
+	</div>
+	<div class="pagin-wrapper">
+		<PaginationBar
+			pageCount="{pagination.pageCount}"
+			curr_page="{pagination.page}"
+			handleFetch="{fetchData}"
 		/>
 	</div>
 </div>

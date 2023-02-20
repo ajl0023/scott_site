@@ -20,15 +20,13 @@
 	<div class="main-container">
 		<slot />
 
-		<!-- <Footer data="{data['layout_data']['footer']}" /> -->
+		<Footer data="{data['layout_data']['footer']}" />
 	</div>
 </div>
 
 <style lang="scss">
 	.wrapper {
 		width: 100%;
-
-		position: relative;
 
 		.main-container {
 			width: 100%;

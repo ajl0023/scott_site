@@ -1,30 +1,36 @@
 <script>
-	import InfiniteScroll from 'svelte-infinite-scroll';
 	import { access_strapi_image, getJson } from '../../../../lib/utils/utils';
+	import IntersectionObserver from 'svelte-intersection-observer';
+	import Paginator from '../../components/Paginator.svelte';
+	import PaginationBar from '../../components/PaginationBar.svelte';
 
 	export let data;
 	let pagination = {
 		page: null,
 		pageCount: null
 	};
+	let scrollFetchEle;
 	let articles = data['page_data']['data'];
-	const page_meta = data['page_data']['meta']['pagination'];
 
+	const page_meta = data['page_data']['meta']['pagination'];
+	let pages = Array(page_meta.pageCount);
 	pagination = page_meta;
-	let has_more = pagination.page < pagination.pageCount;
+
 	let is_loading = false;
-	const fetchData = async () => {
-		is_loading = true;
-		const res_data = await getJson(fetch(`/api/media-posts?page=${pagination.page + 1}`));
-		is_loading = false;
-		articles = [...articles, ...res_data['data']['data']];
+	let element;
+
+	const fetchData = async (page) => {
+		// is_loading = true;
+		const res_data = await getJson(fetch(`/api/media-posts?page=${page}`));
+		// is_loading = false;
+		articles = res_data['data']['data'];
 		pagination = res_data['data']['meta']['pagination'];
-		has_more = pagination.page < pagination.pageCount;
+		// has_more = pagination.page < pagination.pageCount;
 	};
 </script>
 
 <div class="wrapper w-full">
-	<div class="article-wrapper divide-y-2 w-full">
+	<div class="article-wrapper divide-y-2 w-full " elementScroll="{scrollFetchEle}">
 		{#each articles as { attributes: { name, link, content, title, is_external_link, created_on, image }, id }}
 			<div
 				class="card-component flex md:pl-10 py-5 md:flex-row flex-col md:space-x-4 items-center md:items-start"
@@ -55,13 +61,12 @@
 				</div>
 			</div>
 		{/each}
-		<InfiniteScroll
-			hasMore="{has_more && !is_loading}"
-			window="{true}"
-			threshold="{400}"
-			on:loadMore="{() => {
-				fetchData();
-			}}"
+	</div>
+	<div class="pagin-wrapper flex space-x-1 mt-4">
+		<PaginationBar
+			pageCount="{pagination.pageCount}"
+			curr_page="{pagination.page}"
+			handleFetch="{fetchData}"
 		/>
 	</div>
 </div>

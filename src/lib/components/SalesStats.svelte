@@ -35,8 +35,8 @@
 	class="wrapper font-barlow bg-cover bg-no-repeat bg-center bg-fixed"
 	style="background-image: url({bg_photo}); "
 >
-	<div class="container m-auto font-[600]  z-10 relative text-center">
-		<div class="content-container items-center inline-block mt-10">
+	<div class="container m-auto font-[600] z-10 relative text-center py-20 px-4">
+		<div class="content-container items-center inline-block">
 			<div class="align-bottom text-[0] md:text-left"><MiniLogo /></div>
 			<h2 class="uppercase text-white leading-[56px] lg:text-[90px] md:text-[80px] text-[9vw]">
 				why work with me

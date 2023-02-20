@@ -3,7 +3,6 @@
 
 	let form;
 	const handleSubmit = (event) => {
-		console.log(23);
 		event.preventDefault();
 
 		const myForm = event.target;

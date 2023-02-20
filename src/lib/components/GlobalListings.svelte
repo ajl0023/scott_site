@@ -1,10 +1,13 @@
 <script>
 	import { image_url } from '../dev';
 	import mag_icon from '$lib/images/mag-icon.png';
-	import IntersectionObserver from "svelte-intersection-observer";
+	import IntersectionObserver from 'svelte-intersection-observer';
 	import MiniLogo from './MiniLogo.svelte';
+	import { access_strapi_image } from '../utils/utils';
 	export let data;
-	const images = data['url_image'];
+
+	const images = data['listing'];
+	
 </script>
 
 <div class="wrapper mt-32">
@@ -25,7 +28,7 @@
 							<div class="image-container w-full h-full absolute">
 								<img
 									class="w-full h-full object-cover"
-									src="{image_url + img['image']['data']['attributes']['url']}"
+									src="{access_strapi_image(img['image'])}"
 									alt=""
 								/>
 							</div>
