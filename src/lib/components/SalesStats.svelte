@@ -32,8 +32,8 @@
 
 <div
 	id="hp_stats"
-	class="wrapper font-barlow bg-cover bg-no-repeat bg-center bg-fixed"
-	style="background-image: url({bg_photo}); "
+	class="lazy wrapper font-barlow bg-cover bg-no-repeat bg-center bg-fixed"
+	data-bg="{bg_photo}"
 >
 	<div class="container m-auto font-[600] z-10 relative text-center py-20 px-4">
 		<div class="content-container items-center inline-block">

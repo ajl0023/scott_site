@@ -1,10 +1,16 @@
 <script>
+	import { get_strapi_image_format } from '../utils/utils';
+
 	export let images;
 	const handleAnimationEnd = () => {
 		const copy = [...images];
 		let first = copy.shift();
 		copy.push(first);
+
 		images = copy;
+	};
+	const handleLoad = () => {
+		// all the images dont have to be loaded before the animation starts
 	};
 </script>
 
@@ -12,13 +18,16 @@
 	<div id="stage" class="hero slider-container">
 		{#each images as image, i (image.id)}
 			<div
-				id="{image.id}"
+				id="{i}"
 				class="image-container"
 				on:animationend="{() => {
 					handleAnimationEnd();
 				}}"
+				on:animationstart="{() => {
+					handleLoad(i);
+				}}"
 			>
-				<img class="slide" alt="'" src="{'http://localhost:1337' + image['attributes']['url']}" />
+				<img class="slide lazy" alt="'" src="{get_strapi_image_format(image, 'large')}" />
 			</div>
 		{/each}
 	</div>

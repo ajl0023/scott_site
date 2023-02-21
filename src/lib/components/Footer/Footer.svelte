@@ -1,5 +1,6 @@
 <script>
 	import { image_url } from '../../dev';
+	import { get_strapi_image_format } from '../../utils/utils';
 	import ContactBanner from './ContactBanner.svelte';
 	import LegalBanner from './LegalBanner.svelte';
 	import Subscribe from './Subscribe.svelte';
@@ -7,7 +8,7 @@
 </script>
 
 <div class="wrapper">
-	<Subscribe data="{data['form_photo']['data']['attributes']}" />
+	<Subscribe data="{data['form_photo']}" />
 	<div class="disclaimer-wrapper">
 		<ContactBanner
 			data="{{
@@ -24,16 +25,13 @@
 			}}"
 		/>
 		<div
-			class="bg-photo"
-			style="background-image: url({image_url +
-				data['copyright_photo']['data']['attributes']['url']});"
+			class="bg-photo lazy"
+			data-bg="{get_strapi_image_format(data['form_photo'], 'large')}"
 		></div>
 	</div>
 </div>
 
 <style lang="scss">
-	.wrapper {
-	}
 	.disclaimer-wrapper {
 		position: relative;
 	}

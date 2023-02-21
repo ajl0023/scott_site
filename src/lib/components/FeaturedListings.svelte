@@ -17,10 +17,10 @@
 		</div>
 		{#each data as listing}
 			<div class="listing-container">
-				<img class="listing-image grayscale-0 lg:grayscale" src="{testImg}" alt="" />
+				<img class="listing-image grayscale-0 lg:grayscale lazy" src="{testImg}" alt="" />
 
 				<div class="listing-hovered hidden lg:block">
-					<img class="listing-image" src="{testImg}" alt="" />
+					<img class="listing-image lazy" data-src="{testImg}" alt="" />
 				</div>
 			</div>
 		{/each}

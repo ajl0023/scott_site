@@ -1,4 +1,6 @@
 <script>
+	import { onMount } from 'svelte';
+	import { get_current_component } from 'svelte/internal';
 	import FeaturedListings from '../lib/components/FeaturedListings.svelte';
 	import GlobalListings from '../lib/components/GlobalListings.svelte';
 	import HomeScottInfo from '../lib/components/HomeScottInfo.svelte';
@@ -9,11 +11,9 @@
 	import Slider from '../lib/components/Slider.svelte';
 	import Testimonials from '../lib/components/Testimonials.svelte';
 	export let data;
-
 </script>
 
 <div class="sv-container z-[1] relative">
-	<div class="dummy mt-[300px]"></div>
 	<div class="s-container">
 		<Slider images="{data['page_data']['image_carousel']['data']}" />
 		<div class="container"></div>

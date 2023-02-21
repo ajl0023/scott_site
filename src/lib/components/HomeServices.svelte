@@ -1,5 +1,6 @@
 <script>
 	import { image_url } from '../dev';
+	import { get_strapi_image_format } from '../utils/utils';
 
 	export let data;
 
@@ -8,14 +9,14 @@
 
 <div class="wrapper pt-32">
 	<div class="grid-container px-3 lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
-		{#each services as {attributes} }
+		{#each services as { attributes: { label, image } }}
 			<div class="grid-item">
 				<div class="grid-content">
 					<div class="image-container">
-						<img src="{image_url + attributes['image']['data']['attributes']['url']}" alt="" />
+						<img data-src="{get_strapi_image_format(image, 'medium')}" alt="" class="lazy" />
 					</div>
 					<div class="text-container">
-						<span>{attributes['label']}</span>
+						<span>{label}</span>
 					</div>
 				</div>
 				<div class="hover-line"></div>

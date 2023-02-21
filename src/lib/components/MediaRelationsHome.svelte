@@ -1,17 +1,16 @@
 <script>
-	import { access_strapi_image } from '../utils/utils';
+	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	export let data; // this is the data from strapi for the page
 
-	const bg_photo = access_strapi_image(data['background_photo']);
 	const text_content = data['content'];
 	const media_posts = data['media_posts']['data'];
 </script>
 
 <!-- the div below will have a black backdrop -->
 <div
-	class="wrapper bg-no-repeat bg-cover bg-fixed bg-bottom"
-	style="background-image:url({bg_photo});"
+	data-bg="{get_strapi_image_format(data['background_photo'], 'large')}"
+	class="wrapper bg-no-repeat bg-cover bg-fixed bg-bottom lazy"
 >
 	<div
 		class="inner-content relative z-10 flex w-full max-w-[1400px] m-auto font-sourceSans flex-col lg:flex-row"
@@ -41,7 +40,7 @@
 				<div class="button-container text-white mt-5 lg:mt-20 uppercase">
 					<a
 						class="font-mono border transition-[background-color] border-[#b3b3b3] py-5 px-10  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block hover:text-black"
-						href="">explore more +</a
+						href="/category/media-relations">explore more +</a
 					>
 				</div>
 			</div>
@@ -49,9 +48,11 @@
 		<div class="right-container flex flex-wrap lg:w-[70%]">
 			{#each media_posts as { attributes: { title, image, is_external_link, link } }}
 				<a
-					href=""
-					class="aspect-wrapper flex flex-wrap md:w-[50%] w-full bg-no-repeat bg-cover bg-center"
-					style="background-image: url({access_strapi_image(image)});"
+					target="{is_external_link ? '_blank' : ''}"
+					rel="{is_external_link ? 'noreferrer' : ''}"
+					href="{is_external_link ? link : '/' + link}"
+					class="aspect-wrapper flex flex-wrap md:w-[50%] w-full bg-no-repeat bg-cover bg-center lazy"
+					data-bg="{access_strapi_image(image)}"
 				>
 					<div class="item-container  aspect-w-1 aspect-h-1 w-full">
 						<div class="content-wrapper">

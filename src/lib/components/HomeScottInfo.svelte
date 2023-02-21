@@ -2,6 +2,7 @@
 	import { image_url } from '../dev';
 	import logoSm from '$lib/images/logo-small.png';
 	import IntersectionObserver from 'svelte-intersection-observer';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -11,17 +12,28 @@
 
 <div class="wrapper mt-10 lg:mt-20">
 	<IntersectionObserver let:intersecting top="{400}">
-		<div
-			class="banner-container bg-cover bg-no-repeat grayscale"
-			style="background-image: url({bg_photo});"
-		></div>
+		<div class="banner-container bg-cover bg-no-repeat grayscale lazy" data-bg="{bg_photo}"></div>
 
 		<div class="container px-5 lg:mt-[70px]">
 			<div
-				class="main-content flex-col items-center justify-start lg:flex-row lg:items-start lg:mt-[40px] px-3 lg:p-0"
+				class="flex main-content lg:flex-row flex-col items-center justify-start 
+				
+			
+				
+				
+				lg:items-start lg:mt-[40px] px-3 lg:p-0"
 			>
-				<div class="main-photo-container mt-0 lg:w-[calc(100%-58.33333333%)] lg:h-full">
-					<img class:fade-in-left="{intersecting}" src="{main_photo}" alt="" />
+				<div
+					class="main-photo-container mt-0 lg:w-[calc(100%-58.33333333%)] max-w-[400px] w-full lg:max-w-[100%]"
+				>
+					<div class="aspect-ratio-container aspect-w-9 aspect-h-16 w-full">
+						<img
+							class="object-cover"
+							class:fade-in-left="{intersecting}"
+							src="{main_photo}"
+							alt=""
+						/>
+					</div>
 				</div>
 				<div
 					class="right-container {intersecting

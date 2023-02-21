@@ -1,17 +1,29 @@
 <script>
+	import { browser } from '$app/environment';
 	import '../app.css';
 
 	import '$lib/styles.css';
 	import '$lib/ckeditor.css';
 	import '$lib/animations.scss';
-	import Footer from '../lib/components/Footer/Footer.svelte';
-	import Navbar from '../lib/components/Navbar.svelte';
+
 	import '$lib/fonts/fonts.css';
 	import '$lib/icons.scss';
-	import { onMount } from 'svelte';
+
+	import Footer from '../lib/components/Footer/Footer.svelte';
+	import Navbar from '../lib/components/Navbar.svelte';
+
 	export let data;
+	import LazyLoad from 'vanilla-lazyload';
+
+	import { onMount } from 'svelte';
+
+
 	onMount(() => {
-		const ckImages = document.getElementsByClassName('ck-content');
+		var lazyLoadInstance = new LazyLoad({
+			// Your custom settings go here
+		
+		});
+	
 	});
 </script>
 

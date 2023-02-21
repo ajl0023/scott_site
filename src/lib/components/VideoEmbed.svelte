@@ -1,6 +1,6 @@
 <script>
 	export let data;
-
+	export let url;
 	function getYoutubeVideoId(url) {
 		const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 		const match = url.match(regExp);
@@ -11,12 +11,12 @@
 			return null;
 		}
 	}
-	const embed_url = getYoutubeVideoId(data.url);
+	const embed_url = getYoutubeVideoId(url ? url : data.url);
 </script>
 
 <div class="wrapper">
 	<div class="video-container m-auto max-w-[800px] w-full">
-		{#if data.label}
+		{#if data && data.label}
 			<span class="mb-4 block">
 				{data.label}
 			</span>

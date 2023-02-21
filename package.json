@@ -39,11 +39,13 @@
 		"dotenv": "^16.0.3",
 		"flex-gap-polyfill": "^4.1.2",
 		"gsap": "^3.11.4",
+		"lazyload": "^2.0.0-rc.2",
 		"lodash": "^4.17.21",
 		"lodash-es": "^4.17.21",
 		"moment": "^2.29.4",
 		"postcss-scss": "^4.0.6",
 		"svelte-infinite-scroll": "^2.0.1",
-		"svelte-intersection-observer": "^0.10.0"
+		"svelte-intersection-observer": "^0.10.0",
+		"vanilla-lazyload": "^17.8.3"
 	}
 }

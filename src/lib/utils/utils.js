@@ -26,3 +26,11 @@ export const access_strapi_image = (img) => {
 		? image_url + _.get(img, 'data.attributes.url', null)
 		: image_url + _.get(img, 'attributes.url', null);
 };
+export const get_strapi_image_format = (img, format) => {
+	const formats = _.get(img, 'data.attributes.formats', null)
+		? _.get(img, 'data.attributes.formats', null)
+		: _.get(img, 'attributes.formats', null);
+
+	if (Object.keys(formats).length === 1) return access_strapi_image(img);
+	return formats && formats[format] ? image_url + formats[format].url : null;
+};

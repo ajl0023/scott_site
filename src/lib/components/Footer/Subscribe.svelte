@@ -1,10 +1,11 @@
 <script>
 	import { image_url } from '../../dev';
 	import logoSm from '$lib/images/logo-small.png';
+	import { get_strapi_image_format } from '../../utils/utils';
 	export let data;
 </script>
 
-<div class="wrapper" style="background-image: url({image_url + data['url']})">
+<div class="wrapper lazy" data-bg="{get_strapi_image_format(data, 'large')}">
 	<div class="content-container p-3">
 		<div class="title-container">
 			<div class="logo-container">

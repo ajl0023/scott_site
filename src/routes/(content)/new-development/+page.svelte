@@ -1,10 +1,12 @@
 <script>
 	export let data;
 	import _ from 'lodash-es';
+	import VideoEmbed from '../../../lib/components/VideoEmbed.svelte';
 	import { url_new } from '../../../lib/dev';
 
-	const { intro_image, intro_text, developments } = data['page_data'];
+	import { get_strapi_image_format } from '../../../lib/utils/utils';
 
+	const { intro_image, intro_text, developments } = data['page_data'];
 </script>
 
 <div class="wrapper">
@@ -14,12 +16,14 @@
 		<span class="basis-full lg:basis-1/3 md:text-base mt-5 lg:mt-0 text-sm">
 			{intro_text}
 		</span>
-		<div class="basis-full lg:basis-2/3 image-container">
-			<img
-				class="w-full object-cover block"
-				src="{url_new + _.get(intro_image, 'data.attributes.url', '')}"
-				alt=""
-			/>
+		<div class="basis-full lg:basis-2/3 image-container w-full">
+			<div class="aspect-w-16 aspect-h-9 w-full">
+				<img
+					class="lazy w-full block"
+					data-src="{get_strapi_image_format(intro_image, 'medium')}"
+					alt=""
+				/>
+			</div>
 		</div>
 	</div>
 	<div class="development-wrapper w-full max-w-full prose text-center lg:text-left">
@@ -38,22 +42,20 @@
 						>
 							{#each property_images.data as image}
 								<div class="img-container w-full basis-full lg:basis-1/3 not-prose">
-									<img
-										class="h-full w-full object-cover"
-										src="{url_new + image.attributes.url}"
-										alt=""
-									/>
+									<div class="aspect-ratio-container w-full aspect-w-16 aspect-h-9">
+										<img
+											class="lazy w-full object-cover h-full block"
+											data-src="{get_strapi_image_format(image, 'medium')}"
+											alt=""
+										/>
+									</div>
 								</div>
 							{/each}
 						</div>
 					{/if}
 					{#if youtube_url}
 						<div class="vid-container not-prose bg-black w-full aspect-w-16 aspect-h-9">
-							<!-- <img
-								class="h-full w-full object-cover"
-								src="{url_new + image.attributes.url}"
-								alt=""
-							/> -->
+							<VideoEmbed url="{youtube_url}" />
 						</div>
 					{/if}
 				</div>

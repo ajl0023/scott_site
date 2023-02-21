@@ -7,7 +7,6 @@
 	export let data;
 
 	const images = data['listing'];
-	
 </script>
 
 <div class="wrapper mt-32">
@@ -27,8 +26,8 @@
 						<div class="grid-content-container">
 							<div class="image-container w-full h-full absolute">
 								<img
-									class="w-full h-full object-cover"
-									src="{access_strapi_image(img['image'])}"
+									class="w-full h-full object-cover lazy"
+									data-src="{access_strapi_image(img['image'])}"
 									alt=""
 								/>
 							</div>

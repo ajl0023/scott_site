@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { image_url } from '../dev';
 	import MiniLogo from './MiniLogo.svelte';
 
@@ -8,19 +9,21 @@
 	let bg_photo = image_url + data['bg_photo']['data']['attributes']['url'];
 </script>
 
-<div class="wrapper  overflow-hidden ">
+<div class="wrapper overflow-hidden ">
 	<div
-		class="bg-banner bg-no-repeat bg-cover relative grayscale opacity-20 after:inset-0 after:absolute"
-		style="background-image:url({bg_photo});"
+		class="lazy bg-banner bg-no-repeat bg-cover relative grayscale opacity-20 after:inset-0 after:absolute"
+		data-bg="{bg_photo}"
 	></div>
 	<div class="overflow-container m-auto z-10 relative w-full">
 		<div
 			class="m-auto relative z-10 max-w-[1200px] w-full flex items-center
         lg:flex-row flex-col-reverse p-8 lg:p-0"
 		>
-			<div class="image-wrapper w-full lg:w-auto relative">
-				<div class="image-container pt-20  max-w-[300px] lg:max-w-[450px] w-full m-auto lg:m-0">
-					<img src="{agent_photo}" alt="" class="w-full object-cover relative z-[3]" />
+			<div class="max-w-[450px] lg:max-w-[520px] w-full">
+				<div class="image-wrapper relative w-full">
+					<div class="image-container m-auto lg:m-0  aspect-w-9 aspect-h-16">
+						<img src="{agent_photo}" alt="" class="w-full z-[3] object-contain lazy" />
+					</div>
 				</div>
 			</div>
 
@@ -90,7 +93,7 @@
 			content: '';
 			width: 100vw;
 
-			top: 0;
+			top: 0px;
 			bottom: 0;
 			left: 0;
 		}
@@ -124,7 +127,8 @@
 			background-color: white;
 		}
 	}
-	.image-container {
+	.image-wrapper {
+		padding-top: 40px;
 		&::after {
 			background-color: black;
 			position: absolute;
@@ -133,10 +137,11 @@
 			width: 100%;
 			content: '';
 			inset: 0;
+
 			@screen lg {
 				bottom: 0;
 				right: 0;
-				top: 0;
+
 				width: 100vw;
 				left: auto;
 				display: block;
