@@ -1,10 +1,10 @@
 <script>
 	import _ from 'lodash-es';
+	import VideoEmbed from '../../../lib/components/VideoEmbed.svelte';
 	import Carousel from './components/Carousel.svelte';
 	import Header from './components/Header.svelte';
 	import ImageLink from './components/ImageLink.svelte';
 	import MediaCkContent from './components/MediaCkContent.svelte';
-	import VideoEmbed from './components/VideoEmbed.svelte';
 
 	export let data;
 	const page_data = _.get(data['page_data'], 'data[0].attributes', null);
