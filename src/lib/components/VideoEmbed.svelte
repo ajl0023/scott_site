@@ -23,10 +23,11 @@
 		{/if}
 		<div class="iframe-container aspect-w-16 aspect-h-9">
 			<iframe
+				class="lazy"
 				title="video"
 				width="100%"
 				height="100%"
-				src="{embed_url}"
+				data-src="{embed_url}"
 				frameborder="0"
 				allowfullscreen
 			>

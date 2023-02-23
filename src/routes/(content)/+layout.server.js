@@ -3,9 +3,10 @@ import { getJson, slugify } from '../../lib/utils/utils';
 import _ from 'lodash-es';
 import { error } from '@sveltejs/kit';
 export const prerender = false;
-export async function load({ fetch, url }) {
+export async function load({ fetch, url, params }) {
 	let path = url.pathname;
 	const slug = slugify(path);
+	const is_listing = params['address'] && params['id'];
 
 	const page_info = await getJson(
 		fetch(`${url_new}/api/pages?filters[slug][$eq]=${slug}`, {
@@ -16,13 +17,10 @@ export async function load({ fetch, url }) {
 	);
 
 	const { api_url } = _.get(page_info, 'data[0].attributes', {});
-	//catch type of page here, idk lol, for example what our clients are saying should use own page.js
-	//while some other pages can just use simple content api xdddd brain gone gone oma
 
-	if (!api_url) {
+	if (!api_url && !is_listing) {
 		throw error(404);
 	}
-
 	const getPageData = async () => {
 		const page_data = await getJson(
 			fetch(`${url_new}/api/${api_url}?populate=deep`, {
@@ -32,7 +30,7 @@ export async function load({ fetch, url }) {
 			})
 		);
 
-		return page_data.data['attributes'];
+		return Array.isArray(page_data.data) ? page_data : page_data.data['attributes'];
 	};
 
 	const getLayoutData = async () => {
@@ -46,7 +44,14 @@ export async function load({ fetch, url }) {
 
 		return json['data']['attributes'];
 	};
+	//this checks if the page is a listing page, if it is, it will only return the layout data, because the listing page is a dynamic page, and the other pages are static pages that can be pre-rendered
 
+	// other pages might also be dynamic, but they are not yet, so we will have to add them to the if statement, i should probably check the url based off the slug instead of the params, but this works for now
+	if (is_listing) {
+		return {
+			layout_data: getLayoutData()
+		};
+	}
 	return {
 		layout_data: getLayoutData(),
 		page_data: getPageData()

@@ -1,29 +1,24 @@
 <script>
 	import { browser } from '$app/environment';
 	import '../app.css';
-
+	import '$lib/global.scss';
 	import '$lib/styles.css';
 	import '$lib/ckeditor.css';
 	import '$lib/animations.scss';
 
 	import '$lib/fonts/fonts.css';
 	import '$lib/icons.scss';
-
+	import { createLazyStore } from '$lib/stores/lazy';
 	import Footer from '../lib/components/Footer/Footer.svelte';
 	import Navbar from '../lib/components/Navbar.svelte';
-
+	import Glide from '@glidejs/glide'
 	export let data;
-	import LazyLoad from 'vanilla-lazyload';
 
 	import { onMount } from 'svelte';
 
-
 	onMount(() => {
-		var lazyLoadInstance = new LazyLoad({
-			// Your custom settings go here
-		
-		});
-	
+		console.log(createLazyStore);
+		createLazyStore.init();
 	});
 </script>
 
