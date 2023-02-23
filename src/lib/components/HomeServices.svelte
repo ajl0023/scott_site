@@ -7,8 +7,8 @@
 	const services = data;
 </script>
 
-<div class="wrapper pt-32">
-	<div class="grid-container px-3 lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
+<div class="wrapper my-32">
+	<div class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
 		{#each services as { attributes: { label, image } }}
 			<div class="grid-item">
 				<div class="grid-content">

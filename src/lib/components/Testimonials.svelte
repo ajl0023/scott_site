@@ -1,28 +1,34 @@
 <script>
 	import { onMount } from 'svelte';
 	import { image_url } from '../dev';
+	import { browser } from '$app/environment';
+	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
-
+	import SvCarousel from 'svelte-carousel';
+	import _ from 'lodash-es';
 	export let data;
 
-	let agent_photo = image_url + data['scott_photo']['data']['attributes']['url'];
-	let bg_photo = image_url + data['bg_photo']['data']['attributes']['url'];
+	const { bg_photo, scott_photo, reviews } = data;
 </script>
 
 <div class="wrapper overflow-hidden ">
 	<div
 		class="lazy bg-banner bg-no-repeat bg-cover relative grayscale opacity-20 after:inset-0 after:absolute"
-		data-bg="{bg_photo}"
+		data-bg="{access_strapi_image(bg_photo)}"
 	></div>
 	<div class="overflow-container m-auto z-10 relative w-full">
 		<div
 			class="m-auto relative z-10 max-w-[1200px] w-full flex items-center
-        lg:flex-row flex-col-reverse p-8 lg:p-0"
+        lg:flex-row flex-col-reverse lg:p-0"
 		>
 			<div class="max-w-[450px] lg:max-w-[520px] w-full">
 				<div class="image-wrapper relative w-full">
-					<div class="image-container m-auto lg:m-0  aspect-w-9 aspect-h-16">
-						<img src="{agent_photo}" alt="" class="w-full z-[3] object-contain lazy" />
+					<div class="image-container m-auto lg:m-0 aspect-w-9 aspect-h-16">
+						<img
+							src="{access_strapi_image(scott_photo)}"
+							alt=""
+							class="w-full z-[3] object-contain lazy h-full"
+						/>
 					</div>
 				</div>
 			</div>
@@ -46,18 +52,24 @@
 			class="testi-container text-white text-center font-roboto lg:-mt-48 mt-0 relative z-10 lg:ml-5 "
 		>
 			<div
-				class="testi-content bg-[#1b1b1b] inline-block md:w-full max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
+				class="testi-content bg-[#1b1b1b] inline-block w-full max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
 			>
-				<p class="text-sm lg:text-base">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta illum tempora officiis.
-					Eligendi reprehenderit exercitationem cum nam? Hic ullam quos accusamus minima obcaecati
-					veniam non minus maxime impedit eveniet! Accusantium.
-				</p>
-				<h5 class="mt-5 italics">- Name</h5>
+				{#if browser}
+					<SvCarousel autoplay="{true}" dots="{false}">
+						{#each reviews.data as { attributes: { content, name } }}
+							<div class="review-container">
+								<p class="text-sm lg:text-base">
+									{content}
+								</p>
+								<h5 class="mt-5 italics">- {_.startCase(name)}</h5>
+							</div>
+						{/each}
+					</SvCarousel>
+				{/if}
 				<div class="button-container text-white mt-5 lg:mt-20 uppercase">
 					<a
 						class="font-mono border transition-[background-color] border-[#b3b3b3] py-5 px-10  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block"
-						href="">read more +</a
+						href="/what-our-clients-are-saying">read more +</a
 					>
 				</div>
 			</div>
@@ -120,11 +132,11 @@
 			height: 4px;
 			content: '';
 			top: 50%;
-			left: calc(100% + 60px);
+			left: calc(100% + 20px);
 			transform: translateY(-50%);
 			z-index: 1;
 			width: 200%;
-			background-color: white;
+			background-color: #b0b0b0;
 		}
 	}
 	.image-wrapper {

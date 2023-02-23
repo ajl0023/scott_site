@@ -1,17 +1,58 @@
 <script>
+	import { each } from 'svelte/internal';
 	import Bath from '../../../../../lib/images/icons/bath.svelte';
 	import Bed from '../../../../../lib/images/icons/bed.svelte';
-	import { get_strapi_image_format, slugify } from '../../../../../lib/utils/utils';
+	import { get_strapi_image_format, slugify, stateToAbbr } from '../../../../../lib/utils/utils';
+	import Address from './Address.svelte';
 
 	export let property_data;
 	export let interior_features;
+	export let exterior_features;
 	export let thumbnail;
 	export let slug_url;
-
-    console.log(property_data)
+	export let location_info;
+	let propertyType_to_display = {
+		House: 'House',
+		Lot: 'Lots / Land',
+		'Multi-Unit Residential': 'Multi-Unit Residential'
+	};
+	let features_to_display = (type) => {
+		if (type === 'house') {
+			return [
+				{
+					key: 'Beds',
+					val: interior_features['bedrooms']
+				},
+				{
+					key: 'Baths',
+					val: `${interior_features['full_baths']} | ${interior_features['half_baths']}`
+				},
+				{
+					key: 'SqFt',
+					val: `${parseInt(exterior_features['approximate_size']).toLocaleString()}`
+				}
+			];
+		} else if (type === 'lot') {
+			//sqft will be displayed with commas
+			return [
+				{
+					key: 'Lot Acres',
+					val: `${parseInt(exterior_features['lot_size_in_sq_ft']).toLocaleString()}`
+				}
+			];
+		} else if (type === 'multi-unit residential') {
+			//sqft will be displayed with commas
+			return [
+				{
+					key: 'Number of Units',
+					val: `${parseInt(interior_features['total_number_of_units']).toLocaleString()}`
+				}
+			];
+		}
+	};
 </script>
 
-<div class="antialiased font-sans flex-[50%]">
+<div class="antialiased font-sans flex-[50%] flex-grow-0">
 	<div class="flex w-full">
 		<div class="w-full sm:w-full lg:w-full py-2 px-2">
 			<a href="/homes-for-sale-details/{slug_url}/{property_data.id}" class="block">
@@ -24,28 +65,29 @@
 						/>
 					</div>
 					<div class="p-4">
-						<p class="uppercase tracking-wide text-sm font-medium text-gray-700 mb-2">
-							{property_data.type}
-						</p>
+						<div class="flex justify-between">
+							<p class="uppercase tracking-wide text-sm font-medium text-gray-700 mb-2">
+								{propertyType_to_display[property_data.type]}
+							</p>
+							<span class="text-gray-500 font-light text-xs">
+								#{property_data.id}
+							</span>
+						</div>
 						<p class="text-2xl text-gray-900">
 							${parseInt(property_data.price).toLocaleString()}
 						</p>
-						<p class="text-gray-700">742 Evergreen Terrace</p>
+						<Address location_info="{location_info}" />
 					</div>
 					<div class="flex p-4 border-t border-gray-300 text-gray-700">
-						<div class="flex-1 inline-flex items-center">
-							<Bed />
-							<p>
-								<span class="text-gray-900 font-bold">{interior_features.bedrooms}</span> Bedrooms
-							</p>
-						</div>
-						<div class="flex-1 inline-flex items-center">
-							<Bath />
-							<p>
-								<span class="text-gray-900 font-bold"
-									>{interior_features.full_baths} | {interior_features.half_baths}</span
-								> Bathrooms
-							</p>
+						<!-- go through listing_features, and display different labels according to the object, the listing features is an object, so it has to be like [key,value] -->
+
+						<div class="feature-wrapper flex divide-x-2">
+							{#each features_to_display(property_data.type.toLowerCase()) as feature}
+								<div class="feature flex flex-col items-center px-4">
+									<span class="text-gray-900 font-medium text-sm">{feature.val}</span>
+									<span class="text-sm">{feature.key}</span>
+								</div>
+							{/each}
 						</div>
 					</div>
 				</div>

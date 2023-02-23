@@ -7,6 +7,7 @@
 	import SV_Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 	import _ from 'lodash-es';
+	import Address from '../../../properties/our-listings/components/Address.svelte';
 
 	// this will have to be manually included in svelte kits routes, because these will be pre-rendered, but are not "static" pages
 
@@ -26,7 +27,7 @@
 	} = property_data;
 
 	const header_fields = {
-		house: [
+		house: () => [
 			{
 				label: 'Beds',
 				val: interior_features['bedrooms']
@@ -43,8 +44,31 @@
 				label: 'Type',
 				val: property_type
 			}
+		],
+		lot: () => [
+			{
+				label: 'Type',
+				val: property_type
+			}
+		],
+		['multi-unit residential']: () => [
+			{
+				label: 'Number of Units',
+				val: interior_features['total_number_of_units']
+			},
+			{
+				label: 'Type',
+				val: property_type
+			}
 		]
 	};
+	const category_order = [
+		'interior_features',
+		'exterior_features',
+
+		'location_info',
+		'additional_info'
+	];
 	const feature_fields = {
 		interior_features: {
 			label: 'Interior Features',
@@ -70,19 +94,14 @@
 </script>
 
 <div class="wrapper max-w-[900px] w-full">
-	<div class="font-roboto font-semibold text-gray-600 uppercase tracking-wider">
-		<h5>{location_info.address.street_address}</h5>
-
-		<h5>
-			{location_info.address.city},
-			<span
-				>{stateToAbbr(location_info.address.state_province)}
-				{location_info.address.postal_code}</span
-			>
-		</h5>
+	<div
+		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between"
+	>
+		<Address location_info="{location_info}" />
+		<span>${parseInt(price).toLocaleString()}</span>
 	</div>
 	<div class="field-header-container flex space-x-4 mt-10">
-		{#each header_fields.house as { label, val }}
+		{#each header_fields[property_type.toLowerCase()]() as { label, val }}
 			<div class="field-header">
 				<span class="font-roboto font-normal text-sm text-gray-600 tracking-wider font-">
 					{label}:
@@ -168,34 +187,38 @@
 			{description}
 		</p>
 	</div>
-
+	<!-- 
+		the each below isnt working because interior_features is null for property type lot
+	 -->
 	<div class="features-wrapper">
-		{#each Object.entries(feature_fields) as [feature_cat, feature]}
-			<h2 class="font-medium font-roboto text-xl mt-16 mb-3">
-				{feature_fields[feature_cat].label}
-			</h2>
-			<ul
-				class="font-roboto font-normal text-sm text-gray-600 tracking-wider grid grid-cols-2 gap-x-[30px]"
-			>
-				{#each Object.entries(feature.data) as [label, val]}
-					{#if val && label !== 'id' && label !== 'address'}
-						<li
-							class="border-b border-gray-300 py-1 last:border-none 
-                            [&:nth-last-child(-n+2)]:border-none
+		{#each category_order as category}
+			{#if feature_fields[category].data}
+				<h2 class="font-medium font-roboto text-xl mt-16 mb-3">
+					{feature_fields[category].label}
+				</h2>
+				<ul
+					class="font-roboto font-normal text-sm text-gray-600 tracking-wider grid grid-cols-2 gap-x-[30px]"
+				>
+					{#each Object.entries(feature_fields[category].data) as [label, val]}
+						{#if val && label !== 'id' && label !== 'address'}
+							<li
+								class="border-b border-gray-300 py-1 last:border-none 
+						[&:nth-last-child(-n+2)]:border-none
 
-                        "
-						>
-							<span class="font-medium">{_.startCase(label)}:</span>
+					"
+							>
+								<span class="font-medium">{_.startCase(label)}:</span>
 
-							{#if typeof val === 'boolean'}
-								{value_mapper[val]}
-							{:else}
-								{val}
-							{/if}
-						</li>
-					{/if}
-				{/each}
-			</ul>
+								{#if typeof val === 'boolean'}
+									{value_mapper[val]}
+								{:else}
+									{val}
+								{/if}
+							</li>
+						{/if}
+					{/each}
+				</ul>
+			{/if}
 		{/each}
 	</div>
 </div>

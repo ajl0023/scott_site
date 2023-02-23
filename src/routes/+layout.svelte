@@ -1,5 +1,6 @@
 <script>
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import '../app.css';
 	import '$lib/global.scss';
 	import '$lib/styles.css';
@@ -11,15 +12,24 @@
 	import { createLazyStore } from '$lib/stores/lazy';
 	import Footer from '../lib/components/Footer/Footer.svelte';
 	import Navbar from '../lib/components/Navbar.svelte';
-	import Glide from '@glidejs/glide'
+	import Glide from '@glidejs/glide';
 	export let data;
 
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 
 	onMount(() => {
-		console.log(createLazyStore);
 		createLazyStore.init();
 	});
+	const handleLazy = async () => {
+		console.log($createLazyStore)
+		if ($createLazyStore.lazy) {
+			await tick();
+			createLazyStore.update_lazy();
+		}
+	};
+	$: {
+		$page, handleLazy();
+	}
 </script>
 
 <div class="wrapper">

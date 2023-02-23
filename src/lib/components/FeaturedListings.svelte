@@ -1,36 +1,129 @@
 <script>
-	import testImg from '$lib/images/prop.jpg';
 	import logoSm from '$lib/images/logo-small.png';
+	import { onMount } from 'svelte';
+	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
-	const data = Array(4).fill('');
+	import { createLazyStore } from '$lib/stores/lazy';
+
+	import _ from 'lodash-es';
+
+	export let data;
+	const listings = data.data;
+	if (listings.length < 5) {
+		listings.push(listings[0]);
+	}
+	onMount(() => {
+		createLazyStore.init();
+	});
 </script>
 
-<div class="container">
-	<div class="fl-container px-5 grid gap-1 md:grid-cols-2 grid-cols-1 lg:grid-cols-3">
-		<div class="title-container flex flex-col justify-center pr-3 mb-4 md:mb-0">
-			<div class="title-content flex flex-col items-center justify-center lg:items-start">
+<div class="container py-20">
+	<div class="fl-container px-5 grid gap-1 md:grid-cols-2 grid-cols-1 lg:grid-cols-3 ">
+		<div class="pr-3 mb-2 md:mb-0 flex items-center lg:justify-start justify-center">
+			<div class="font-barlow inline-block">
 				<MiniLogo />
-				<h2 class="inline-block text-[80px]">
-					Featured <span class="text-center md:text-right">Listings</span>
+				<h2
+					class="text-header uppercase font-medium text-black-white leading-[56px] md:text-[70px] text-[50px] relative text-center"
+				>
+					Featured
 				</h2>
-			</div>
-		</div>
-		{#each data as listing}
-			<div class="listing-container">
-				<img class="listing-image grayscale-0 lg:grayscale lazy" src="{testImg}" alt="" />
-
-				<div class="listing-hovered hidden lg:block">
-					<img class="listing-image lazy" data-src="{testImg}" alt="" />
+				<div class="span-container">
+					<span
+						class="span-text text-[#41A7C3] text-[36px] font-[400] uppercase lg:mt-3 lg:text-[35px]"
+						>Listings
+					</span>
 				</div>
 			</div>
-		{/each}
-		<div class="view-more-container py-7 md:py-0">
-			<a class="view-more-button" href="">view all properties+</a>
 		</div>
+
+		{#each listings as { attributes: { listing_id, address, thumbnail, price, location_info: { address: { street_address, state_province, postal_code } } } }}
+			<a
+				href="/homes-for-sale-details/{slugify_address(address)}/{listing_id}"
+				class="block listing-container relative aspect-w-16 aspect-h-11"
+			>
+				<div class="content-wrapper">
+					<div class="image-container w-full h-full">
+						<img
+							class="grayscale-0 lg:grayscale lazy w-full h-full"
+							data-src="{access_strapi_image(thumbnail)}"
+							alt=""
+						/>
+					</div>
+
+					<div class="content-container absolute text-white bottom-0 z-[1] font-roboto pl-10">
+						<div class="pl-3 border-l-2 border-white pb-5 inline-block">
+							<h5 class="text-lg">
+								${parseInt(price).toLocaleString()}
+							</h5>
+							<span class="inline-block lg:text-base text-sm">
+								{_.startCase(street_address) +
+									', ' +
+									stateToAbbr(state_province.toLowerCase()).toUpperCase() +
+									' ' +
+									postal_code}
+							</span>
+						</div>
+					</div>
+
+					<div class="listing-hovered hidden lg:block aspect-w-16 aspect-h-11">
+						<div class="content-wrapper">
+							<img
+								class="listing-image lazy w-full h-full"
+								data-src="{access_strapi_image(thumbnail)}"
+								alt=""
+							/>
+
+							<div
+								class="content-container absolute text-black bottom-0 left-0 z-[1] font-roboto max-w-[230px] w-full"
+							>
+								<div class="bg-[#B7DEE8] pl-10 py-6">
+									<h5 class="text-2xl font-semibold">
+										${parseInt(price).toLocaleString()}
+									</h5>
+									<span class="">
+										{_.startCase(street_address) +
+											', ' +
+											stateToAbbr(state_province.toLowerCase()).toUpperCase() +
+											' ' +
+											postal_code}
+									</span>
+									<span class="uppercase block mt-5 text-sm font-medium">view details +</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		{/each}
+		<!-- <div class="view-more-container py-7 md:py-0"> -->
+		<!-- <a class="view-more-button" href="">view all properties+</a> -->
+		<!-- </div> -->
 	</div>
 </div>
 
 <style lang="scss">
+	.span-container {
+		text-align: right;
+
+		span {
+			position: relative;
+			&::before {
+				position: absolute;
+				width: 600px;
+				margin-right: 10px;
+				display: block;
+				height: 4px;
+
+				content: '';
+
+				background-color: #d7d7d7;
+
+				top: 50%;
+				transform: translateY(-50%);
+				right: 100%;
+			}
+		}
+	}
 	.view-more-container {
 		background-color: #1b1b1b;
 		display: flex;
@@ -62,50 +155,9 @@
 		width: 100%;
 		margin: auto;
 	}
-	.title-container {
-		h2 {
-			vertical-align: top;
-			color: #1b1b1b;
 
-			font-weight: 600;
-			font-family: 'Barlow Semi Condensed', sans-serif;
-			text-align: right;
-			text-transform: uppercase;
-			letter-spacing: -0.025em;
-			line-height: 57px;
-			position: relative;
-			span {
-				display: block;
-				margin-top: 15px;
-				color: #31849b;
-				font-size: 36px;
-				font-weight: 400;
-				font-family: 'Source Sans Pro', sans-serif;
-				letter-spacing: -0.05em;
-				line-height: 1;
-			}
-		}
-		.logo-container {
-			position: relative;
-			display: inline-block;
-			padding-right: 40px;
-
-			&::after {
-				width: 38px;
-				height: 5px;
-				content: '';
-				position: absolute;
-				bottom: 13px;
-				right: 0;
-				background-color: #41a7c3;
-			}
-		}
-	}
-	.fl-container {
-		width: 100%;
-		margin-top: 10px;
-	}
 	.listing-container {
+		position: relative;
 		@for $i from 1 through 6 {
 			&:nth-child(#{$i}) {
 				@if $i ==2 {
@@ -115,6 +167,7 @@
 				}
 				@if $i ==3 {
 					.listing-hovered {
+						top: 0;
 						right: 0;
 					}
 				}
@@ -140,17 +193,7 @@
 				}
 			}
 		}
-		padding-bottom: 70%;
-		position: relative;
 
-		.listing-image {
-			height: 100%;
-			object-fit: cover;
-			position: absolute;
-			width: 100%;
-		}
-		.listing-image.hidden {
-		}
 		.listing-hovered {
 			opacity: 0;
 			width: calc(100% + 110px);

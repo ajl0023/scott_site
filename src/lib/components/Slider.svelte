@@ -1,5 +1,5 @@
 <script>
-	import { get_strapi_image_format } from '../utils/utils';
+	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 
 	export let images;
 	const handleAnimationEnd = () => {
@@ -27,7 +27,7 @@
 					handleLoad(i);
 				}}"
 			>
-				<img class="slide lazy" alt="'" src="{get_strapi_image_format(image, 'large')}" />
+				<img class="slide lazy object-cover w-full" alt="'" src="{access_strapi_image(image)}" />
 			</div>
 		{/each}
 	</div>

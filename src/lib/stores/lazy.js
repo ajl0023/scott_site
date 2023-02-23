@@ -4,7 +4,7 @@ function createLazy() {
 	const state = {
 		lazy: null
 	};
-	const { subscribe, set, update } = writable(0);
+	const { subscribe, set, update } = writable(state);
 
 	const methods = {
 		init: () => {
