@@ -4,17 +4,8 @@
 	import { onMount } from 'svelte';
 	import _ from 'lodash-es';
 	export let data;
-	let page_name = '';
-	$: ({ url } = $page);
 
-	$: {
-		let path = url.pathname;
-		let segments = path.split('/');
-
-		let slug = segments[2];
-
-		page_name = _.startCase(slug);
-	}
+	$: mobile_bar_hidden = $page.url.pathname === '/neighborhood-guides';
 </script>
 
 <div class="wrapper">
@@ -25,7 +16,8 @@
 					<span> Home » Sellers » Decide to Sell </span>
 					<h1
 						class="text-[#41A7C3] text-[40px] md:text-[62px] font-barlow leading-tight mt-3 text-center lg:text-left"
-					>Placeholder
+					>
+						Placeholder
 						<!-- {page_name} -->
 					</h1>
 				</div>
@@ -33,7 +25,10 @@
 					<slot />
 				</div>
 			</div>
-			<div class="menu-bar-wrapper inline-block text-center lg:text-left">
+			<div
+				class:hidden="{mobile_bar_hidden}"
+				class="menu-bar-wrapper inline-block text-center lg:text-left"
+			>
 				<MenuBar layout_data="{data}" />
 			</div>
 		</div>

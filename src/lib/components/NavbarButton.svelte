@@ -11,7 +11,6 @@
 			duration: 0.2
 		});
 	};
-
 </script>
 
 <!-- bind:this={parentEle}
@@ -46,18 +45,15 @@ on:blur -->
 		<div bind:this="{dropdown}" class="drop-down-container">
 			<ul class="list-drop-down-container">
 				{#each nav_item['nav_options'] as sub_nav}
-					<li class="list-item-sub cursor-pointer">
-						{#if sub_nav.is_external_link}<a
-								class="list-link-sub block"
-								target="_blank"
-								rel="noreferrer"
-								href="{sub_nav.link}"
-							>
-								{sub_nav['label']}</a
-							>
-						{:else}
-							<a class="list-link-sub block" href="/{sub_nav['link']}"> {sub_nav['label']} </a>
-						{/if}
+					<li class="list-item-sub cursor-pointer py-2 px-2  hover:bg-[#41a7c3] text-center font-semibold">
+						<a
+							class="list-link-sub block whitespace-normal"
+							target="{sub_nav['is_external_link'] ? '_blank' : ''}"
+							rel="{sub_nav['is_external_link'] ? 'noreferrer' : ''}"
+							href="{sub_nav['is_external_link'] ? sub_nav.link : `/${sub_nav.link}`}"
+						>
+							{sub_nav['label']}
+						</a>
 					</li>
 				{/each}
 			</ul>
@@ -95,19 +91,6 @@ on:blur -->
 
 		overflow: hidden;
 		transition: max-height 0.3s ease-out;
-		.list-item-sub {
-			text-align: center;
-			padding: 5px;
-			font-weight: 500;
-			&:hover {
-				background-color: #41a7c3;
-			}
-		}
-		.list-link-sub {
-			color: white;
-			text-align: center;
-			text-decoration: none;
-		}
 	}
 	.menu-item-container {
 		position: relative;

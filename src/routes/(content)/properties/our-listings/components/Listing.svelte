@@ -52,12 +52,12 @@
 	};
 </script>
 
-<div class="antialiased font-sans flex-[50%] flex-grow-0">
+<div class="antialiased font-sans flex-[50%] md:flex-grow-0">
 	<div class="flex w-full">
 		<div class="w-full sm:w-full lg:w-full py-2 px-2">
 			<a href="/homes-for-sale-details/{slug_url}/{property_data.id}" class="block">
 				<div class="bg-white shadow-xl">
-					<div class="h-56 overflow-hidden rounded-lg">
+					<div class="h-56 overflow-hidden">
 						<img
 							class="object-cover object-[center_center] w-full"
 							src="{get_strapi_image_format(thumbnail, 'medium')}"
@@ -76,7 +76,9 @@
 						<p class="text-2xl text-gray-900">
 							${parseInt(property_data.price).toLocaleString()}
 						</p>
-						<Address location_info="{location_info}" />
+						<div class="address-container text-sm mt-3">
+							<Address location_info="{location_info}" />
+						</div>
 					</div>
 					<div class="flex p-4 border-t border-gray-300 text-gray-700">
 						<!-- go through listing_features, and display different labels according to the object, the listing features is an object, so it has to be like [key,value] -->
