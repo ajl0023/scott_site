@@ -6,6 +6,7 @@
 	import MiniLogo from './MiniLogo.svelte';
 	import SvCarousel from 'svelte-carousel';
 	import _ from 'lodash-es';
+	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
 
 	const { bg_photo, scott_photo, reviews } = data;
@@ -25,6 +26,7 @@
 				<div class="image-wrapper relative w-full">
 					<div class="image-container m-auto lg:m-0 aspect-w-9 aspect-h-16">
 						<img
+							use:getAnim="{'fade-in'}"
 							src="{access_strapi_image(scott_photo)}"
 							alt=""
 							class="w-full z-[3] object-contain lazy h-full"
@@ -34,7 +36,7 @@
 			</div>
 
 			<div class="right-container">
-				<div class="font-barlow title-container items-center lg:pl-6">
+				<div class="font-barlow title-container items-center lg:pl-6" use:getAnim="{'zoom-in'}">
 					<div class="align-bottom text-[0] text-center lg:text-left"><MiniLogo /></div>
 					<h2
 						class="text-header uppercase font-medium text-black-white leading-[56px] lg:text-[90px] text-[50px] relative text-center"
@@ -52,6 +54,7 @@
 			class="testi-container text-white text-center font-roboto lg:-mt-48 mt-0 relative z-10 lg:ml-5 "
 		>
 			<div
+				use:getAnim="{'fade-in-up'}"
 				class="testi-content bg-[#1b1b1b] inline-block w-full max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
 			>
 				{#if browser}

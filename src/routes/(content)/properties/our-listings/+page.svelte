@@ -32,7 +32,7 @@
 		};
 	});
 	//i want to define a listing_features object that will determine what to display in the listing component, but interior_features is undefined in lot, i might do it in the map above
-	console.log(listings_formatted);
+
 	const features_to_display = {
 		House: {
 			features: [

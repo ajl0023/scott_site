@@ -4,7 +4,7 @@
 	export let data;
 	export let { background_image, logo, text, link } = data;
 
-	console.log(background_image);
+
 </script>
 
 <div

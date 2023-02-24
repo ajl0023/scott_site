@@ -1,6 +1,7 @@
 <script>
 	import { image_url } from '../dev';
 	import { get_strapi_image_format } from '../utils/utils';
+	import { getAnim } from '$lib/actions/get_anim.js';
 
 	export let data;
 
@@ -8,7 +9,10 @@
 </script>
 
 <div class="wrapper my-32">
-	<div class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
+	<div
+		class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3"
+		use:getAnim="{'fade-in-up'}"
+	>
 		{#each services as { attributes: { label, image } }}
 			<div class="grid-item">
 				<div class="grid-content">

@@ -1,13 +1,19 @@
 <script>
 	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
+
+	import { getAnim } from '$lib/actions/get_anim.js';
+
 	export let data;
 	const { image, instagram_url } = data;
-	console.log(image);
+
 </script>
 
 <div class="wrapper text-center pt-[105px] pb-[75px]">
-	<div class="title-container md:flex-row flex flex-col  items-center md:space-x-10 justify-center">
+	<div
+		class="title-container md:flex-row flex flex-col  items-center md:space-x-10 justify-center"
+		use:getAnim="{'zoom-in'}"
+	>
 		<div class="image-container w-[130px] h-[130px] md:mb-0 mb-10">
 			<img class="w-full" src="{access_strapi_image(image)}" alt="" />
 		</div>
@@ -25,7 +31,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="button-container mt-14 md:mt-32">
+	<div class="button-container mt-14 md:mt-32" 	use:getAnim="{'fade-in-up'}">
 		<a
 			class="font-roboto border transition-[background-color] border-[#b3b3b3] py-4 px-8  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block text-[#1b1b1b] uppercase hover:text-black text-xs tracking-widest"
 			target="{'_blank'}"

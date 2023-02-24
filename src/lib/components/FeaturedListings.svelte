@@ -4,9 +4,10 @@
 	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	import { createLazyStore } from '$lib/stores/lazy';
-
+	import IntersectionObserver from 'svelte-intersection-observer';
 	import _ from 'lodash-es';
-
+	import AnimationWrapper from './AnimationWrapper.svelte';
+	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
 	const listings = data.data;
 	if (listings.length < 5) {
@@ -15,12 +16,16 @@
 	onMount(() => {
 		createLazyStore.init();
 	});
+	let title_container;
 </script>
 
 <div class="container py-20">
-	<div class="fl-container px-5 grid gap-1 md:grid-cols-2 grid-cols-1 lg:grid-cols-3 ">
+	<div
+		class="fl-container px-5 grid gap-1 md:grid-cols-2 grid-cols-1 lg:grid-cols-3"
+		use:getAnim="{'fade-in'}"
+	>
 		<div class="pr-3 mb-2 md:mb-0 flex items-center lg:justify-start justify-center">
-			<div class="font-barlow inline-block">
+			<div class="font-barlow inline-block" use:getAnim="{'zoom-in'}">
 				<MiniLogo />
 				<h2
 					class="text-header uppercase font-medium text-black-white leading-[56px] md:text-[70px] text-[50px] relative text-center"

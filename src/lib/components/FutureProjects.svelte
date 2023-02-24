@@ -1,12 +1,13 @@
 <script>
 	import { access_strapi_image } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
+	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
 </script>
 
 <div class="wrapper  pt-[105px] pb-[75px]">
 	<div class="content-wrapper flex justify-center p-3">
-		<div class="inline-block">
+		<div class="inline-block" use:getAnim="{'zoom-in'}">
 			<div class="font-barlow title-container items-start flex flex-col">
 				<MiniLogo />
 				<h2
@@ -20,7 +21,10 @@
 			</div>
 		</div>
 	</div>
-	<div class="projects-container flex max-w-[600px] md:max-w-[1100px] w-full m-auto flex-wrap">
+	<div
+		class="projects-container flex max-w-[600px] md:max-w-[1100px] w-full m-auto flex-wrap"
+		use:getAnim="{'fade-in-up'}"
+	>
 		{#each data as { description, image, link }}
 			<div class="item-container w-full md:w-[50%] p-4">
 				<div class="image-container aspect-w-16 aspect-h-9">

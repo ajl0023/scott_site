@@ -21,7 +21,7 @@
 		createLazyStore.init();
 	});
 	const handleLazy = async () => {
-		console.log($createLazyStore)
+
 		if ($createLazyStore.lazy) {
 			await tick();
 			createLazyStore.update_lazy();

@@ -4,74 +4,69 @@
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { onMount } from 'svelte';
 	import MiniLogo from './MiniLogo.svelte';
+	import AnimationWrapper from './AnimationWrapper.svelte';
+	import { getAnim } from '$lib/actions/get_anim.js';
 
 	export let data;
 
 	let main_photo = image_url + data['agent_photo']['data']['attributes']['url'];
 	let bg_photo = image_url + data['background_photo']['data']['attributes']['url'];
+	let container;
 </script>
 
-<div class="wrapper mt-10 lg:mt-20 overflow-hidden">
-	<IntersectionObserver let:intersecting top="{400}">
-		<div class="banner-container bg-cover bg-no-repeat grayscale lazy" data-bg="{bg_photo}"></div>
+<div class="wrapper mt-10 lg:mt-20 overflow-hidden" bind:this="{container}">
+	<div class="banner-container bg-cover bg-no-repeat grayscale lazy" data-bg="{bg_photo}"></div>
 
-		<div class="container px-5 lg:mt-[70px]">
+	<div class="container px-5 lg:mt-[70px]">
+		<div
+			class="flex main-content lg:flex-row flex-col lg:mt-[40px] px-3 lg:p-0 items-center lg:items-stretch py-10"
+		>
 			<div
-				class="flex main-content lg:flex-row flex-col lg:mt-[40px] px-3 lg:p-0 items-center lg:items-stretch py-10"
+				use:getAnim="{'fade-in-left'}"
+				class="main-photo-container mt-0 lg:w-[40%] max-w-[400px] w-full lg:max-w-[100%] bg-black"
 			>
-				<div
-					class="main-photo-container mt-0 lg:w-[40%] max-w-[400px] w-full lg:max-w-[100%] bg-black"
-				>
-					<div class="aspect-ratio-container aspect-w-9 aspect-h-14 w-full h-full">
-						<img
-							class="object-cover"
-							class:fade-in-left="{intersecting}"
-							src="{main_photo}"
-							alt=""
-						/>
+				<div class="aspect-ratio-container aspect-w-9 aspect-h-14 w-full h-full">
+					<img class="object-cover" src="{main_photo}" alt="" />
+				</div>
+			</div>
+			<div
+				use:getAnim="{'fade-in-right'}"
+				class="right-container flex flex-col justify-center items-center lg:px-10 lg:translate-y-[-40px] lg:w-[60%]"
+			>
+				<div class="title-container my-2 text-center lg:text-start lg:m-0 lg:self-start">
+					<div class="font-barlow title-container items-start flex flex-col md:mb-3">
+						<MiniLogo />
+						<div class="header-container">
+							<h2
+								class="md:mt-4 mt-2 text-header uppercase font-[600] text-black leading-[56px] md:text-[130px] text-[90px] relative text-center"
+							>
+								scott
+							</h2>
+						</div>
+						<div class="span-container w-full md:mt-4 mt-2 text-end">
+							<span class="span-text text-[#41A7C3] text-[30px] md:text-[70px] font-[400] uppercase"
+								>james
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="text-container text-center  lg:text-left">
+					<h3>{data.header}</h3>
+					<div class="text-content">
+						{#each data.paragraph as paragraph}
+							<p>{paragraph.text}</p>
+						{/each}
 					</div>
 				</div>
 				<div
-					class="right-container {intersecting
-						? 'fade-in-right'
-						: ''} flex flex-col justify-center items-center lg:px-10 lg:translate-y-[-40px] lg:w-[60%]"
+					class="items-center lg:items-start button-container flex-col flex md:flex-row lg:justify-start justify-center w-full md:space-x-5 space-x-0 space-y-4 md:space-y-0"
 				>
-					<div class="title-container my-2 text-center lg:text-start lg:m-0 lg:self-start">
-						<div class="font-barlow title-container items-start flex flex-col md:mb-3">
-							<MiniLogo />
-							<div class="header-container">
-								<h2
-									class="md:mt-4 mt-2 text-header uppercase font-[600] text-black leading-[56px] md:text-[130px] text-[90px] relative text-center"
-								>
-									scott
-								</h2>
-							</div>
-							<div class="span-container w-full md:mt-4 mt-2 text-end">
-								<span
-									class="span-text text-[#41A7C3] text-[30px] md:text-[70px] font-[400] uppercase"
-									>james
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="text-container text-center  lg:text-left">
-						<h3>{data.header}</h3>
-						<div class="text-content">
-							{#each data.paragraph as paragraph}
-								<p>{paragraph.text}</p>
-							{/each}
-						</div>
-					</div>
-					<div
-						class="items-center lg:items-start button-container flex-col flex md:flex-row lg:justify-start justify-center w-full md:space-x-5 space-x-0 space-y-4 md:space-y-0"
-					>
-						<a href="/about-us" class="w-[200px] m-0">read more +</a>
-						<a href="/awards-won" class="w-[200px]">awards won +</a>
-					</div>
+					<a href="/about-us" class="w-[200px] m-0">read more +</a>
+					<a href="/awards-won" class="w-[200px]">awards won +</a>
 				</div>
 			</div>
 		</div>
-	</IntersectionObserver>
+	</div>
 </div>
 
 <style lang="scss">

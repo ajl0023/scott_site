@@ -1,57 +1,57 @@
 <script>
-	import { image_url } from '../dev';
+	import { getAnim } from '$lib/actions/get_anim.js';
 	import mag_icon from '$lib/images/mag-icon.png';
-	import IntersectionObserver from 'svelte-intersection-observer';
-	import MiniLogo from './MiniLogo.svelte';
 	import { access_strapi_image } from '../utils/utils';
+	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 
 	const images = data['listing'];
+	let wrapper;
 </script>
 
-<div class="wrapper mt-32">
+<div class="wrapper mt-32" bind:this="{wrapper}">
 	<div class="content-container md:w-100">
-		<div class="title-container mb-9">
+		<div use:getAnim="{'fade-in-up'}" class="title-container mb-9 test">
 			<MiniLogo />
+
 			<div class="title-text-container">
 				<h2 class="text-[90px] md:text-[120px]">
 					Global <span class="md:text-[55px] text-[30px]">Luxury Listings.</span>
 				</h2>
 			</div>
 		</div>
-		<IntersectionObserver let:intersecting once="{true}">
-			<div class="grid-container lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-				{#each images as img}
-					<div class="grid-item grid-image aspect-w-16 aspect-h-9" class:zoom-in="{intersecting}">
-						<div class="grid-content-container">
-							<div class="image-container w-full h-full absolute">
-								<img
-									class="w-full h-full object-cover lazy"
-									data-src="{access_strapi_image(img['image'])}"
-									alt=""
-								/>
-							</div>
-							<div class="label-container">
-								<span class="site_easing">{img['label']}</span>
-								<div class="mag-icon">
-									<img src="{mag_icon}" alt="" />
-								</div>
-							</div>
-						</div>
-					</div>
-				{/each}
-				<div
-					class="grid-item text-container hidden lg:block aspect-w-16 aspect-h-9"
-					class:zoom-in="{intersecting}"
-				>
+
+		<div
+			class="grid-container lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
+			use:getAnim="{'fade-in-up'}"
+		>
+			{#each images as img}
+				<div class="grid-item grid-image aspect-w-16 aspect-h-9">
 					<div class="grid-content-container">
-						<div class="text-content">
-							<h3>GLOBAL LUXURY LISTINGS</h3>
+						<div class="image-container w-full h-full absolute">
+							<img
+								class="w-full h-full object-cover lazy"
+								data-src="{access_strapi_image(img['image'])}"
+								alt=""
+							/>
+						</div>
+						<div class="label-container">
+							<span class="site_easing">{img['label']}</span>
+							<div class="mag-icon">
+								<img src="{mag_icon}" alt="" />
+							</div>
 						</div>
 					</div>
 				</div>
+			{/each}
+			<div class="grid-item text-container hidden lg:block aspect-w-16 aspect-h-9">
+				<div class="grid-content-container">
+					<div class="text-content">
+						<h3>GLOBAL LUXURY LISTINGS</h3>
+					</div>
+				</div>
 			</div>
-		</IntersectionObserver>
+		</div>
 	</div>
 </div>
 

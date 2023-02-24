@@ -1,6 +1,8 @@
 <script>
 	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
+	import { getAnim } from '$lib/actions/get_anim.js';
+
 	export let data; // this is the data from strapi for the page
 
 	const text_content = data['content'];
@@ -15,7 +17,10 @@
 	<div
 		class="inner-content relative z-10 flex w-full max-w-[1400px] m-auto font-sourceSans flex-col lg:flex-row"
 	>
-		<div class="left-container flex items-center w-full lg:w-[30%] p-5">
+		<div
+			class="left-container flex items-center w-full lg:w-[30%] p-5"
+			use:getAnim="{'fade-in-left'}"
+		>
 			<div class="left-container-content flex flex-col items-center lg:items-start">
 				<div class="font-barlow title-container items-start flex flex-col ">
 					<MiniLogo />
@@ -45,7 +50,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="right-container flex flex-wrap lg:w-[70%]">
+		<div class="right-container flex flex-wrap lg:w-[70%]" use:getAnim="{'fade-in-right'}">
 			{#each media_posts as { attributes: { title, image, is_external_link, link } }}
 				<a
 					target="{is_external_link ? '_blank' : ''}"
