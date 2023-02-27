@@ -25,7 +25,7 @@
 	<FeaturedListings data="{data['page_data']['listings']}" />
 	<HomeScottInfo data="{data['page_data']['home_agent']}" />
 	<GlobalListings data="{data['page_data']['global_listings']}" />
-	<HomeServices data="{data['services']}" />
+	<HomeServices data="{data['page_data']['services']}" />
 	<SalesStats data="{data['page_data']['sales_statistics']}" />
 	<Testimonials data="{data['page_data']['testimonial']}" />
 	<MediaRelationsHome data="{data['page_data']['media_relations']}" />

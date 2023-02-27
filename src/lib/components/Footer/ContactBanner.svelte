@@ -3,12 +3,24 @@
 	import Phone from '../../images/icons/phone.svelte';
 	import Wechat from '../../images/icons/wechat.svelte';
 	import delogo from '$lib/images/footer-logo.png';
+
+	import parsePhoneNumber from 'libphonenumber-js';
 	export let data;
 
 	let svg_data = {
 		email: Mail,
 		phone: Phone,
 		wechat: Wechat
+	};
+
+	const get_format = (contact_type, contact_info) => {
+		if ('phone' === contact_type) {
+			return parsePhoneNumber(contact_info, 'US').formatNational();
+		} else if ('DRE' === contact_type) {
+			return '#' + contact_info;
+		} else {
+			return contact_info;
+		}
 	};
 </script>
 
@@ -20,28 +32,30 @@
 		<div
 			class="contact-container flex flex-wrap  justify-center items-center flex-col md:flex-row md:space-y-0 space-y-2"
 		>
-			{#each Object.entries(data['contact']) as [key, val]}
-				{#if key !== 'id'}
-					<div class="contact-item-container flex  items-center px-5">
-						{#if svg_data[key]}
-							<div class="icon-container md:w-8 w-5 mr-2.5">
-								<svelte:component this="{svg_data[key]}" />
-							</div>
-						{:else}
+			{#each data['contact'] as { attributes: { contact_info_type, contact_info } }}
+				{@const contact_info_type_lower = contact_info_type.toLowerCase()}
+				{@const is_dre = contact_info_type === 'DRE'}
+				<div class="contact-item-container flex  items-center px-5">
+					<div class="icon-container mr-2.5 {is_dre ? '' : 'md:w-8 w-5'}">
+						{#if svg_data[contact_info_type_lower]}
+							<svelte:component this="{svg_data[contact_info_type_lower]}" />
+						{:else if is_dre}
 							<p class="contact-text caldre">CalDRE</p>
 						{/if}
-						<a class="contact-text" href="">{key === 'calDRE' ? '#' + val : val}</a>
 					</div>
-				{/if}
+					<span class="contact-text text-sm font-semibold" href=""
+						>{get_format(contact_info_type, contact_info)}</span
+					>
+				</div>
 			{/each}
 		</div>
-		<div class="market-area-container">
+		<div class="market-area-container mt-4">
 			<ul
 				class="market-area-list justify-center flex flex-wrap items-center text-center md:flex-row flex-col"
 			>
 				{#each data['market_areas'] as label}
-					<li class="px-2 my-1 md:before:block before:hidden">
-						<a class="text-[20px] ">{label.label}</a>
+					<li class="px-2 md:before:block before:hidden text-sm">
+						<span>{label.label}</span>
 					</li>
 				{/each}
 			</ul>
@@ -65,13 +79,11 @@
 		}
 	}
 	.market-area-container {
-		margin-top: 35px;
-
 		.market-area-list {
 			li {
 				line-height: 1;
 				color: #404040;
-				font-size: 18px;
+
 				font-family: 'Source Sans Pro', sans-serif;
 				letter-spacing: 0.05em;
 				pointer-events: none;
@@ -79,11 +91,13 @@
 				position: relative;
 				&:not(:first-child) {
 					&::before {
-						width: 6px;
-						height: 6px;
+						width: 4px;
+						height: 4px;
 						content: '';
 						position: absolute;
-						top: 6px;
+						//center vertically
+						top: 50%;
+						transform: translateY(-50%);
 						left: -3px;
 						border-radius: 50%;
 						background-color: #8d8d8d;

@@ -1,17 +1,9 @@
 <script>
 	export let data;
-	import _ from 'lodash-es';
-	import { onMount } from 'svelte';
 	import VideoEmbed from '../../../lib/components/VideoEmbed.svelte';
-	import { url_new } from '../../../lib/dev';
-	import { createLazyStore } from '../../../lib/stores/lazy';
 	import { get_strapi_image_format } from '../../../lib/utils/utils';
 
 	const { intro_image, intro_text, developments } = data['page_data'];
-
-	onMount(() => {
-		createLazyStore.update_lazy();
-	});
 </script>
 
 <div class="wrapper">

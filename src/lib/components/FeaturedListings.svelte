@@ -9,14 +9,14 @@
 	import AnimationWrapper from './AnimationWrapper.svelte';
 	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
-	const listings = data.data;
+	let listings = data.data;
 	if (listings.length < 5) {
-		listings.push(listings[0]);
+		listings = [...listings, listings[0], listings[0]];
+	
 	}
 	onMount(() => {
 		createLazyStore.init();
 	});
-	let title_container;
 </script>
 
 <div class="container py-20">

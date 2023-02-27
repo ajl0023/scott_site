@@ -77,7 +77,8 @@
 <div class="wrapper">
 	<div class="main-container">
 		<!--  -->
-		<div class="flex flex-wrap">
+
+		<div class="grid justify-items-center md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]">
 			{#each listings_formatted as { interior_features, property_data, exterior_features, thumbnail, location_info }}
 				<!-- Listing component will have these props -->
 				<Listing

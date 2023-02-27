@@ -17,7 +17,7 @@
 			<div class="button-space-container pl-[25px]">
 				<a
 					class="block button uppercase text-center border-2 border-black w-[300px] py-3 transition-all "
-					href={link.link}
+					href="{link.link}"
 					><span class="font-normal">
 						{link.label} +
 					</span></a
@@ -26,9 +26,11 @@
 		{/each}
 	</div>
 	<div class="menu-wrapper text-center flex justify-center w-full mt-9">
-		<div class="flex-container flex flex-col flex-nowrap md:flex-row md:flex-wrap m-auto w-full items-center md:items-baseline">
+		<div
+			class="flex-container flex flex-col flex-nowrap md:flex-row md:flex-wrap m-auto w-full items-center md:items-baseline md:max-w-[700px]"
+		>
 			{#each navigation_menu as nav_item}
-				<a href="{nav_item.link}" class="group block w-[300px] md:w-4/12 link-container">
+				<a href="/{nav_item.link}" class="group block w-[300px] md:w-4/12 link-container p-1">
 					<div class="item-container transition-all relative flex justify-center items-center">
 						<div
 							class="bg-container w-full aspect-w-6 aspect-h-6 md:aspect-w-16 md:aspect-h-16 flex justify-center items-center"
@@ -36,7 +38,9 @@
 							<div
 								class="p-2 transition-all icon-container z-[11] group-even:bg-[rgba(183,222,232)]/50 group-odd:bg-[rgb(38,37,42)]/50 group-hover:group-even:bg-[rgba(183,222,232)]/20 group-hover:group-odd:bg-[rgb(38,37,42)]/20 flex-col text-white uppercase"
 							>
-								<div class="backdrop bg-[rgb(38,37,42)]/84 absolute inset-0 -z-10"></div>
+								<div
+									class=" transition-all backdrop group-hover:bg-[rgb(0,0,0)]/10  bg-[rgb(0,0,0)]/50 absolute inset-0 -z-10"
+								></div>
 								<div
 									class="item-content z-10 flex items-center justify-center w-full flex-col h-full"
 								>

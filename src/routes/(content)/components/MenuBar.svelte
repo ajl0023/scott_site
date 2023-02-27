@@ -5,22 +5,10 @@
 	import Linkedin from '../../../lib/images/icons/linkedin.svelte';
 	import Youtube from '../../../lib/images/icons/youtube.svelte';
 	import Zillow from '../../../lib/images/icons/zillow.svelte';
+	import { access_strapi_image, get_strapi_image_format } from '../../../lib/utils/utils';
 
-	export let layout_data;
+	export let data;
 
-	const {
-		layout_data: {
-			menu_bar: {
-				agent_image: {
-					data: {
-						attributes: { url: agentPhoto }
-					}
-				}
-			}
-		},
-		socials: socials,
-		services: services
-	} = layout_data;
 	const social_images = {
 		instagram: Instagram,
 		facebook: Facebook,
@@ -28,15 +16,21 @@
 		zillow: Zillow,
 		youtube: Youtube
 	};
+
+	const {
+		layout_data: {
+			menu_bar: { agent_image, profile_informations, services }
+		}
+	} = data;
 </script>
 
-<div class="wrapper inline-flex">
+<div class="wrapper">
 	<div class="content-container flex-col items-center flex">
-		<div class="image-container max-w-[300px] w-full">
-			<img class="w-full object-contain" src="{image_url + agentPhoto}" alt="" />
+		<div class="image-container w-full">
+			<img class="w-full object-contain" src="{access_strapi_image(agent_image)}" alt="" />
 		</div>
 		<div class="socials-container flex items-center space-x-2 mt-4">
-			{#each socials as { attributes }}
+			{#each profile_informations.data as { attributes }}
 				<div class="icon-wrapper bg-[#cbcbcb] p-3 rounded-full cursor-pointer">
 					<a
 						class="icon-container w-[20px] h-[20px] block"
@@ -62,17 +56,17 @@
 			>
 		</div>
 		<div class="services-wrapper w-full mt-9">
-			{#each services as { attributes: { label, link, is_external_link }, attributes: { image: { data: image_data } } }}
+			{#each services.data as { attributes: { label, link, is_external_link, image } }}
 				<a
 					class="service-container w-full aspect-w-4 aspect-h-[1.8] relative block odd:bg-[rgba(28,28,28,0.71)] even:bg-[rgba(183,222,232,.65)] even:text-[#444242] odd:text-white"
-					href="{is_external_link ? link : '/' + link}"
 					target="{is_external_link ? '_blank' : ''}"
-					rel="noreferrer"
+					rel="{is_external_link ? 'noreferrer' : ''}"
+					href="{is_external_link ? link : `/${link}`}"
 				>
 					<div class="image-container absolute inset-0 -z-10">
 						<img
 							class="object-cover grayscale w-full h-full"
-							src="{image_url + image_data['attributes'].url}"
+							src="{get_strapi_image_format(image, 'small')}"
 							alt=""
 						/>
 					</div>

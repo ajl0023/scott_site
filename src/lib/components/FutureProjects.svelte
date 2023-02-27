@@ -5,17 +5,17 @@
 	export let data;
 </script>
 
-<div class="wrapper  pt-[105px] pb-[75px]">
+<div id="hp_future_projects" class="wrapper  pt-[105px] pb-[75px]">
 	<div class="content-wrapper flex justify-center p-3">
 		<div class="inline-block" use:getAnim="{'zoom-in'}">
 			<div class="font-barlow title-container items-start flex flex-col">
 				<MiniLogo />
 				<h2
-					class="mt-4 text-header uppercase font-medium text-black leading-[56px] text-[90px] relative text-center"
+					class="mt-4 text-header uppercase font-medium text-black leading-[56px] text-[90px] relative text-center tracking-tighter"
 				>
 					future
 				</h2>
-				<div class="span-container w-full mt-4">
+				<div class="span-container w-full lg:mt-6 mt-3">
 					<span class="span-text text-[#41A7C3] text-[30px] font-[500] uppercase">projects</span>
 				</div>
 			</div>

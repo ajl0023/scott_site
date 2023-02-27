@@ -2,7 +2,10 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}'
+	],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -21,6 +24,7 @@ module.exports = {
 		}),
 		require('@tailwindcss/aspect-ratio'),
 		require('@tailwindcss/line-clamp'),
-		require('@tailwindcss/typography')
+		require('@tailwindcss/typography'),
+		require('flowbite/plugin')
 	]
 };

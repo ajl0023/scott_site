@@ -22,11 +22,11 @@
 		{/each}
 	</div>
 </div>
-{#if selectedImage}
-	<Modal
-        data={selectedImage}
-		on:closeModal="{() => {
-			selectedImage = null;
-		}}"
-	/>
-{/if}
+
+<Modal
+	bind:showModal="{selectedImage}"
+	data="{selectedImage}"
+	on:closeModal="{() => {
+		selectedImage = null;
+	}}"
+/>

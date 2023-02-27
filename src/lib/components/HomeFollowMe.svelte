@@ -6,10 +6,9 @@
 
 	export let data;
 	const { image, instagram_url } = data;
-
 </script>
 
-<div class="wrapper text-center pt-[105px] pb-[75px]">
+<div id="hp_ig_feed_wrap" class="wrapper text-center pt-[105px] pb-[75px]">
 	<div
 		class="title-container md:flex-row flex flex-col  items-center md:space-x-10 justify-center"
 		use:getAnim="{'zoom-in'}"
@@ -21,17 +20,17 @@
 			<div class="font-barlow title-container items-start flex flex-col">
 				<MiniLogo />
 				<h2
-					class="mt-4 text-header uppercase font-medium text-black leading-[56px] text-[90px] relative text-center"
+					class="mt-3 text-header uppercase font-medium text-black leading-[56px] text-[90px] relative text-center tracking-tighter"
 				>
 					follow
 				</h2>
-				<div class="span-container w-full mt-4">
-					<span class="span-text text-[#41A7C3] text-[50px] font-[400] uppercase">me </span>
+				<div class="span-container w-full lg:mt-4 mt-2">
+					<span class="span-text text-[#41A7C3] text-[30px] font-[500] uppercase">me</span>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="button-container mt-14 md:mt-32" 	use:getAnim="{'fade-in-up'}">
+	<div class="button-container mt-14 md:mt-32" use:getAnim="{'fade-in-up'}">
 		<a
 			class="font-roboto border transition-[background-color] border-[#b3b3b3] py-4 px-8  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block text-[#1b1b1b] uppercase hover:text-black text-xs tracking-widest"
 			target="{'_blank'}"

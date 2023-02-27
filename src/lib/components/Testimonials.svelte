@@ -8,7 +8,6 @@
 	import _ from 'lodash-es';
 	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
-
 	const { bg_photo, scott_photo, reviews } = data;
 </script>
 
@@ -22,20 +21,23 @@
 			class="m-auto relative z-10 max-w-[1200px] w-full flex items-center
         lg:flex-row flex-col-reverse lg:p-0"
 		>
-			<div class="max-w-[450px] lg:max-w-[520px] w-full">
-				<div class="image-wrapper relative w-full">
-					<div class="image-container m-auto lg:m-0 aspect-w-9 aspect-h-16">
-						<img
-							use:getAnim="{'fade-in'}"
-							src="{access_strapi_image(scott_photo)}"
-							alt=""
-							class="w-full z-[3] object-contain lazy h-full"
-						/>
-					</div>
+			<div
+				class="w-full bg-black pt-9 lg:p-0 lg:bg-default lg:w-[50%] lg:pr-10 flex justify-center lg:justify-end image-wrapper relative"
+			>
+				<div class="lg:max-w-[500px] max-w-[300px] relative z-10 lg:pt-5 lg:pr-5">
+					<img
+						width="417"
+						height="853"
+						use:getAnim="{'fade-in'}"
+						src="{access_strapi_image(scott_photo)}"
+						alt=""
+					/>
 				</div>
+
+				
 			</div>
 
-			<div class="right-container">
+			<div class="right-container lg:p-0 py-6">
 				<div class="font-barlow title-container items-center lg:pl-6" use:getAnim="{'zoom-in'}">
 					<div class="align-bottom text-[0] text-center lg:text-left"><MiniLogo /></div>
 					<h2
@@ -55,7 +57,7 @@
 		>
 			<div
 				use:getAnim="{'fade-in-up'}"
-				class="testi-content bg-[#1b1b1b] inline-block w-full max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
+				class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
 			>
 				{#if browser}
 					<SvCarousel autoplay="{true}" dots="{false}">
@@ -81,9 +83,6 @@
 </div>
 
 <style lang="postcss">
-	.title-wrapper {
-		position: relative;
-	}
 	.testi-content {
 		position: relative;
 		&::after {
@@ -107,7 +106,6 @@
 			position: absolute;
 			content: '';
 			width: 100vw;
-
 			top: 0px;
 			bottom: 0;
 			left: 0;
@@ -118,9 +116,7 @@
 		.bg-banner {
 			content: '';
 			position: absolute;
-
 			width: 100vw;
-
 			top: 200px;
 			bottom: 0;
 			left: 0;
@@ -130,7 +126,6 @@
 	.text-header {
 		&::after {
 			content: '';
-
 			position: absolute;
 			height: 4px;
 			content: '';
@@ -143,20 +138,18 @@
 		}
 	}
 	.image-wrapper {
-		padding-top: 40px;
 		&::after {
-			background-color: black;
 			position: absolute;
 			z-index: 2;
-
 			width: 100%;
 			content: '';
+			background: black;
 			inset: 0;
-
+			display: none;
+			z-index: 1;
 			@screen lg {
 				bottom: 0;
 				right: 0;
-
 				width: 100vw;
 				left: auto;
 				display: block;

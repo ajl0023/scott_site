@@ -3,13 +3,17 @@
 
 	const dispatch = createEventDispatcher();
 	export let data;
+	export let showModal = false;
+	let modal;
+
 	function closeModal() {
 		dispatch('closeModal');
 	}
 </script>
 
 <div
-	class="modal inset-0"
+	class="modal inset-0 {showModal ? 'flex' : 'hidden'}"
+	bind:this="{modal}"
 	on:keydown
 	on:click="{(e) => {
 		if (e.target.classList.contains('modal')) {
@@ -32,7 +36,7 @@
 
 		background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
 		z-index: 9999; /* Set a high z-index */
-		display: flex;
+
 		justify-content: center;
 
 		align-items: center;

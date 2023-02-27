@@ -16,12 +16,14 @@
 	export let data;
 
 	import { onMount, tick } from 'svelte';
+	import SideNav from '../lib/components/SideNav.svelte';
+	import Mail from '../lib/images/icons/mail.svelte';
+	import Phone from '../lib/images/icons/phone.svelte';
 
 	onMount(() => {
 		createLazyStore.init();
 	});
 	const handleLazy = async () => {
-
 		if ($createLazyStore.lazy) {
 			await tick();
 			createLazyStore.update_lazy();
@@ -30,14 +32,30 @@
 	$: {
 		$page, handleLazy();
 	}
+
 </script>
 
 <div class="wrapper">
-	<Navbar nav_items="{data['layout_data']['navbar']}" />
-	<div class="main-container">
-		<slot />
+	<div
+		class="z-20 mobile-top-bar flex bg-white items-center p-3 justify-between lg:hidden fixed left-0 right-0 top-0"
+	>
+		<SideNav menu_items="{data['layout_data']['navbar']}" />
 
-		<Footer data="{data['layout_data']['footer']}" />
+		<div class="mobile-icon-container w-4 cursor-pointer">
+			<Phone />
+		</div>
+		<div class="mobile-icon-container w-4 cursor-pointer">
+			<Mail />
+		</div>
+	</div>
+
+	<div class="content-wrapper lg:mt-[0px] mt-[40px] relative">
+		<Navbar nav_items="{data['layout_data']['navbar']}" />
+		<div class="main-container  overflow-hidden">
+			<slot />
+
+			<Footer data="{data['layout_data']['footer']}" />
+		</div>
 	</div>
 </div>
 

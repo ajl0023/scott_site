@@ -93,9 +93,9 @@
 	};
 </script>
 
-<div class="wrapper max-w-[900px] w-full">
+<div class="wrapper w-full">
 	<div
-		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between"
+		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between flex-row items-start md:text-md text-sm w-full"
 	>
 		<Address location_info="{location_info}" />
 		<span>${parseInt(price).toLocaleString()}</span>
@@ -115,7 +115,7 @@
 
 	<!--left arrow svg -->
 
-	<div class="carousel-wrapperw-full">
+	<div class="carousel-wrapper w-full">
 		{#if browser}
 			<SV_Carousel let:showPrevPage let:showNextPage>
 				<div
@@ -197,7 +197,7 @@
 					{feature_fields[category].label}
 				</h2>
 				<ul
-					class="font-roboto font-normal text-sm text-gray-600 tracking-wider grid grid-cols-2 gap-x-[30px]"
+					class="font-roboto font-normal text-sm text-gray-600 tracking-wider grid md:grid-cols-2 gap-x-[30px]"
 				>
 					{#each Object.entries(feature_fields[category].data) as [label, val]}
 						{#if val && label !== 'id' && label !== 'address'}

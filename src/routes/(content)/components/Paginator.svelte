@@ -15,5 +15,12 @@
 	class:pointer-events-none="{inactive}"
 	class:opacity-20="{inactive}"
 >
-	<button on:click="{fetchData}" class="block w-5 h-6 text-xs font-roboto">{label}</button>
+	<button
+		on:click="{() => {
+			window.scrollTo(0, 0);
+
+			fetchData();
+		}}"
+		class="block w-9 h-9 text-sm font-roboto">{label}</button
+	>
 </div>

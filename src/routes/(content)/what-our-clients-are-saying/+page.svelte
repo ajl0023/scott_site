@@ -4,7 +4,7 @@
 	import { getJson } from '../../../lib/utils/utils';
 	import PaginationBar from '../components/PaginationBar.svelte';
 	import Paginator from '../components/Paginator.svelte';
-	import Form from './components/Form.svelte';
+	import Form from './components/ReviewForm.svelte';
 	import Stars from './components/Stars.svelte';
 
 	export let data;
@@ -41,7 +41,7 @@
 						Estates</span
 					>
 				</div>
-				<div class="text-content prose lg:prose-lg">
+				<div class="text-content prose md:prose-xl">
 					<blockquote class="review-text-container border-l-2 border-l-[#e5e7eb] ml-5">
 						<p class="text-[14px] font-light p-5">{content}</p>
 					</blockquote>

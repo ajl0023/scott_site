@@ -9,9 +9,11 @@
 </script>
 
 <div class="wrapper">
-	<div class="content-container flex lg:max-w-[1170px] w-full m-auto p-5">
-		<div class="m-auto flex w-full lg:flex-row flex-col">
-			<div class="page-container w-[100%] mb-10 lg:mb-0">
+	<div class="content-container lg:max-w-[1300px] w-full m-auto p-5 ">
+		<div class="m-auto flex w-full lg:flex-row flex-col lg:justify-between">
+			<div
+				class="page-container w-full {mobile_bar_hidden ? 'w-[100%]' : 'lg:w-[75%]'} mb-10 lg:mb-0"
+			>
 				<div class="header-container">
 					<span> Home » Sellers » Decide to Sell </span>
 					<h1
@@ -27,9 +29,9 @@
 			</div>
 			<div
 				class:hidden="{mobile_bar_hidden}"
-				class="menu-bar-wrapper inline-block text-center lg:text-left"
+				class="menu-bar-wrapper lg:text-left max-w-xs w-full m-auto lg:m-0"
 			>
-				<MenuBar layout_data="{data}" />
+				<MenuBar data="{data}" />
 			</div>
 		</div>
 	</div>

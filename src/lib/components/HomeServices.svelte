@@ -5,7 +5,7 @@
 
 	export let data;
 
-	const services = data;
+	const services = data.data;
 </script>
 
 <div class="wrapper my-32">
@@ -15,7 +15,7 @@
 	>
 		{#each services as { attributes: { label, image } }}
 			<div class="grid-item">
-				<div class="grid-content">
+				<div class="grid-content  p-5">
 					<div class="image-container">
 						<img data-src="{get_strapi_image_format(image, 'medium')}" alt="" class="lazy" />
 					</div>

@@ -52,8 +52,8 @@
 	};
 </script>
 
-<div class="antialiased font-sans flex-[50%] md:flex-grow-0">
-	<div class="flex w-full">
+<div class="antialiased font-sans inline-block max-w-[600px]">
+	<div class="w-full inline-block">
 		<div class="w-full sm:w-full lg:w-full py-2 px-2">
 			<a href="/homes-for-sale-details/{slug_url}/{property_data.id}" class="block">
 				<div class="bg-white shadow-xl">

@@ -12,7 +12,7 @@
 	<div class="disclaimer-wrapper">
 		<ContactBanner
 			data="{{
-				contact: data['contact_info'],
+				contact: data['profile_informations'].data,
 				market_areas: data['market_areas']
 			}}"
 		/>

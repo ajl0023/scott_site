@@ -24,12 +24,7 @@
 			<Hamburger />
 		</div>
 	</label>
-	<input
-		bind:this="{input}"
-		id="side-nav"
-		type="checkbox"
-		class="peer/test opacity-0 absolute -z-10"
-	/>
+	<input bind:this="{input}" id="side-nav" type="checkbox" class="opacity-0 absolute -z-10" />
 	<div class="side-nav-container">
 		<ul>
 			{#each menu_items as item, i}
@@ -37,6 +32,9 @@
 					data="{item}"
 					handleExpand="{handleExpand}"
 					index="{i}"
+					on:close-nav="{() => {
+						input.checked = false;
+					}}"
 					expanded="{expanded}"
 				/>
 			{/each}
@@ -45,6 +43,9 @@
 	<div
 		class="side-menu-mask"
 		on:click="{() => {
+			input.checked = false;
+		}}"
+		on:keydown="{() => {
 			input.checked = false;
 		}}"
 	></div>
