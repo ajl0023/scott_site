@@ -4,7 +4,9 @@
 	export let is_visible;
 
 	let dropdown;
+	let dropdown_parent;
 	let is_hovered = false;
+
 	const dropDownAnim = (isOver) => {
 		gsap.to(dropdown, {
 			height: isOver ? 'auto' : 0,
@@ -32,23 +34,28 @@
 		>
 	</li>
 
-	<div class="padding-drop-container" class:hidden="{nav_item['nav_options'].length <= 0}">
-		<div bind:this="{dropdown}" class="drop-down-container h-0 z-10">
+	<div
+		bind:this="{dropdown_parent}"
+		class="padding-drop-container"
+		class:hidden="{nav_item['nav_options'].length <= 0}"
+	>
+		<div bind:this="{dropdown}" class="drop-down-container z-10 h-0">
 			<ul class="list-drop-down-container ">
 				{#each nav_item['nav_options'] as sub_nav}
 					<li
 						on:click="{() => {
 							dropDownAnim(false);
 							is_hovered = false;
+							dropdown_parent.classList.add('pointer-events-none');
 						}}"
 						on:keydown="{() => {
 							dropDownAnim(false);
 							is_hovered = false;
 						}}"
-						class="list-item-sub cursor-pointer py-2 px-2  hover:bg-[#41a7c3] text-center font-semibold"
+						class="list-item-sub cursor-pointer hover:bg-[#41a7c3] text-center font-semibold"
 					>
 						<a
-							class="list-link-sub block whitespace-normal text-white"
+							class="list-link-sub block whitespace-normal text-white select-none  py-2 px-2"
 							target="{sub_nav['is_external_link'] ? '_blank' : ''}"
 							rel="{sub_nav['is_external_link'] ? 'noreferrer' : ''}"
 							href="{sub_nav['is_external_link'] ? sub_nav.link : `/${sub_nav.link}`}"
