@@ -1,33 +1,59 @@
 <script>
 	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 
-	export let images;
-	const handleAnimationEnd = () => {
-		const copy = [...images];
-		let first = copy.shift();
-		copy.push(first);
+	export let items = [];
+	let temp = [...items].map((item, i) => {
+		return {
+			...item,
+			index: i
+		};
+	});
+	const handleAnimationEnd = (i) => {
+		const copy = [...temp];
 
-		images = copy;
+		const first = copy.shift();
+		copy.push(first);
+		temp = copy;
 	};
-	const handleLoad = () => {
-		// all the images dont have to be loaded before the animation starts
+	const handleLoad = (i) => {
+		// temp[0].ele.currentTime = 0;
+		// temp[i].ele.play();
+		// all the temp dont have to be loaded before the animation starts
 	};
 </script>
 
-<div class="wrapper">
-	<div id="stage" class="hero slider-container">
-		{#each images as image, i (image.id)}
+<div class="wrapper h-[100vh]">
+	<div id="stage" class="hero slider-container h-full">
+		{#each temp as { image, id, type, video_url, ele, is_playing, index }, i (id)}
 			<div
-				id="{i}"
-				class="image-container"
-				on:animationend="{() => {
-					handleAnimationEnd();
+				id="{index}"
+				class="image-container {type === 'video' ? 'long-anim' : 'short-anim'}"
+				on:animationend="{(e) => {
+					handleAnimationEnd(i);
 				}}"
 				on:animationstart="{() => {
+					is_playing = true;
 					handleLoad(i);
 				}}"
 			>
-				<img class="slide lazy object-cover w-full" alt="'" src="{access_strapi_image(image)}" />
+				{#if type === 'image'}
+					<img
+						bind:this="{ele}"
+						class="slide lazy object-cover w-full h-full object-center"
+						alt="'"
+						src="{access_strapi_image(image)}"
+					/>{:else}
+					<video
+						bind:this="{ele}"
+						class="slide object-cover w-full h-full object-center"
+						alt="'"
+						src="{video_url}"
+						playsinline
+						autoPlay
+						muted
+					>
+					</video>
+				{/if}
 			</div>
 		{/each}
 	</div>
@@ -38,8 +64,6 @@
 		width: 100%;
 		position: relative;
 		z-index: 1;
-		height: 0;
-		padding-bottom: 56.25%;
 	}
 	.wrapper {
 		position: relative;
@@ -68,16 +92,24 @@
 		}
 	}
 
-	#stage .image-container:nth-of-type(1) {
+	.image-container.long-anim:nth-child(1) {
+		animation-name: fader;
+		animation-delay: 0s;
+
+		animation-duration: 3s;
+		z-index: 20;
+	}
+	.image-container.short-anim:nth-child(1) {
 		animation-name: fader;
 		animation-delay: 0s;
 		animation-duration: 3s;
 		z-index: 20;
 	}
-	#stage .image-container:nth-of-type(2) {
+
+	#stage .image-container:nth-child(1) {
 		z-index: 10;
 	}
-	#stage .image-container:nth-of-type(n + 3) {
+	#stage .image-container:nth-child(n + 3) {
 		display: none;
 	}
 

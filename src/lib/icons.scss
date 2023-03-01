@@ -29,3 +29,14 @@
 		content: '\b0048';
 	}
 }
+
+.icon-playing {
+	&::before {
+		content: '\b0086';
+	}
+}
+.icon-paused {
+	&::before {
+		content: '\b0173';
+	}
+}

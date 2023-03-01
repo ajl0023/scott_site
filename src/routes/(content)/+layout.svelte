@@ -5,7 +5,14 @@
 	import _ from 'lodash-es';
 	export let data;
 
-	$: mobile_bar_hidden = $page.url.pathname === '/neighborhood-guides';
+	let mobile_bar_hidden = $page.url.pathname === '/neighborhood-guides';
+	let page_name;
+	$: {
+		let url = $page.url.pathname;
+		let slug = url.split('/').filter(Boolean).pop();
+		let page_title = slug.replace(/-/g, ' ');
+		page_name = _.startCase(page_title);
+	}
 </script>
 
 <div class="wrapper">
@@ -15,11 +22,11 @@
 				class="page-container w-full {mobile_bar_hidden ? 'w-[100%]' : 'lg:w-[75%]'} mb-10 lg:mb-0"
 			>
 				<div class="header-container">
-					<span> Home » Sellers » Decide to Sell </span>
+					<!-- <span> Home » Sellers » Decide to Sell </span> -->
 					<h1
 						class="text-[#41A7C3] text-[40px] md:text-[62px] font-barlow leading-tight mt-3 text-center lg:text-left"
 					>
-						Placeholder
+						{page_name}
 						<!-- {page_name} -->
 					</h1>
 				</div>

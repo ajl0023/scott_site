@@ -1,3 +1,8 @@
 import { dev } from '$app/environment';
-export const url_new = dev ? VITE_DEV_SERVER_URL : VITE_PROD_SERVER_URL;
-export const image_url = url_new;
+
+export const image_url = dev
+	? import.meta.env.VITE_DEV_SERVER_URL
+	: import.meta.env.VITE_PROD_SERVER_URL;
+export const url_new = dev
+	? import.meta.env.VITE_DEV_SERVER_URL
+	: import.meta.env.VITE_PROD_SERVER_URL;

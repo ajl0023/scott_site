@@ -68,9 +68,9 @@
 </div>
 
 <nav
-	class="navbar whitespace-nowrap text-xs lg:flex justify-center bg-black {is_home
-		? 'absolute'
-		: 'relative'}"
+	class="navbar whitespace-nowrap text-xs lg:flex justify-center {is_home
+		? 'transparent'
+		: 'bg-black'} {is_home ? 'absolute' : 'relative'}"
 >
 	<div
 		class="lg:justify-between navbar-container px-4 flex justify-center w-full lg:items-center lg:my-20 py-4 lg:py-0"

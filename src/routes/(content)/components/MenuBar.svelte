@@ -53,8 +53,8 @@
 				href="https://scottjames.elliman.com/sales/usa"
 				target="_blank"
 				rel="noreferrer"
-				class="text-white bg-[#303030] px-8 py-4 block transition-all hover:bg-[#41A7C3]"
-				>DREAM HOME SEARCH</a
+				class="text-white bg-[#303030] px-8 py-4 block transition-all hover:bg-[#41A7C3] uppercase"
+				>dream home search</a
 			>
 		</div>
 		<div class="services-wrapper w-full mt-9">

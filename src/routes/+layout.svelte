@@ -4,7 +4,7 @@
 	import '../app.css';
 	import '$lib/global.scss';
 	import '$lib/styles.css';
-	import '$lib/ckeditor.css';
+
 	import '$lib/animations.scss';
 
 	import '$lib/fonts/fonts.css';
@@ -42,15 +42,12 @@
 	onMount(() => {
 		audio.volume = 0.018;
 		audio.autoplay = true;
+		audio.src = url_new + song_file;
 	});
+
 </script>
 
-<audio
-	bind:this="{audio}"
-	bind:paused="{is_paused}"
-	bind:played="{played}"
-	autoplay
-	src="{url_new + song_file}"></audio>
+<audio bind:this="{audio}" bind:paused="{is_paused}" bind:played="{played}" autoplay></audio>
 
 <ContactBar
 	on:audio_toggle="{() => {
@@ -60,7 +57,7 @@
 			audio.pause();
 		}
 	}}"
-	is_paused="{is_paused || (played && played.length === 0)}"
+	is_paused="{(is_paused && is_paused !== 'undefined') || (played && played.length === 0)}"
 	items="{data['layout_data']['contact_bar_items']}"
 />
 <div class="wrapper">

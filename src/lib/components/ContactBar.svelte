@@ -8,7 +8,7 @@
 	import Phone from '$lib/images/icons/phone.svelte';
 	import { createEventDispatcher } from 'svelte';
 	export let items;
-	export let is_paused;
+	export let is_paused = false;
 	const social_images = {
 		instagram: Instagram,
 		facebook: Facebook,
@@ -46,14 +46,17 @@
 		on:click="{() => {
 			dispatch('audio_toggle');
 		}}"
+		on:keydown="{() => {
+			dispatch('audio_toggle');
+		}}"
 		class="mt-3 icon-wrapper p-3 rounded-full cursor-pointer group hover:bg-[#3f88d5] transition-all items-center justify-center flex {is_paused
 			? 'bg-[#cbcbcb]'
 			: 'bg-[#3f88d5]'}"
 	>
 		<div
 			class="icon-container w-[20px] h-[20px] block group-hover:text-white transition-all {is_paused
-				? "after:content-['\\b0173']  text-black"
-				: "after:content-['\\b0086'] text-white"} font-agentImage_icon -translate-y-[1px]"
+				? 'icon-paused text-black'
+				: 'icon-playing text-white'} font-agentImage_icon -translate-y-[1px]"
 		></div>
 	</div>
 </div>
