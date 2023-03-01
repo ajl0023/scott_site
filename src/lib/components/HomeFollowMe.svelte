@@ -6,6 +6,12 @@
 
 	export let data;
 	const { image, instagram_url } = data;
+	const {
+		data: {
+			attributes: { contact_info }
+		}
+	} = instagram_url;
+
 </script>
 
 <div id="hp_ig_feed_wrap" class="wrapper text-center pt-[105px] pb-[75px]">
@@ -35,7 +41,7 @@
 			class="font-roboto border transition-[background-color] border-[#b3b3b3] py-4 px-8  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block text-[#1b1b1b] uppercase hover:text-black text-xs tracking-widest"
 			target="{'_blank'}"
 			rel="{'noreferrer'}"
-			href="{'/' + instagram_url}">my instagram +</a
+			href="{contact_info}">my instagram +</a
 		>
 	</div>
 </div>

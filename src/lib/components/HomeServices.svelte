@@ -13,17 +13,23 @@
 		class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3"
 		use:getAnim="{'fade-in-up'}"
 	>
-		{#each services as { attributes: { label, image } }}
+		{#each services as { attributes: { label, image, link, is_external_link } }}
 			<div class="grid-item">
-				<div class="grid-content  p-5">
-					<div class="image-container">
-						<img data-src="{get_strapi_image_format(image, 'medium')}" alt="" class="lazy" />
+				<a
+					target="{is_external_link ? '_blank' : ''}"
+					rel="{is_external_link ? 'noreferrer' : ''}"
+					href="{is_external_link ? link : `/${link}`}"
+				>
+					<div class="grid-content  p-5">
+						<div class="image-container">
+							<img data-src="{get_strapi_image_format(image, 'medium')}" alt="" class="lazy" />
+						</div>
+						<div class="text-container">
+							<span>{label}</span>
+						</div>
 					</div>
-					<div class="text-container">
-						<span>{label}</span>
-					</div>
-				</div>
-				<div class="hover-line"></div>
+					<div class="hover-line"></div>
+				</a>
 			</div>
 		{/each}
 	</div>

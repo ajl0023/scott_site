@@ -1,17 +1,22 @@
 <script>
-	import SV_Carousel from 'svelte-carousel';
+	// import SV_Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 	import _ from 'lodash-es';
 	import { access_strapi_image } from '$lib/utils/utils';
+	import { onMount } from 'svelte';
 	export let data;
 
 	const images = _.get(data, 'images.data');
+	let Carousel = null;
+	onMount(async () => {
+		Carousel = (await import('svelte-carousel')).default;
+	});
 </script>
 
 <div class="wrapper">
-	{#if browser}
+	{#if browser && Carousel}
 		<div class="carousel-container max-w-[700px] w-full m-auto">
-			<SV_Carousel>
+			<Carousel>
 				{#each images as img}
 					<div class="image-container w-full">
 						<img
@@ -22,7 +27,7 @@
 						/>
 					</div>
 				{/each}
-			</SV_Carousel>
+			</Carousel>
 		</div>
 	{/if}
 </div>

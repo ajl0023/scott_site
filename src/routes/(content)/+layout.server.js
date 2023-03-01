@@ -2,7 +2,7 @@ import { url_new } from '../../lib/dev';
 import { getJson, slugify } from '../../lib/utils/utils';
 import _ from 'lodash-es';
 import { error } from '@sveltejs/kit';
-export const prerender = false;
+export const prerender = true;
 export async function load({ fetch, url, params }) {
 	let path = url.pathname;
 	const slug = slugify(path);

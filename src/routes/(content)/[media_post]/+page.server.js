@@ -1,7 +1,7 @@
 import _ from 'lodash-es';
 import { url_new } from '../../../lib/dev';
 import { getJson } from '../../../lib/utils/utils';
-
+export const prerender = false;
 export async function load({ fetch, url, params }) {
 	let slug = params.media_post;
 

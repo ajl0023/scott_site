@@ -3,8 +3,6 @@
 	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 	export let { background_image, logo, text, link } = data;
-
-
 </script>
 
 <div
@@ -26,7 +24,7 @@
 				class="font-roboto border transition-[background-color] border-[#b3b3b3] py-4 px-8  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block text-[white] uppercase hover:text-black text-xs tracking-widest"
 				target="{'_blank'}"
 				rel="{'noreferrer'}"
-				href="{'/' + link}">visit site +</a
+				href="{link}">visit site +</a
 			>
 		</div>
 	</div>

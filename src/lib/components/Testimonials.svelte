@@ -4,11 +4,17 @@
 	import { browser } from '$app/environment';
 	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
-	import SvCarousel from 'svelte-carousel';
+
 	import _ from 'lodash-es';
 	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
 	const { bg_photo, scott_photo, reviews } = data;
+	let Carousel;
+	onMount(async () => {
+		Carousel = (await import('svelte-carousel')).default;
+
+	
+	});
 </script>
 
 <div class="wrapper overflow-hidden ">
@@ -33,8 +39,6 @@
 						alt=""
 					/>
 				</div>
-
-				
 			</div>
 
 			<div class="right-container lg:p-0 py-6">
@@ -55,12 +59,12 @@
 		<div
 			class="testi-container text-white text-center font-roboto lg:-mt-48 mt-0 relative z-10 lg:ml-5 "
 		>
-			<div
-				use:getAnim="{'fade-in-up'}"
-				class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
-			>
-				{#if browser}
-					<SvCarousel autoplay="{true}" dots="{false}">
+			{#if browser && Carousel}
+				<div
+					use:getAnim="{'fade-in-up'}"
+					class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
+				>
+					<Carousel autoplay="{true}" dots="{false}">
 						{#each reviews.data as { attributes: { content, name } }}
 							<div class="review-container">
 								<p class="text-sm lg:text-base">
@@ -69,15 +73,16 @@
 								<h5 class="mt-5 italics">- {_.startCase(name)}</h5>
 							</div>
 						{/each}
-					</SvCarousel>
-				{/if}
-				<div class="button-container text-white mt-5 lg:mt-20 uppercase">
-					<a
-						class="font-mono border transition-[background-color] border-[#b3b3b3] py-5 px-10  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block"
-						href="/what-our-clients-are-saying">read more +</a
-					>
+					</Carousel>
+
+					<div class="button-container text-white mt-5 lg:mt-20 uppercase">
+						<a
+							class="font-mono border transition-[background-color] border-[#b3b3b3] py-5 px-10  hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block"
+							href="/what-our-clients-are-saying">read more +</a
+						>
+					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</div>
 </div>

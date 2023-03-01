@@ -16,6 +16,15 @@
 </script>
 
 <div
+	on:click="{() => {
+		dropDownAnim(false);
+		is_hovered = false;
+		dropdown_parent.classList.add('pointer-events-none');
+	}}"
+	on:keydown="{() => {
+		dropDownAnim(false);
+		is_hovered = false;
+	}}"
 	on:mouseleave="{(e) => {
 		dropDownAnim(false);
 		is_hovered = false;
@@ -23,15 +32,17 @@
 	class="mr-4 menu-item-container"
 >
 	<li class="list-item">
-		<a
-			on:mouseenter="{() => {
-				is_hovered = true;
-				dropDownAnim(true);
-			}}"
-			class:main-nav="{!is_visible}"
-			class="list-link {is_visible ? 'text-xs' : 'lg:text-lg md:text-sm'}  group"
-			href="/{nav_item['link']}">{nav_item['label']}</a
-		>
+		{#if nav_item['link']}
+			<a
+				on:mouseenter="{() => {
+					is_hovered = true;
+					dropDownAnim(true);
+				}}"
+				class:main-nav="{!is_visible}"
+				class="list-link {is_visible ? 'text-xs' : 'lg:text-md md:text-sm'}  group"
+				href="/{nav_item['link']}">{nav_item['label']}</a
+			>
+		{/if}
 	</li>
 
 	<div
@@ -70,14 +81,6 @@
 </div>
 
 <style lang="postcss">
-	@media (min-width: theme(screens.md)) and (max-width: 1270px) {
-		.list-item {
-			.list-link.main-nav {
-				@apply text-[11px];
-			}
-		}
-	}
-
 	.padding-drop-container {
 		pointer-events: none;
 		padding-top: 10px;

@@ -56,9 +56,9 @@
 		: '-translate-y-full'}"
 >
 	<div class="nav-content w-full p-3 h-full flex items-center justify-between">
-		<div class="logo-container w-auto h-full inline-block">
+		<a href="/" class="logo-container w-auto h-full inline-block">
 			<img height="127" width="329" class="max-h-full w-auto h-[inherit]" src="{sj_logo}" alt="" />
-		</div>
+		</a>
 		<div class="flex uppercase">
 			{#each nav_items as nav_item, i}
 				<NavbarButton is_visible="{true}" nav_item="{nav_item}" />

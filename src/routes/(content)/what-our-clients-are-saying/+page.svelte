@@ -27,6 +27,7 @@
 		pagination = res_data['data']['meta']['pagination'];
 		// has_more = pagination.page < pagination.pageCount;
 	};
+	const handleSubmit = () => {};
 </script>
 
 <div class="wrapper w-full font-roboto">

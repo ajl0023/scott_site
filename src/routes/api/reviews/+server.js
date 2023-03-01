@@ -2,9 +2,9 @@ import { json } from '@sveltejs/kit';
 import { url_new } from '../../../lib/dev';
 import { getJson } from '../../../lib/utils/utils';
 
-export async function GET(event) {
+export async function GET({ fetch, url }) {
 	// log all headers
-	const page = event.url.searchParams.get('page');
+	const page = url.searchParams.get('page');
 
 	const page_data = await getJson(
 		fetch(

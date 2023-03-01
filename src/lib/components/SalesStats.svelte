@@ -3,31 +3,13 @@
 	import Counter from './Counter.svelte';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import MiniLogo from './MiniLogo.svelte';
+	import { get_strapi_image_format } from '../utils/utils';
 
 	export let data;
-	let bg_photo = image_url + data['background_photo']['data']['attributes']['url'];
-	const d_data = [
-		{ start_char: '$', label: 'total sales approx', val: 134, end_char: '+M' },
-		{
-			label: 'total cities',
-			val: 25
-		},
-		{
-			label: 'represented buyers',
-			val: 35,
-			end_char: '%'
-		},
-		{
-			label: 'represented sellers',
-			val: 70,
-			end_char: '%'
-		},
-		{
-			label: 'transactions',
-			val: 46
-		}
-	];
+	let bg_photo = get_strapi_image_format(data['background_photo'], 'large');
+
 	let inter_ele;
+	const stats = data['stats'];
 </script>
 
 <div
@@ -52,7 +34,7 @@
 				bind:this="{inter_ele}"
 				class="counter-container flex m-auto justify-center items-center md:items-stretch flex-col md:flex-row md:divide-x md:divide-y-0 divide-y divide-[rgba(255,255,255,0.30)] px-20 md:px-2 md:mt-4"
 			>
-				{#each d_data as data}
+				{#each stats as data}
 					<div class="counter-container w-full md:w-auto inline-block">
 						<Counter data="{data}" intersecting="{intersecting}" />
 					</div>

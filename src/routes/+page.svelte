@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-	import { get_current_component } from 'svelte/internal';
 	import FeaturedListings from '../lib/components/FeaturedListings.svelte';
 	import FutureProjects from '../lib/components/FutureProjects.svelte';
 	import GlobalListings from '../lib/components/GlobalListings.svelte';

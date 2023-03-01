@@ -59,7 +59,7 @@
 				<div
 					class="items-center lg:items-start button-container flex-col flex md:flex-row lg:justify-start justify-center w-full md:space-x-5 space-x-0 space-y-4 md:space-y-0 mb-3"
 				>
-					<a href="/about-us" class="w-[200px] m-0">read more +</a>
+					<a href="/scott-james" class="w-[200px] m-0">read more +</a>
 					<a href="/awards-won" class="w-[200px]">awards won +</a>
 				</div>
 			</div>

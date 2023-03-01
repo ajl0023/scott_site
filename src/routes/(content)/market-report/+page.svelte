@@ -5,87 +5,92 @@
 	import Modal from '$lib/components/Modal.svelte';
 	import { access_strapi_image } from '../../../lib/utils/utils';
 	export let data;
-	const fields = [
+	const forms = [
 		{
-			name: 'name',
-			label: 'Name',
-			type: 'text',
-
-			placeholder: 'Full Name',
-			required: true,
-			validation: yup.string().required(),
-			sub_fields: []
-		},
-		{
-			name: 'email',
-			label: 'Email',
-			type: 'email',
-			placeholder: '[...]@email.com',
-
-			required: true,
-			validation: yup.string().email().required(),
-			sub_fields: []
-		},
-		{
-			name: 'phone',
-			label: 'Phone',
-			type: 'tel',
-
-			placeholder: '123-456-7890',
-			required: true,
-			validation: yup.string().required(),
-			sub_fields: []
-		},
-		{
-			name: 'address',
-			label: 'Address',
-			type: 'text',
-			placeholder: '123 Main St',
-
-			required: false,
-			validation: yup.string(),
-			sub_fields: []
-		},
-		{
-			sub_fields: [
+			header: 'Contact Information',
+			fields: [
 				{
-					name: 'city',
-					label: 'City',
+					name: 'name',
+					label: 'Name',
 					type: 'text',
 
-					validation: yup.string(),
-					class: 'md:w-1/3',
-					required: false
+					placeholder: 'Full Name',
+					required: true,
+					validation: yup.string().required(),
+					sub_fields: []
 				},
 				{
-					name: 'state',
-					label: 'State',
-					type: 'text',
+					name: 'email',
+					label: 'Email',
+					type: 'email',
+					placeholder: '[...]@email.com',
 
-					validation: yup.string(),
-					class: 'md:w-1/3',
-					required: false
+					required: true,
+					validation: yup.string().email().required(),
+					sub_fields: []
 				},
 				{
-					name: 'zip',
-					label: 'Zip',
+					name: 'phone',
+					label: 'Phone',
+					type: 'tel',
+
+					placeholder: '123-456-7890',
+					required: true,
+					validation: yup.string().required(),
+					sub_fields: []
+				},
+				{
+					name: 'address',
+					label: 'Address',
+					type: 'text',
+					placeholder: '123 Main St',
+
+					required: false,
+					validation: yup.string(),
+					sub_fields: []
+				},
+				{
+					sub_fields: [
+						{
+							name: 'city',
+							label: 'City',
+							type: 'text',
+
+							validation: yup.string(),
+							class: 'md:w-1/3',
+							required: false
+						},
+						{
+							name: 'state',
+							label: 'State',
+							type: 'text',
+
+							validation: yup.string(),
+							class: 'md:w-1/3',
+							required: false
+						},
+						{
+							name: 'zip',
+							label: 'Zip',
+							type: 'text',
+
+							validation: yup.string(),
+							class: 'md:w-1/3',
+							required: false
+						}
+					]
+				},
+				{
+					name: 'desired_area',
+					label: 'Desired Area',
 					type: 'text',
 
 					validation: yup.string(),
-					class: 'md:w-1/3',
-					required: false
+					sub_fields: [],
+					required: false,
+					placeholder: 'Desired Area, City, Zip, etc.'
 				}
 			]
-		},
-		{
-			name: 'desired_area',
-			label: 'Desired Area',
-			type: 'text',
-
-			validation: yup.string(),
-			sub_fields: [],
-			required: false,
-			placeholder: 'Desired Area, City, Zip, etc.'
 		}
 	];
 	const { page_data } = data;
@@ -95,16 +100,13 @@
 </script>
 
 <div class="wrapper font-roboto">
-	<span class="mb-4 block">
+	<span class="mb-10 block">
 		{intro_text}
 	</span>
-	<div class="mt-16">
-		<h4 class="uppercase text-2xl mb-3 font-semibold text-[#666666]">contact information</h4>
-		<span> Required fields are marked with an asterisk (*) </span>
-	</div>
+
 	<div class="mt-5 flex flex-wrap w-full justify-center items-center">
 		<div class="form-container max-w-xl lg:max-w-[90%] basis-1/2 w-full flex-grow">
-			<Form fields="{fields}" form_name="market_report" />
+			<Form forms="{forms}" form_name="market_report" />
 		</div>
 
 		<div
@@ -128,6 +130,7 @@
 	</div>
 
 	<Modal
+		form_name="market_report"
 		bind:showModal="{selectedImage}"
 		data="{selectedImage}"
 		on:closeModal="{() => {

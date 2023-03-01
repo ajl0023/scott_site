@@ -1,13 +1,16 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import VideoEmbed from './VideoEmbed.svelte';
+	import { CloseButton } from 'flowbite-svelte';
 
 	const dispatch = createEventDispatcher();
 	export let data;
 	export let showModal = false;
+	export let type = 'image';
 	let modal;
 
 	function closeModal() {
-		dispatch('closeModal');
+		showModal = false;
 	}
 </script>
 
@@ -21,9 +24,15 @@
 		}
 	}}"
 >
-	<div class="modal-content-wrapper p-4">
+	<CloseButton size='md' on:click="{() => (showModal = false)}" class='fixed top-10 right-10 text-white hover:bg-black/70'/>
+
+	<div class="modal-content-wrapper p-4 max-w-2xl w-full">
 		<div class="modal-content">
-			<img class="w-auto max-h-[calc(100vh_-_215px)]" src="{data}" alt="" />
+			{#if type === 'image'}
+				<img class="w-auto max-h-[calc(100vh_-_215px)]" src="{data}" alt="" />
+			{:else if type === 'video' && data}
+				<VideoEmbed url="{data.url}" is_modal="{true}" data="{null}" />
+			{/if}
 		</div>
 	</div>
 </div>
