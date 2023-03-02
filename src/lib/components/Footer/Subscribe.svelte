@@ -1,8 +1,31 @@
 <script>
-	import { image_url } from '../../dev';
 	import logoSm from '$lib/images/logo-small.png';
 	import { get_strapi_image_format } from '../../utils/utils';
+	import { createForm } from 'svelte-forms-lib';
+	import * as yup from 'yup';
 	export let data;
+
+	const { form, errors, state, handleChange, handleSubmit } = createForm({
+		initialValues: {
+			name: '',
+			email: '',
+			message: ''
+		},
+		validationSchema: yup.object().shape({
+			name: yup.string().required(),
+			email: yup.string().email().required(),
+			message: yup.string()
+		}),
+		onSubmit: (values) => {
+			fetch('/', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: new URLSearchParams(values).toString()
+			})
+				.then(() => console.log('Form successfully submitted'))
+				.catch((error) => alert(error));
+		}
+	});
 </script>
 
 <div class="wrapper lazy" data-bg="{get_strapi_image_format(data, 'large')}">
@@ -17,20 +40,26 @@
 			<p>Keep up to date in the latest market trends and opportunities in Los Angeles</p>
 		</div>
 		<div class="form-container">
-			<form method="post">
+			<form
+				method="post"
+				data-netlify="true"
+				name="join-my-network"
+				on:submit="{(e) => {
+					e.preventDefault();
+					handleSubmit();
+				}}"
+			>
 				<div class="input-container">
 					<div class="form-group">
-						<label>Name</label>
+						<label for="footname">Name</label>
 						<input
 							type="text"
-							name="foot-name"
-							value=""
+							name="name"
+							bind:value="{$form.name}"
 							size="40"
 							class="form-input"
 							id="footname"
-							aria-required="true"
-							aria-invalid="false"
-							placeholder="Name"
+							placeholder="Name *"
 						/>
 					</div>
 					<div class="form-group">
@@ -38,14 +67,12 @@
 						<span class="input-span"
 							><input
 								type="email"
-								name="foot-email"
-								value=""
+								name="email"
 								size="40"
+								bind:value="{$form.email}"
 								class="form-input"
 								id="footemail"
-								aria-required="true"
-								aria-invalid="false"
-								placeholder="Email Address"
+								placeholder="Email Address *"
 							/></span
 						>
 					</div>
@@ -54,12 +81,12 @@
 					<div class="foot_field">
 						<label for="footmessage">Message</label>
 						<textarea
-							name="foot-message"
+							name="message"
 							cols="40"
 							rows="10"
+							bind:value="{$form.message}"
 							class="input-textarea"
 							id="footmessage"
-							aria-invalid="false"
 							placeholder="Message"></textarea>
 					</div>
 				</div>

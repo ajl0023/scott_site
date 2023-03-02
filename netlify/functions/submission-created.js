@@ -8,6 +8,7 @@ const fetch = require('node-fetch');
 
 const { EMAIL_TOKEN } = process.env;
 const handler = async (event) => {
+	console.log(event);
 	return {
 		statusCode: 200,
 		body: JSON.stringify({

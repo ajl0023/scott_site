@@ -52,7 +52,7 @@
 	};
 </script>
 
-<div class="antialiased font-sans inline-block max-w-md min-w-[340px] w-1/2 flex-grow ">
+<div class="antialiased font-sans inline-block max-w-lg min-w-[340px] w-1/2 flex-grow ">
 	<div class="w-full inline-block">
 		<div class="w-full sm:w-full lg:w-full py-2 px-2">
 			<a href="/homes-for-sale-details/{slug_url}/{property_data.id}" class="block">

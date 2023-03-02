@@ -72,6 +72,4 @@
 	];
 </script>
 
-<div class="w-full md:max-w-md max-w-lg">
-	<Form forms="{forms}" form_name="{'contact-form'}" />
-</div>
+<Form show_header="{false}" forms="{forms}" form_name="{'contact-form'}" />

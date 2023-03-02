@@ -76,25 +76,8 @@
 		listings_formatted.length % 2 == 0 ? listings_formatted.push('empty') : null;
 </script>
 
-<div class="wrapper max-w-3xl m-auto lg:m-0">
+<div class="wrapper m-auto lg:m-0">
 	<div class="main-container">
-		<!--  -->
-
-		<!-- <div class="grid justify-items-center md:grid-cols-[repeat(auto-fit,minmax(350px,1fr))]">
-			{#each listings_formatted as { interior_features, property_data, exterior_features, thumbnail, location_info }}
-			
-				<Listing
-					exterior_features="{exterior_features}"
-					interior_features="{interior_features}"
-					property_data="{property_data}"
-					thumbnail="{thumbnail}"
-					location_info="{location_info}"
-					slug_url="{slugify_address(property_data.address)}"
-					features_to_display="{features_to_display[property_data.type].features}"
-				/>
-			{/each}
-		</div> -->
-
 		<div class="flex flex-wrap justify-center lg:justify-start">
 			{#each listings_formatted as { interior_features, property_data, exterior_features, thumbnail, location_info }}
 				<Listing
@@ -108,7 +91,7 @@
 				/>
 			{/each}
 			{#if listings_formatted.length % 2 != 0}
-				<div class="max-w-md min-w-[340px] w-1/2 flex-grow "></div>
+				<div class="max-w-md min-w-[340px] w-1/2 flex-grow h-0"></div>
 			{/if}
 		</div>
 	</div>

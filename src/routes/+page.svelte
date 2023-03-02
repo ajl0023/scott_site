@@ -9,7 +9,7 @@
 	import RealDealNews from '../lib/components/RealDealNews.svelte';
 
 	import SalesStats from '../lib/components/SalesStats.svelte';
-	import Slider from '../lib/components/Slider.svelte';
+	import Slider from '../lib/components/Slider/Slider.svelte';
 	import Testimonials from '../lib/components/Testimonials.svelte';
 	export let data;
 </script>

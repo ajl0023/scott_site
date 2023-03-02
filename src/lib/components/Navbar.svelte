@@ -2,12 +2,15 @@
 	import { page } from '$app/stores';
 	import de_logo from '$lib/images/de-logo.png';
 	import sj_logo from '$lib/images/header-logo.png';
+	import classNames from 'classnames';
 	import gsap from 'gsap';
 	import _ from 'lodash-es';
 	import IntersectionObserver from 'svelte-intersection-observer';
+	import { access_strapi_image } from '../utils/utils';
 	import NavbarButton from './NavbarButton.svelte';
 
 	export let nav_items;
+	export let bg_image;
 
 	$: is_home = $page.route.id === '/';
 	let main_navbar;
@@ -53,7 +56,9 @@
 	bind:this="{nav_dropdown}"
 	class="transition-all h-20 fixed top-0 left-0 right-0  bg-gray-400 z-20 lg:flex hidden items-center -translate-y-full {should_show_nav_dropdown
 		? 'translate-y-0'
-		: '-translate-y-full'}"
+		: '-translate-y-full'}
+
+		"
 >
 	<div class="nav-content w-full p-3 h-full flex items-center justify-between">
 		<a href="/" class="logo-container w-auto h-full inline-block">
@@ -68,12 +73,18 @@
 </div>
 
 <nav
-	class="navbar whitespace-nowrap text-xs lg:flex justify-center {is_home
-		? 'transparent'
-		: 'bg-black'} {is_home ? 'absolute' : 'relative'}"
+	style="{is_home
+		? ``
+		: `background-image: url(${access_strapi_image(
+				bg_image
+		  )}); background-size: cover; background-position: center;	background-repeat: no-repeat; `}"
+	class="{classNames(
+		'navbar whitespace-nowrap text-xs lg:flex justify-center',
+		is_home ? 'absolute ' : 'relative dark-overlay'
+	)}"
 >
 	<div
-		class="lg:justify-between navbar-container px-4 flex justify-center w-full lg:items-center lg:my-20 py-4 lg:py-0"
+		class="lg:justify-between navbar-container px-4 flex justify-center w-full lg:items-center lg:my-20 py-4 lg:py-0 z-10 relative"
 	>
 		<div class="nav-left-logo-container lg:max-w-[300px] max-w-[200px] w-full">
 			<a href="/" class="block">

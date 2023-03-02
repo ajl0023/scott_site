@@ -21,7 +21,7 @@
 	const dispatch = createEventDispatcher('audio_toggle');
 </script>
 
-<div class="wrapper fixed  lg:block hidden z-10 top-1/2 -translate-y-1/2 right-3 space-y-2">
+<div class="wrapper fixed  lg:block hidden z-10 top-[270px] right-3 space-y-2">
 	{#each contacts as { attributes: { contact_info, contact_info_type } }}
 		{@const isPhone = contact_info_type === 'phone'}
 		<div class=" {isPhone ? '' : ''} relative">

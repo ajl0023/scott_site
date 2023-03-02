@@ -13,8 +13,6 @@
 	import Footer from '../lib/components/Footer/Footer.svelte';
 	import Navbar from '../lib/components/Navbar.svelte';
 
-	export let data;
-
 	import { onMount, tick } from 'svelte';
 	import SideNav from '../lib/components/SideNav.svelte';
 	import Mail from '../lib/images/icons/mail.svelte';
@@ -22,6 +20,7 @@
 	import _ from 'lodash-es';
 	import { url_new } from '../lib/dev';
 	import ContactBar from '../lib/components/ContactBar.svelte';
+	export let data;
 	onMount(() => {
 		createLazyStore.init();
 	});
@@ -45,6 +44,11 @@
 		audio.src = url_new + song_file;
 	});
 
+	const mobile_nav_info = data['layout_data']['mobile_top_bar'].data;
+	const icon_map = {
+		phone: Phone,
+		email: Mail
+	};
 </script>
 
 <audio bind:this="{audio}" bind:paused="{is_paused}" bind:played="{played}" autoplay></audio>
@@ -66,16 +70,29 @@
 	>
 		<SideNav menu_items="{data['layout_data']['navbar']}" />
 
-		<div class="mobile-icon-container w-4 cursor-pointer">
+		<!-- <a class="mobile-icon-container w-4 cursor-pointer block" href="{`tel:${contact_info}`}">
 			<Phone />
-		</div>
-		<div class="mobile-icon-container w-4 cursor-pointer">
-			<Mail />
-		</div>
+		</a> -->
+		{#each mobile_nav_info as item}
+			{@const is_phone = item['attributes']['contact_info_type'] === 'phone'}
+			<a
+				class="mobile-icon-container w-4 cursor-pointer block"
+				href="
+				{is_phone
+					? `tel:${item['attributes']['contact_info']}`
+					: `mailto:${item['attributes']['contact_info']}`}
+			"
+			>
+				<svelte:component this="{icon_map[item['attributes']['contact_info_type']]}" />
+			</a>
+		{/each}
 	</div>
 
 	<div class="content-wrapper lg:mt-[0px] mt-[40px] relative">
-		<Navbar nav_items="{data['layout_data']['navbar']}" />
+		<Navbar
+			bg_image="{data['layout_data']['navbar_image']}"
+			nav_items="{data['layout_data']['navbar']}"
+		/>
 		<div class="main-container  overflow-hidden">
 			<slot />
 

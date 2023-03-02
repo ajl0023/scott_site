@@ -10,6 +10,7 @@
 	import Address from '../../../properties/our-listings/components/Address.svelte';
 
 	import { onMount } from 'svelte';
+	import { getContext } from 'svelte';
 	let Carousel;
 	onMount(async () => {
 		Carousel = (await import('svelte-carousel')).default;
@@ -97,6 +98,17 @@
 		true: 'Yes',
 		false: 'No'
 	};
+	const title = getContext('title');
+
+	$title = `${
+		location_info.address.street_address.trim().toUpperCase() +
+		', ' +
+		location_info.address.city.toUpperCase() +
+		', ' +
+		stateToAbbr(location_info.address.state_province) +
+		' ' +
+		location_info.address.postal_code
+	}`;
 </script>
 
 <div class="wrapper w-full">

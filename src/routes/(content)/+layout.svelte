@@ -1,17 +1,23 @@
 <script>
 	import MenuBar from './components/MenuBar.svelte';
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import _ from 'lodash-es';
+	import { writable } from 'svelte/store';
 	export let data;
 
 	let mobile_bar_hidden = $page.url.pathname === '/neighborhood-guides';
 	let page_name;
+	const titleStore = writable('');
+	setContext('title', titleStore);
+
 	$: {
-		let url = $page.url.pathname;
-		let slug = url.split('/').filter(Boolean).pop();
-		let page_title = slug.replace(/-/g, ' ');
-		page_name = _.startCase(page_title);
+		if ($page.route.id !== '/(content)/homes-for-sale-details/[address]/[id]') {
+			let url = $page.url.pathname;
+			let slug = url.split('/').filter(Boolean).pop();
+			let page_title = slug.replace(/-/g, ' ');
+			$titleStore = _.startCase(page_title);
+		}
 	}
 </script>
 
@@ -26,7 +32,7 @@
 					<h1
 						class="text-[#41A7C3] text-[40px] md:text-[62px] font-barlow leading-tight mt-3 text-center lg:text-left"
 					>
-						{page_name}
+						{$titleStore}
 						<!-- {page_name} -->
 					</h1>
 				</div>

@@ -1,6 +1,7 @@
 <script>
 	export let form_name;
 	export let forms;
+	export let show_header = true;
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 	import { AsYouType } from 'libphonenumber-js';
@@ -50,23 +51,10 @@
 			}, {})
 		),
 		onSubmit: async (values) => {
-			// const formData = new FormData();
-			// formData.append('formData', JSON.stringify(values));
-
-			// await fetch('/api/forms', {
-			// 	method: 'POST',
-			// 	body: formData
-			// });
-
-			event.preventDefault();
-
-			const myForm = event.target;
-			const formData = new FormData(myForm);
-
 			fetch('/', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: new URLSearchParams(formData).toString()
+				body: new URLSearchParams(values).toString()
 			})
 				.then(() => console.log('Form successfully submitted'))
 				.catch((error) => alert(error));
@@ -74,96 +62,111 @@
 	});
 </script>
 
-<form on:submit="{handleSubmit}" name="{form_name}" class="" data-netlify="true">
-	{#each forms as form_block, i}
-		<div class="py-6">
-			<h4 class="font-roboto uppercase text-2xl mb-3 font-semibold text-[#666666]">
-				{form_block.header}
-			</h4>
-			{#if i === 0}
-				<span> Required fields are marked with an asterisk (*) </span>
-			{/if}
-		</div>
-		<div class="flex flex-wrap space-y-2 bg-white shadow-md rounded px-8 pt-6 pb-8">
-			{#each form_block.fields as field}
-				{#if field.sub_fields.length <= 0}
-					<div class="w-full px-3">
-						<Label for="{field.name}" class="block mb-2"
-							>{field.label}
-							{#if field.required}
-								<span class="text-red-500 font-bold">*</span>
-							{/if}
-						</Label>
-						{#if field.component}
-							<svelte:component
-								this="{field.component}"
-								bind:value="{$form[field.name]}"
-								placeholder="{field.placeholder}"
-								required="{field.required}"
-								id="{field.name}"
-								size="md"
-								{...field.component_props}
-							/>
-						{:else if field.name === 'phone'}
-							<Input
-								on:input="{(e) => {
-									phone_number = new AsYouType('US').input(e.target.value);
-								}}"
-								name="{field.name}"
-								bind:value="{$form[field.name]}"
-								placeholder="{field.placeholder}"
-								required="{field.required}"
-								id="{field.name}"
-								size="md"
-							/>
-						{:else}
-							<Input
-								name="{field.name}"
-								placeholder="{field.placeholder}"
-								required="{field.required}"
-								id="{field.name}"
-								size="md"
-								bind:value="{$form[field.name]}"
-							/>
-						{/if}
-					</div>
-				{:else}
-					<div class="flex flex-wrap w-full space-y-2 md:space-y-0">
-						{#each field.sub_fields as sub_field}
-							<div class="px-3 w-full {sub_field.class}">
-								<Label for="{sub_field.name}" class="block mb-2"
-									>{sub_field.label}
-									{#if sub_field.required}
+<!-- ' [&:nth-child(2)]:mt-5' -->
+<form
+	on:submit="{(e) => {
+		e.preventDefault();
+		handleSubmit();
+	}}"
+	name="{form_name}"
+	class=""
+	data-netlify="true"
+>
+	<div>
+		{#each forms as form_block, i}
+			<div class="[&:nth-child(n+2)]:mt-6">
+				<div class="pb-6">
+					{#if show_header}
+						<h4 class="font-roboto uppercase text-2xl mb-3 font-semibold text-[#666666]">
+							{form_block.header}
+						</h4>
+					{/if}
+					{#if i === 0}
+						<span> Required fields are marked with an asterisk (*) </span>
+					{/if}
+				</div>
+				<div class="flex flex-wrap space-y-2 bg-white shadow-md rounded px-8 pt-6 pb-8">
+					{#each form_block.fields as field}
+						{#if field.sub_fields.length <= 0}
+							<div class="w-full px-3">
+								<Label for="{field.name}" class="block mb-2"
+									>{field.label}
+									{#if field.required}
 										<span class="text-red-500 font-bold">*</span>
-									{/if}</Label
-								>
-								{#if sub_field.component}
+									{/if}
+								</Label>
+								{#if field.component}
 									<svelte:component
-										this="{sub_field.component}"
-										bind:value="{$form[sub_field.name]}"
-										placeholder="{sub_field.placeholder}"
-										required="{sub_field.required}"
-										id="{sub_field.name}"
+										this="{field.component}"
+										bind:value="{$form[field.name]}"
+										placeholder="{field.placeholder}"
+										required="{field.required}"
+										id="{field.name}"
 										size="md"
-										{...sub_field.component_props}
+										{...field.component_props}
+									/>
+								{:else if field.name === 'phone'}
+									<Input
+										on:input="{(e) => {
+											phone_number = new AsYouType('US').input(e.target.value);
+										}}"
+										name="{field.name}"
+										bind:value="{$form[field.name]}"
+										placeholder="{field.placeholder}"
+										required="{field.required}"
+										id="{field.name}"
+										size="md"
 									/>
 								{:else}
 									<Input
-										name="{sub_field.name}"
-										placeholder="{sub_field.placeholder}"
-										required="{sub_field.required}"
-										id="{sub_field.name}"
+										name="{field.name}"
+										placeholder="{field.placeholder}"
+										required="{field.required}"
+										id="{field.name}"
 										size="md"
 										bind:value="{$form[field.name]}"
 									/>
 								{/if}
 							</div>
-						{/each}
-					</div>
-				{/if}
-			{/each}
-		</div>
-	{/each}
+						{:else}
+							<div class="flex flex-wrap w-full space-y-2 md:space-y-0">
+								{#each field.sub_fields as sub_field}
+									<div class="px-3 w-full {sub_field.class}">
+										<Label for="{sub_field.name}" class="block mb-2"
+											>{sub_field.label}
+											{#if sub_field.required}
+												<span class="text-red-500 font-bold">*</span>
+											{/if}</Label
+										>
+										{#if sub_field.component}
+											<svelte:component
+												this="{sub_field.component}"
+												bind:value="{$form[sub_field.name]}"
+												placeholder="{sub_field.placeholder}"
+												required="{sub_field.required}"
+												id="{sub_field.name}"
+												size="md"
+												{...sub_field.component_props}
+											/>
+										{:else}
+											<Input
+												name="{sub_field.name}"
+												placeholder="{sub_field.placeholder}"
+												required="{sub_field.required}"
+												id="{sub_field.name}"
+												size="md"
+												bind:value="{$form[field.name]}"
+											/>
+										{/if}
+									</div>
+								{/each}
+							</div>
+						{/if}
+					{/each}
+				</div>
+			</div>
+		{/each}
+	</div>
 	<div class="flex items-center justify-between w-full pt-7">
 		<button
 			class="bg-[#303030] text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline"

@@ -15,7 +15,7 @@ export async function load({ fetch }) {
 			label: 'language',
 			nav_options: []
 		});
-	
+
 		return json['data']['attributes'];
 	};
 

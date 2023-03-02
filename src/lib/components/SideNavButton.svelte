@@ -1,10 +1,13 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 
+	import { goto } from '$app/navigation';
 	export let data;
 	export let expanded;
 	export let handleExpand;
 	export let index;
+	import { base } from '$app/paths';
+
 	let curr_expanded;
 	$: {
 		curr_expanded = expanded['is_expanded'] && expanded['index'] === index;
@@ -14,12 +17,23 @@
 
 <li class="cursor-pointer ">
 	{#if data['link']}
-		<a class="block" href="/{data['link']}">
+		<div
+			on:click="{() => {
+				handleExpand(index);
+				if (curr_expanded || data['nav_options'].length === 0) {
+					goto('/' + data['link']);
+					dispatch('close-nav');
+				}
+			}}"
+			on:keydown="{() => {
+				handleExpand(index);
+				if (curr_expanded) {
+					goto('/' + data['link']);
+					dispatch('close-nav');
+				}
+			}}"
+		>
 			<p
-				on:click="{() => {
-					handleExpand(index);
-				}}"
-				on:keydown
 				class="py-2 px-3 text-center text-lg {curr_expanded
 					? 'text-white'
 					: 'text-[#002852]'}  hover:bg-[#002852] hover:text-white {curr_expanded
@@ -48,6 +62,6 @@
 					>
 				{/each}
 			</div>
-		</a>
+		</div>
 	{/if}
 </li>
