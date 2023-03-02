@@ -77,6 +77,7 @@
 			{@const is_phone = item['attributes']['contact_info_type'] === 'phone'}
 			<a
 				class="mobile-icon-container w-4 cursor-pointer block"
+				rel="external"
 				href="
 				{is_phone
 					? `tel:${item['attributes']['contact_info']}`

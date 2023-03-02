@@ -28,7 +28,7 @@
 			<a
 				target="{isPhone ? '' : '_blank'}"
 				href="{isPhone ? `tel:${contact_info}` : contact_info}"
-				rel="{isPhone ? '' : 'noreferrer'}"
+				rel="{isPhone ? 'external' : 'noreferrer'}"
 				class="icon-wrapper bg-[#cbcbcb] p-3 rounded-full cursor-pointer group hover:bg-[#3f88d5] transition-all flex items-center justify-center"
 			>
 				<div class="icon-container w-[20px] h-[20px] block group-hover:fill-white transition-all">
