@@ -16,6 +16,8 @@
 
 		expanded = copy;
 	};
+
+	
 </script>
 
 <div class="side-nav-wrapper">
@@ -29,7 +31,7 @@
 		<ul>
 			{#each menu_items as item, i}
 				<SideNavButton
-					data="{item}"
+					nav_item="{item}"
 					handleExpand="{handleExpand}"
 					index="{i}"
 					on:close-nav="{() => {

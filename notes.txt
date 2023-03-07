@@ -1,0 +1,1 @@
+make sure the side bar menu works with new database structure

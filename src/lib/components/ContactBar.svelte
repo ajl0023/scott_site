@@ -6,9 +6,9 @@
 	import Zillow from '$lib/images/icons/zillow.svelte';
 
 	import Phone from '$lib/images/icons/phone.svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 	export let items;
-	export let is_paused = false;
+
 	const social_images = {
 		instagram: Instagram,
 		facebook: Facebook,
@@ -18,7 +18,8 @@
 		phone: Phone
 	};
 	const contacts = items.data;
-	const dispatch = createEventDispatcher('audio_toggle');
+
+	const audio_info_store = getContext('audio_info');
 </script>
 
 <div class="wrapper fixed  lg:block hidden z-10 top-[270px] right-3 space-y-2">
@@ -42,21 +43,33 @@
 	{/each}
 
 	<div class="bg-gray-300 w-[2px] h-8 m-auto mt-1"></div>
-	<div
+	<button
 		on:click="{() => {
-			dispatch('audio_toggle');
+			if ($audio_info_store.loaded && $audio_info_store.audio) {
+				if ($audio_info_store.is_paused) {
+					$audio_info_store.user_paused = false;
+					$audio_info_store.play_prom = $audio_info_store.audio.play();
+				} else {
+					$audio_info_store.user_paused = true;
+					$audio_info_store.audio.play().then(() => {
+						$audio_info_store.audio.pause();
+					});
+				}
+			}
 		}}"
-		on:keydown="{() => {
-			dispatch('audio_toggle');
-		}}"
-		class="mt-3 icon-wrapper p-3 rounded-full cursor-pointer group hover:bg-[#3f88d5] transition-all items-center justify-center flex {is_paused
+		class="mt-3 icon-wrapper p-3 rounded-full cursor-pointer group hover:bg-[#3f88d5] transition-all items-center justify-center flex {$audio_info_store.is_paused ||
+		$audio_info_store.is_paused === null ||
+		$audio_info_store.audio === null
 			? 'bg-[#cbcbcb]'
 			: 'bg-[#3f88d5]'}"
 	>
 		<div
-			class="icon-container w-[20px] h-[20px] block group-hover:text-white transition-all {is_paused
+			class="icon-container w-[20px] h-[20px] block group-hover:text-white transition-all {$audio_info_store.is_paused ===
+				true ||
+			$audio_info_store.is_paused === null ||
+			$audio_info_store.audio === null
 				? 'icon-paused text-black'
 				: 'icon-playing text-white'} font-agentImage_icon -translate-y-[1px]"
 		></div>
-	</div>
+	</button>
 </div>

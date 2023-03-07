@@ -12,8 +12,6 @@
 	let Carousel;
 	onMount(async () => {
 		Carousel = (await import('svelte-carousel')).default;
-
-	
 	});
 </script>
 
@@ -30,10 +28,10 @@
 			<div
 				class="w-full bg-black pt-9 lg:p-0 lg:bg-default lg:w-[50%] lg:pr-10 flex justify-center lg:justify-end image-wrapper relative"
 			>
-				<div class="lg:max-w-[500px] max-w-[300px] relative z-10 lg:pt-5 lg:pr-5">
+				<div class="lg:max-w-[500px] max-w-[350px] relative z-10 lg:pt-5 lg:pr-5">
 					<img
-						width="417"
-						height="853"
+						width="749"
+						height="713"
 						use:getAnim="{'fade-in'}"
 						src="{access_strapi_image(scott_photo)}"
 						alt=""
@@ -43,7 +41,7 @@
 
 			<div class="right-container lg:p-0 py-6">
 				<div class="font-barlow title-container items-center lg:pl-6" use:getAnim="{'zoom-in'}">
-					<div class="align-bottom text-[0] text-center lg:text-left"><MiniLogo /></div>
+					<div class="align-bottom text-[0] text-center lg:text-left lg:mb-2"><MiniLogo /></div>
 					<h2
 						class="text-header uppercase font-medium text-black-white leading-[56px] lg:text-[90px] text-[50px] relative text-center"
 					>
@@ -57,12 +55,12 @@
 			</div>
 		</div>
 		<div
-			class="testi-container text-white text-center font-roboto lg:-mt-48 mt-0 relative z-10 lg:ml-5 "
+			class="testi-container text-white text-center font-roboto lg:-mt-32 mt-0 relative z-10 lg:ml-5 "
 		>
 			{#if browser && Carousel}
 				<div
 					use:getAnim="{'fade-in-up'}"
-					class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[872px] lg:py-[120px] lg:px-[100px] py-[20px] px-[20px] text-center"
+					class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[772px] lg:py-[50px] lg:px-[100px] py-[20px] px-[20px] text-center"
 				>
 					<Carousel autoplay="{true}" dots="{false}">
 						{#each reviews.data as { attributes: { content, name } }}

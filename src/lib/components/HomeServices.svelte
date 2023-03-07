@@ -9,12 +9,9 @@
 </script>
 
 <div class="wrapper my-32">
-	<div
-		class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3"
-		use:getAnim="{'fade-in-up'}"
-	>
-		{#each services as { attributes: { label, image, link, is_external_link } }}
-			<div class="grid-item">
+	<div class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
+		{#each services as { attributes: { label, image, link, is_external_link }}, i }
+			<div class="grid-item" use:getAnim="{i < 3 ? 'fade-in-down' : 'fade-in-up'}">
 				<a
 					target="{is_external_link ? '_blank' : ''}"
 					rel="{is_external_link ? 'noreferrer' : ''}"

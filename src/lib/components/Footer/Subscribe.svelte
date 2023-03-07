@@ -5,7 +5,11 @@
 	import * as yup from 'yup';
 	export let data;
 
-	const { form, errors, state, handleChange, handleSubmit } = createForm({
+	const { form, errors, state, handleChange, handleSubmit } = 
+	
+
+	
+	createForm({
 		initialValues: {
 			name: '',
 			email: '',

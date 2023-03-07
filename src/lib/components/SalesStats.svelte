@@ -19,7 +19,7 @@
 >
 	<div class="container m-auto font-[600] z-10 relative text-center py-20 px-4">
 		<div class="content-container items-center inline-block">
-			<div class="align-bottom text-[0] md:text-left"><MiniLogo /></div>
+			<div class="align-bottom text-[0] md:text-left lg:mb-2"><MiniLogo color="white" /></div>
 			<h2 class="uppercase text-white leading-[56px] lg:text-[90px] md:text-[80px] text-[9vw]">
 				why work with me
 			</h2>

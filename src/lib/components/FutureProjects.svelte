@@ -27,9 +27,23 @@
 	>
 		{#each data as { description, image, link }}
 			<div class="item-container w-full md:w-[50%] p-4">
-				<div class="image-container aspect-w-16 aspect-h-9">
-					<img class="object-cover lazy" data-src="{access_strapi_image(image)}" alt="" />
-				</div>
+				{#if !link}
+					<div class="image-container aspect-w-16 aspect-h-9">
+						<img class="object-cover lazy" data-src="{access_strapi_image(image)}" alt="" />
+					</div>
+				{:else}
+					<a
+						href="{link}"
+						target="_blank"
+						rel="noreferrer "
+						class="before:z-10 dark-overlay hover:before:bg-transparent before:transition-[background-color]"
+					>
+						<div class="image-container aspect-w-16 aspect-h-9">
+							<img class="object-cover lazy" data-src="{access_strapi_image(image)}" alt="" />
+						</div>
+					</a>
+				{/if}
+
 				<div class="description-container font-roboto mt-5">
 					<p class="text-[#1b1b1b] text-[14px] font-[400]">{description}</p>
 				</div>

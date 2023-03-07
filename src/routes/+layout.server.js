@@ -11,15 +11,21 @@ export async function load({ fetch }) {
 
 		const json = await data.json();
 
-		json['data']['attributes']['navbar'].push({
-			label: 'language',
-			nav_options: []
-		});
-
 		return json['data']['attributes'];
 	};
+	const navBarData = async () => {
+		const data = await fetch(`${url_new}/api/menus/1?populate=*&nested`, {
+			headers: {
+				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+			}
+		});
 
+		const json = await data.json();
+		return json.data.attributes.items.data;
+	};
+	await navBarData();
 	return {
-		layout_data: getLayoutData()
+		layout_data: getLayoutData(),
+		navbar_data: navBarData()
 	};
 }

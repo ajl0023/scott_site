@@ -1,6 +1,6 @@
 <script>
 	import logoSm from '$lib/images/logo-small.png';
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	import { createLazyStore } from '$lib/stores/lazy';
@@ -9,10 +9,10 @@
 	import AnimationWrapper from './AnimationWrapper.svelte';
 	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
+
 	let listings = data.data;
 	if (listings.length < 5) {
 		listings = [...listings, listings[0], listings[0]];
-	
 	}
 	onMount(() => {
 		createLazyStore.init();

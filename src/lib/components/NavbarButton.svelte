@@ -1,5 +1,6 @@
 <script>
 	import gsap from 'gsap';
+	import _ from 'lodash-es';
 	export let nav_item;
 	export let is_visible;
 
@@ -13,6 +14,9 @@
 			duration: 0.2
 		});
 	};
+
+	const children = _.get(nav_item, 'attributes.children.data', []);
+	const parent_data = _.get(nav_item, 'attributes', {});
 </script>
 
 <div
@@ -31,8 +35,8 @@
 	}}"
 	class="mr-4 menu-item-container"
 >
-	<li class="list-item">
-		{#if nav_item['link']}
+	<li class="list-item text-white">
+		{#if parent_data['url']}
 			<a
 				on:mouseenter="{() => {
 					is_hovered = true;
@@ -40,7 +44,7 @@
 				}}"
 				class:main-nav="{!is_visible}"
 				class="list-link {is_visible ? 'text-xs' : 'lg:text-md md:text-sm'}  group"
-				href="/{nav_item['link']}">{nav_item['label']}</a
+				href="{parent_data['url']}">{parent_data['title']}</a
 			>
 		{/if}
 	</li>
@@ -48,11 +52,11 @@
 	<div
 		bind:this="{dropdown_parent}"
 		class="padding-drop-container"
-		class:hidden="{nav_item['nav_options'].length <= 0}"
+		class:hidden="{children.length <= 0}"
 	>
 		<div bind:this="{dropdown}" class="drop-down-container z-10 h-0">
 			<ul class="list-drop-down-container ">
-				{#each nav_item['nav_options'] as sub_nav}
+				{#each children as { attributes: { title, url, target } }}
 					<li
 						on:click="{() => {
 							dropDownAnim(false);
@@ -67,11 +71,11 @@
 					>
 						<a
 							class="list-link-sub block whitespace-normal text-white select-none  py-2 px-2"
-							target="{sub_nav['is_external_link'] ? '_blank' : ''}"
-							rel="{sub_nav['is_external_link'] ? 'noreferrer' : ''}"
-							href="{sub_nav['is_external_link'] ? sub_nav.link : `/${sub_nav.link}`}"
+							target="{target === '_blank' ? target : ''}"
+							rel="{target === '_blank' ? 'noreferrer' : ''}"
+							href="{url}"
 						>
-							{sub_nav['label']}
+							{title}
 						</a>
 					</li>
 				{/each}

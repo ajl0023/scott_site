@@ -7,11 +7,35 @@
 	import HomeServices from '../lib/components/HomeServices.svelte';
 	import MediaRelationsHome from '../lib/components/MediaRelationsHome.svelte';
 	import RealDealNews from '../lib/components/RealDealNews.svelte';
-
+	import _ from 'lodash-es';
 	import SalesStats from '../lib/components/SalesStats.svelte';
 	import Slider from '../lib/components/Slider/Slider.svelte';
 	import Testimonials from '../lib/components/Testimonials.svelte';
+	import { getContext, onDestroy, onMount } from 'svelte';
+	import { url_new } from '../lib/dev';
 	export let data;
+
+	const audio_info_store = getContext('audio_info');
+	const song_file = _.get(data, 'layout_data.song_file.data.attributes.url', '');
+
+	onDestroy(() => {
+		if ($audio_info_store.audio && !$audio_info_store.is_paused && $audio_info_store.play_prom) {
+			$audio_info_store.play_prom.then(() => {
+				$audio_info_store.audio.pause();
+			});
+		}
+	});
+
+	$: {
+		if (
+			$audio_info_store.loaded &&
+			$audio_info_store.audio &&
+			!$audio_info_store.user_paused &&
+			$audio_info_store.is_paused
+		) {
+			$audio_info_store.play_prom = $audio_info_store.audio.play();
+		}
+	}
 </script>
 
 <div class="sv-container z-[1] relative  bg-[#eaeaea]">

@@ -23,10 +23,10 @@
 
 		<div
 			class="grid-container lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
-			use:getAnim="{'fade-in-up'}"
+			
 		>
 			{#each images as img}
-				<div class="grid-item grid-image aspect-w-16 aspect-h-9">
+				<div class="grid-item grid-image aspect-w-16 aspect-h-9" use:getAnim="{'zoom-in'}">
 					<div class="grid-content-container">
 						<div class="image-container w-full h-full absolute">
 							<img
@@ -44,7 +44,7 @@
 					</div>
 				</div>
 			{/each}
-			<div class="grid-item text-container hidden lg:block aspect-w-16 aspect-h-9">
+			<div  class="grid-item text-container hidden lg:block aspect-w-16 aspect-h-9" use:getAnim="{'zoom-in'}">
 				<div class="grid-content-container">
 					<div class="text-content">
 						<h3>GLOBAL LUXURY LISTINGS</h3>

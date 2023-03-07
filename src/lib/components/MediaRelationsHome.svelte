@@ -23,7 +23,9 @@
 		>
 			<div class="left-container-content flex flex-col items-center lg:items-start">
 				<div class="font-barlow title-container items-start flex flex-col ">
-					<MiniLogo />
+					<div class="lg:mb-2">
+						<MiniLogo color="white" />
+					</div>
 					<h2
 						class="text-header uppercase font-medium text-white leading-[56px] lg:text-[90px] text-[50px] relative text-center"
 					>

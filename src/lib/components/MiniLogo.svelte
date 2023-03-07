@@ -1,9 +1,14 @@
 <script>
-	import logoSm from '$lib/images/logo-small.png';
+	import { getContext } from 'svelte';
+	import { access_strapi_image } from '../utils/utils';
+
+	export let img;
+	export let color = 'black';
+	const sj_logos = getContext('sj_logos');
 </script>
 
-<div class="logo-container inline-block pr-[46px] relative ml-[5px]">
-	<img class="w-full object-contain" src="{logoSm}" alt="" />
+<div class="logo-container inline-block pr-[46px] relative ml-[5px] max-w-[150px]">
+	<img class="w-full object-contain" src="{access_strapi_image(sj_logos[color])}" alt="" />
 </div>
 
 <style lang="scss">
