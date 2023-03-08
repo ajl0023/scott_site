@@ -1,6 +1,6 @@
 <script>
 	import { image_url } from '../dev';
-	import logoSm from '$lib/images/logo-small.png';
+
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { onMount } from 'svelte';
 	import MiniLogo from './MiniLogo.svelte';

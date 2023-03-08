@@ -1,15 +1,11 @@
 <script>
-	import logoSm from '$lib/images/logo-small.png';
 	import { get_strapi_image_format } from '../../utils/utils';
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
+	import MiniLogo from '../MiniLogo.svelte';
 	export let data;
 
-	const { form, errors, state, handleChange, handleSubmit } = 
-	
-
-	
-	createForm({
+	const { form, errors, state, handleChange, handleSubmit } = createForm({
 		initialValues: {
 			name: '',
 			email: '',
@@ -36,7 +32,7 @@
 	<div class="content-container p-3">
 		<div class="title-container">
 			<div class="logo-container">
-				<img src="{logoSm}" alt="" />
+				<MiniLogo color="white" />
 			</div>
 			<h2>Join My <span>Network</span></h2>
 		</div>
@@ -229,16 +225,6 @@
 		padding-right: 46px;
 		position: relative;
 		font-size: 0;
-
-		&::after {
-			width: 38px;
-			height: 5px;
-			content: '';
-			position: absolute;
-			bottom: 13px;
-			right: 0;
-			background-color: #818181;
-		}
 	}
 	.title-container {
 		display: inline-flex;

@@ -1,5 +1,5 @@
 <script>
-	import logoSm from '$lib/images/logo-small.png';
+
 	import { getContext, onMount } from 'svelte';
 	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';

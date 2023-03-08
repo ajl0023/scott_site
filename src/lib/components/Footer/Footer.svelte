@@ -5,6 +5,7 @@
 	import LegalBanner from './LegalBanner.svelte';
 	import Subscribe from './Subscribe.svelte';
 	export let data;
+	export let de_logo;
 </script>
 
 <div class="wrapper">
@@ -12,6 +13,7 @@
 	<div class="disclaimer-wrapper">
 		<ContactBanner
 			data="{{
+				de_logo: de_logo,
 				contact: data['profile_informations'].data,
 				market_areas: data['market_areas']
 			}}"

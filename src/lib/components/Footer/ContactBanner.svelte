@@ -2,9 +2,9 @@
 	import Mail from '../../images/icons/mail.svelte';
 	import Phone from '../../images/icons/phone.svelte';
 	import Wechat from '../../images/icons/wechat.svelte';
-	import delogo from '$lib/images/footer-logo.png';
 
 	import parsePhoneNumber from 'libphonenumber-js';
+	import { access_strapi_image } from '../../utils/utils';
 	export let data;
 
 	let svg_data = {
@@ -25,9 +25,9 @@
 </script>
 
 <div class="wrapper flex justify-center">
-	<div class="container flex justify-center flex-col items-center">
-		<div class="logo-container">
-			<img src="{delogo}" alt="" />
+	<div class="container flex justify-center flex-col items-center z-10">
+		<div class="logo-container max-w-sm">
+			<img src="{access_strapi_image(data.de_logo)}" alt="" />
 		</div>
 		<div
 			class="contact-container flex flex-wrap  justify-center items-center flex-col md:flex-row md:space-y-0 space-y-2"

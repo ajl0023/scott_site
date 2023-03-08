@@ -142,7 +142,10 @@
 		<div class="main-container  overflow-hidden">
 			<slot />
 
-			<Footer data="{data['layout_data']['footer']}" />
+			<Footer
+				de_logo="{data['layout_data']['de_logo_black']}"
+				data="{data['layout_data']['footer']}"
+			/>
 		</div>
 	</div>
 </div>
