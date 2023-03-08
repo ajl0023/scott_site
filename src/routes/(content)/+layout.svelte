@@ -6,15 +6,26 @@
 	import { writable } from 'svelte/store';
 	export let data;
 
-	let mobile_bar_hidden = $page.url.pathname === '/neighborhood-guides';
+	$: mobile_bar_hidden = $page.route.id === '/(content)/neighborhood-guides';
 	let page_name;
 	const titleStore = writable('');
 	setContext('title', titleStore);
 
+	const hide_routes = [
+		'/(content)/neighborhood-guides',
+		'/(content)/homes-for-sale-details/[address]/[id]'
+	];
+
 	$: {
-		if ($page.route.id !== '/(content)/homes-for-sale-details/[address]/[id]') {
+		if (!hide_routes.includes($page.route.id)) {
+			// Get the page URL and split it into an array
 			let url = $page.url.pathname;
-			let slug = url.split('/').filter(Boolean).pop();
+			let urlParts = url.split('/');
+
+			// Get the last item in the array, which is the page slug
+			let slug = urlParts[urlParts.length - 1];
+
+			// Replace hyphens with spaces and title-case the string
 			let page_title = slug.replace(/-/g, ' ');
 			$titleStore = _.startCase(page_title);
 		}
@@ -42,7 +53,7 @@
 			</div>
 			<div
 				class:hidden="{mobile_bar_hidden}"
-				class="menu-bar-wrapper lg:text-left max-w-xs w-full m-auto lg:m-0"
+				class="menu-bar-wrapper lg:text-left max-w-[15em] w-full m-auto lg:m-0"
 			>
 				<MenuBar data="{data}" />
 			</div>

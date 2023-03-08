@@ -21,6 +21,13 @@ export async function load({ fetch }) {
 		});
 
 		const json = await data.json();
+
+		// json.data.attributes.items.data.push({
+		// 	attributes: {
+		// 		title: 'Language'
+		// 	}
+		// });
+
 		return json.data.attributes.items.data;
 	};
 	await navBarData();

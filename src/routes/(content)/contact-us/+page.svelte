@@ -2,11 +2,12 @@
 	import ContactForm from './components/ContactForm.svelte';
 	import _ from 'lodash-es';
 	import parsePhoneNumber from 'libphonenumber-js';
+	import { access_strapi_image, get_strapi_image_format } from '../../../lib/utils/utils';
 
 	export let data;
 
 	const { page_data } = data;
-	const { profile_informations, logo, intro_text } = page_data;
+	const { profile_informations, logo, intro_text, artist_info } = page_data;
 	const get_format = (contact_type, contact_info) => {
 		if ('phone' === contact_type) {
 			return parsePhoneNumber(contact_info, 'US').formatNational();
@@ -19,16 +20,10 @@
 </script>
 
 <div class="wrapper">
-	<div class="flex items-start flex-wrap justify-center">
-		<div class="form-wrapper w-full md:max-w-lg max-w-xl mb-8 basis-1/2 flex-1">
-			<ContactForm />
-		</div>
-
-		<div class="px-5">
-			<div
-				class="font-sans block max-w-full md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow"
-			>
-				<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Contact Information</h5>
+	<div class="flex flex-wrap">
+		<div class="p-3">
+			<div class="block max-w-full md:max-w-sm font-roboto">
+				<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Scott James</h5>
 				<p class="font-normal text-gray-700 dark:text-gray-400">
 					{intro_text}
 				</p>
@@ -44,6 +39,46 @@
 							</p>
 						</div>
 					{/each}
+				</div>
+			</div>
+
+			<div class="form-wrapper w-full md:max-w-lg max-w-xl mb-8 basis-1/2 flex-1">
+				<div>
+					<ContactForm />
+				</div>
+			</div>
+		</div>
+
+		<div class="p-3 m-auto lg:m-0">
+			<div class="logo-container lg-full p-3">
+				<img src="{get_strapi_image_format(logo, 'medium')}" alt="" />
+			</div>
+
+			<div class="p-3">
+				<div
+					class="w-full max-w-xs bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+				>
+					<a target="_blank" rel="noreferrer" href="{artist_info.link}">
+						<div class="flex flex-col items-center pb-10">
+							<img
+								class="mb-3 shadow-lg object-cover object-left"
+								src="{access_strapi_image(artist_info.image)}"
+							/>
+
+							<div class="p-3">
+								<a
+									target="_blank"
+									rel="noreferrer"
+									href="{artist_info.link}"
+									class="text-sm hover:text-[#41A7C3] text-gray-500 font-semibold"
+									>{artist_info.song_description}</a
+								>
+								<div class="w-full m-auto mt-3">
+									<img src="{access_strapi_image(artist_info.logo)}" class="w-full" alt="" />
+								</div>
+							</div>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>

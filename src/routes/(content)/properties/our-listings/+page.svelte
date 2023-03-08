@@ -78,7 +78,7 @@
 
 <div class="wrapper m-auto lg:m-0">
 	<div class="main-container">
-		<div class="flex flex-wrap justify-center lg:justify-start">
+		<div class="flex flex-wrap justify-center lg:justify-start -m-2">
 			{#each listings_formatted as { interior_features, property_data, exterior_features, thumbnail, location_info }}
 				<Listing
 					exterior_features="{exterior_features}"
@@ -91,7 +91,7 @@
 				/>
 			{/each}
 			{#if listings_formatted.length % 2 != 0}
-				<div class="max-w-md min-w-[340px] w-1/2 flex-grow h-0"></div>
+				<div class="antialiased font-sans max-w-lg min-w-[340px] w-1/2 h-0"></div>
 			{/if}
 		</div>
 	</div>

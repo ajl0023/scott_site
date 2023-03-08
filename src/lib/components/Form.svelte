@@ -75,14 +75,14 @@
 	<div>
 		{#each forms as form_block, i}
 			<div class="[&:nth-child(n+2)]:mt-6">
-				<div class="pb-6">
+				<div class="pb-2">
 					{#if show_header}
 						<h4 class="font-roboto uppercase text-2xl mb-3 font-semibold text-[#666666]">
 							{form_block.header}
 						</h4>
 					{/if}
 					{#if i === 0}
-						<span> Required fields are marked with an asterisk (*) </span>
+						<span class="text-gray-600"> Required fields are marked with an asterisk (*) </span>
 					{/if}
 				</div>
 				<div class="flex flex-wrap space-y-2 bg-white shadow-md rounded px-8 pt-6 pb-8">

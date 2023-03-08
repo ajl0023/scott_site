@@ -35,7 +35,7 @@
 			{#each profile_informations.data as { attributes }}
 				<div class="icon-wrapper bg-[#cbcbcb] p-3 rounded-full cursor-pointer">
 					<a
-						class="icon-container w-[20px] h-[20px] block"
+						class="icon-container w-[15px] h-[15px] flex justify-center items-center"
 						target="_blank"
 						href="{attributes.contact_info}"
 						rel="noreferrer"

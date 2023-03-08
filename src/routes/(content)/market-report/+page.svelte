@@ -13,7 +13,6 @@
 					name: 'name',
 					label: 'Name',
 					type: 'text',
-
 					placeholder: 'Full Name',
 					required: true,
 					validation: yup.string().required(),
@@ -24,7 +23,6 @@
 					label: 'Email',
 					type: 'email',
 					placeholder: '[...]@email.com',
-
 					required: true,
 					validation: yup.string().email().required(),
 					sub_fields: []
@@ -33,7 +31,6 @@
 					name: 'phone',
 					label: 'Phone',
 					type: 'tel',
-
 					placeholder: '123-456-7890',
 					required: true,
 					validation: yup.string().required(),
@@ -44,7 +41,6 @@
 					label: 'Address',
 					type: 'text',
 					placeholder: '123 Main St',
-
 					required: false,
 					validation: yup.string(),
 					sub_fields: []
@@ -55,7 +51,6 @@
 							name: 'city',
 							label: 'City',
 							type: 'text',
-
 							validation: yup.string(),
 							class: 'md:w-1/3',
 							required: false
@@ -64,7 +59,6 @@
 							name: 'state',
 							label: 'State',
 							type: 'text',
-
 							validation: yup.string(),
 							class: 'md:w-1/3',
 							required: false
@@ -73,7 +67,6 @@
 							name: 'zip',
 							label: 'Zip',
 							type: 'text',
-
 							validation: yup.string(),
 							class: 'md:w-1/3',
 							required: false
@@ -84,7 +77,6 @@
 					name: 'desired_area',
 					label: 'Desired Area',
 					type: 'text',
-
 					validation: yup.string(),
 					sub_fields: [],
 					required: false,
@@ -94,9 +86,19 @@
 		}
 	];
 	const { page_data } = data;
-	const { intro_text, description, report: report_image } = page_data;
 
+
+	const {
+		market_report: { image: marketReportImage, is_external_link, link },
+		description,
+		intro_text
+	} = page_data;
 	let selectedImage = null;
+
+	let link_attrs = {
+		target: true ? '_blank' : null,
+		rel: is_external_link ? 'noopener noreferrer' : null
+	};
 </script>
 
 <div class="wrapper font-roboto">
@@ -109,18 +111,15 @@
 			<Form forms="{forms}" form_name="market_report" />
 		</div>
 
-		<div
-			on:click="{() => {
-				selectedImage = access_strapi_image(report_image.data);
-			}}"
-			class="image-container p-3 cursor-pointer"
-		>
-			<img
-				class="max-w-sm h-auto  border-cyan-500 border-2"
-				src="{get_strapi_image_format(report_image.data, 'small')}"
-				alt=""
-			/>
-		</div>
+		<a href="{is_external_link ? link : `/${link}`}" {...link_attrs} class="block">
+			<div class="image-container p-3 cursor-pointer">
+				<img
+					class="max-w-sm h-auto  border-cyan-500 border-2"
+					src="{get_strapi_image_format(marketReportImage.data, 'small')}"
+					alt=""
+				/>
+			</div>
+		</a>
 	</div>
 	<div class="mt-16">
 		<h4 class="uppercase text-2xl mb-3 font-semibold text-[#666666]">about our reports</h4>

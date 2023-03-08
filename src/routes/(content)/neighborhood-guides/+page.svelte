@@ -49,6 +49,15 @@
 			>
 				<h1>California</h1>
 			</div>
+			<div class="button-container font-sourceSans mt-6 z-5 relative">
+				<a
+					href="https://scottjames.elliman.com/sales/usa"
+					target="_blank"
+					rel="noreferrer"
+					class="text-white bg-[#303030] px-8 py-4 block transition-all hover:bg-[#41A7C3] uppercase"
+					>Your Dream Home Awaits</a
+				>
+			</div>
 		</div>
 	</div>
 </div>

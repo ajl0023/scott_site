@@ -5,6 +5,7 @@
 	import gsap from 'gsap';
 	import _ from 'lodash-es';
 	import IntersectionObserver from 'svelte-intersection-observer';
+	import { onMount } from 'svelte';
 	import { access_strapi_image } from '../utils/utils';
 	import NavbarButton from './NavbarButton.svelte';
 
@@ -35,6 +36,34 @@
 	}, 500);
 
 	const { nav_items, bg_image, nav_sj_logo, nav_de_logo } = data;
+
+	// onMount(() => {
+	// 	setTimeout(() => {
+	// 		const domElement = document.createElement('script');
+	// 		domElement.setAttribute('src', '//translate.google.com/translate_a/element.js');
+
+	// 		document.body.appendChild(domElement);
+	// 		setTimeout(() => {
+	// 			new google.translate.TranslateElement(
+	// 				{
+	// 					pageLanguage: 'en',
+	// 					layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+	// 					autoDisplay: false
+	// 				},
+	// 				'google_translate_element-1'
+	// 			);
+
+	// 			new google.translate.TranslateElement(
+	// 				{
+	// 					pageLanguage: 'en',
+	// 					layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+	// 					autoDisplay: false
+	// 				},
+	// 				'google_translate_element-2'
+	// 			);
+	// 		}, 2000);
+	// 	}, 1000);
+	// });
 </script>
 
 <!-- if navbar is out of view, this brings a small navbar from the into view, and vice versa -->
@@ -81,7 +110,7 @@
 	<div class="">
 		<div class="flex uppercase justify-end">
 			{#each nav_items as nav_item, i}
-				<NavbarButton is_visible="{true}" nav_item="{nav_item}" />
+				<NavbarButton is_visible="{true}" nav_item="{nav_item}" is_drop_down="{true}" />
 			{/each}
 		</div>
 	</div>
@@ -126,9 +155,8 @@
 			<ul class="nav-menu hidden lg:flex text-white uppercase" bind:this="{main_navbar}">
 				{#each nav_items as nav_item, i}
 					<!-- might have to include language later -->
-					{#if nav_item.label !== 'language'}
-						<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
-					{/if}
+
+					<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
 				{/each}
 			</ul>
 		</IntersectionObserver>

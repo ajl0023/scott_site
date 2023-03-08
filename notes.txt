@@ -1,1 +1,4 @@
 make sure the side bar menu works with new database structure
+
+
+should probably change the way im getting images lmao

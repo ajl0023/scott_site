@@ -1,13 +1,14 @@
 <script>
 	import gsap from 'gsap';
 	import _ from 'lodash-es';
+	import { onMount } from 'svelte';
 	export let nav_item;
 	export let is_visible;
 
 	let dropdown;
 	let dropdown_parent;
 	let is_hovered = false;
-
+	export let is_drop_down;
 	const dropDownAnim = (isOver) => {
 		gsap.to(dropdown, {
 			height: isOver ? 'auto' : 0,
@@ -46,6 +47,17 @@
 				class="list-link {is_visible ? 'text-xs' : 'lg:text-md md:text-sm'}  group"
 				href="{parent_data['url']}">{parent_data['title']}</a
 			>
+		{:else if parent_data['title'] === 'Language'}
+			<span
+				class:main-nav="{!is_visible}"
+				class="list-link {is_visible ? 'text-xs' : 'lg:text-md md:text-sm'}  group cursor-pointer"
+				href="{parent_data['url']}">{parent_data['title']}</span
+			>
+			<!-- {#if !is_drop_down}
+				<div id="google_translate_element-1"></div>
+			{:else}
+				<div id="google_translate_element-2">234234</div>
+			{/if} -->
 		{/if}
 	</li>
 

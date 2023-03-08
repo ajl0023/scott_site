@@ -5,18 +5,32 @@
 	export let data;
 	const images = data['page_data']['images']['data'];
 	let selectedImage = null;
+
+	//write a function that will return the image url based on the size passed in
 </script>
 
 <div class="wrapper">
-	<div class="awards-container flex w-full flex-wrap">
-		{#each images as item}
+	<div class="awards-container flex w-full flex-wrap -m-5">
+		{#each images as img}
 			<div class="item-wrapper md:basis-4/12 p-5 w-full">
 				<div
 					on:keydown
-					on:click="{() => (selectedImage = get_strapi_image_format(item, 'large'))}"
+					on:click="{() =>
+						(selectedImage =
+							get_strapi_image_format(img, 'large') ||
+							get_strapi_image_format(img, 'medium') ||
+							get_strapi_image_format(img, 'small') ||
+							get_strapi_image_format(img, 'thumbnail'))}"
 					class="item-container border-gray-400 border-[1px] h-full flex items-center cursor-pointer"
 				>
-					<img class="w-full" alt="" src="{get_strapi_image_format(item, 'medium')}" />
+					<img
+						class="w-full"
+						alt=""
+						src="{get_strapi_image_format(img, 'large') ||
+							get_strapi_image_format(img, 'medium') ||
+							get_strapi_image_format(img, 'small') ||
+							get_strapi_image_format(img, 'thumbnail')}"
+					/>
 				</div>
 			</div>
 		{/each}

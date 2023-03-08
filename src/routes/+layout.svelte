@@ -55,12 +55,15 @@
 		loaded: false,
 		play_prom: null
 	});
-
+	// Code does following (English)
+	function add(a, b) {
+		return a + b;
+	}
 	setContext('audio_info', audio_info_store);
 	const song_file = _.get(data, 'layout_data.song_file.data.attributes.url', '');
 
 	onMount(() => {
-		$audio_info_store.audio.seek = 0;
+		$audio_info_store.audio.currentTime = 2;
 		$audio_info_store.audio.volume = 0.018;
 		$audio_info_store.audio.loop = true;
 		const ele = $audio_info_store.audio;
@@ -80,6 +83,23 @@
 	});
 </script>
 
+<!-- <svelte:head>
+	<script
+		type="text/javascript"
+		src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+	>
+	</script>
+
+	<script>
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement(
+				{ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL },
+				'google_translate_element'
+			);
+		}
+
+	</script>
+</svelte:head> -->
 <audio bind:this="{$audio_info_store.audio}" bind:paused="{$audio_info_store.is_paused}"> </audio>
 
 <ContactBar items="{data['layout_data']['contact_bar_items']}" />

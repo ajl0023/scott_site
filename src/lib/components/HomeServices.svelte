@@ -10,11 +10,15 @@
 
 <div class="wrapper my-32">
 	<div class="grid-container px-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
-		{#each services as { attributes: { label, image, link, is_external_link }}, i }
-			<div class="grid-item" use:getAnim="{i < 3 ? 'fade-in-down' : 'fade-in-up'}">
+		{#each services as { attributes: { label, image, link, is_external_link } }, i}
+			<div
+				class="grid-item aspect-w-16 aspect-h-12"
+				use:getAnim="{i < 3 ? 'fade-in-down' : 'fade-in-up'}"
+			>
 				<a
-					target="{is_external_link ? '_blank' : ''}"
-					rel="{is_external_link ? 'noreferrer' : ''}"
+					class="block"
+					target="{is_external_link ? '_blank' : null}"
+					rel="{is_external_link ? 'noreferrer' : null}"
 					href="{is_external_link ? link : `/${link}`}"
 				>
 					<div class="grid-content  p-5">
@@ -112,7 +116,6 @@
 			height: 0;
 			cursor: pointer;
 
-			padding-bottom: 73.24%;
 			overflow: hidden;
 			position: relative;
 			text-align: center;
@@ -182,6 +185,7 @@
 					content: '';
 					position: absolute;
 					z-index: 1;
+					pointer-events: none;
 					top: 0;
 					left: 0;
 				}
@@ -194,6 +198,7 @@
 					content: '';
 					position: absolute;
 					z-index: 1;
+					pointer-events: none;
 					top: 0;
 					left: 0;
 				}
