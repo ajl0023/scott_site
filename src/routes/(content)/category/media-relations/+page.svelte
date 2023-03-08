@@ -33,7 +33,7 @@
 	<div class="article-wrapper divide-y-2 w-full " elementScroll="{scrollFetchEle}">
 		{#each articles as { attributes: { name, link, content, title, is_external_link, created_on, image }, id }}
 			<div
-				class="card-component flex md:pl-10 py-5 md:flex-row flex-col md:space-x-4 items-center md:items-start"
+				class="card-component flex py-5 md:flex-row flex-col md:space-x-4 items-center md:items-start"
 			>
 				<a
 					href="{is_external_link ? link : '/' + link}"
