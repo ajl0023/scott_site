@@ -3,6 +3,7 @@
 	import * as yup from 'yup';
 	import Form from '../../../../lib/components/Form.svelte';
 	import { Textarea } from 'flowbite-svelte';
+	import { Rating } from 'flowbite-svelte';
 
 	let form;
 
@@ -24,7 +25,7 @@
 						{
 							name: 'email',
 							label: 'Email',
-							type: 'text',
+							type: 'email',
 							placeholder: '[...]@email.com',
 
 							validation: yup.string(),
@@ -37,7 +38,7 @@
 				{
 					name: 'website',
 					label: 'Website',
-					type: 'text',
+					type: 'url',
 
 					validation: yup.string(),
 					sub_fields: [],
@@ -59,13 +60,15 @@
 					label: 'Rating',
 					type: 'text',
 
-					validation: yup.string(),
+					validation: yup.string().required('Please select a rating.'),
 					sub_fields: [],
 					required: true,
+					initial_value: '',
 					placeholder: '',
 					component: Stars,
 					component_props: {
-						active: true
+						active: true,
+						id: 'input-rating'
 					}
 				},
 				{
@@ -85,22 +88,10 @@
 			]
 		}
 	];
-	const handleSubmit = (event) => {
-		event.preventDefault();
-
-		const myForm = event.target;
-		const formData = new FormData(myForm);
-
-		fetch('/', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: new URLSearchParams(formData).toString()
-		});
-	};
 </script>
 
 <div class="w-full max-w-lg m-auto lg:m-0">
 	<div class="form-container mb-4">
-		<Form forms="{forms}" onSubmit="{handleSubmit}" />
+		<Form forms="{forms}" />
 	</div>
 </div>

@@ -2,67 +2,37 @@
 	export let form_name;
 	export let forms;
 	export let show_header = true;
+	export let submitHandler;
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 	import { AsYouType } from 'libphonenumber-js';
 	import { Label, Input } from 'flowbite-svelte';
+	import { getInitialValues, getValidationSchema, netlifyFormSubmit } from '$lib/utils/form_utils';
 	let phone_number = '';
 	let fields = forms.reduce((acc, form_block) => {
 		acc.push(...form_block.fields);
 
 		return acc;
 	}, []);
-	// const handleSubmit = (event) => {
-	// 	event.preventDefault();
-
-	// 	const myForm = event.target;
-	// 	const formData = new FormData(myForm);
-
-	// 	fetch('/', {
-	// 		method: 'POST',
-	// 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-	// 		body: new URLSearchParams(formData).toString()
-	// 	});
-	// };
 	const { form, errors, state, handleChange, handleSubmit } = createForm({
-		initialValues: {
-			...fields.reduce((acc, field) => {
-				if (field.sub_fields.length > 0) {
-					field.sub_fields.forEach((sub_field) => {
-						acc[sub_field.name] = sub_field.initial_value;
-					});
-				} else {
-					acc[field.name] = field.initial_value;
-				}
-				return acc;
-			}, {})
-		},
+		initialValues: { ...getInitialValues(fields) },
 
-		validationSchema: yup.object().shape(
-			fields.reduce((acc, field) => {
-				if (field.sub_fields.length > 0) {
-					field.sub_fields.forEach((sub_field) => {
-						acc[sub_field.name] = sub_field.validation;
-					});
-				} else {
-					acc[field.name] = field.validation;
-				}
-				return acc;
-			}, {})
-		),
+		validationSchema: yup.object().shape(getValidationSchema(fields)),
 		onSubmit: async (values) => {
-			fetch('/', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: new URLSearchParams(values).toString()
-			})
-				.then(() => console.log('Form successfully submitted'))
-				.catch((error) => alert(error));
+			netlifyFormSubmit(form_name, values);
 		}
 	});
+
+	const input_attrs = (field) => {
+		return {
+			placeholder: field.placeholder,
+			required: field.required,
+			id: field.name,
+			size: 'md'
+		};
+	};
 </script>
 
-<!-- ' [&:nth-child(2)]:mt-5' -->
 <form
 	on:submit="{(e) => {
 		e.preventDefault();
@@ -98,33 +68,19 @@
 								{#if field.component}
 									<svelte:component
 										this="{field.component}"
+										{...input_attrs(field)}
 										bind:value="{$form[field.name]}"
-										placeholder="{field.placeholder}"
-										required="{field.required}"
-										id="{field.name}"
-										size="md"
 										{...field.component_props}
-									/>
-								{:else if field.name === 'phone'}
-									<Input
-										on:input="{(e) => {
-											phone_number = new AsYouType('US').input(e.target.value);
-										}}"
-										name="{field.name}"
-										bind:value="{$form[field.name]}"
-										placeholder="{field.placeholder}"
-										required="{field.required}"
-										id="{field.name}"
-										size="md"
 									/>
 								{:else}
 									<Input
-										name="{field.name}"
-										placeholder="{field.placeholder}"
-										required="{field.required}"
-										id="{field.name}"
-										size="md"
+										{...input_attrs(field)}
 										bind:value="{$form[field.name]}"
+										on:input="{(e) => {
+											if (field.name === 'phone') {
+												phone_number = new AsYouType('US').input(e.target.value);
+											}
+										}}"
 									/>
 								{/if}
 							</div>
@@ -142,20 +98,18 @@
 											<svelte:component
 												this="{sub_field.component}"
 												bind:value="{$form[sub_field.name]}"
-												placeholder="{sub_field.placeholder}"
-												required="{sub_field.required}"
-												id="{sub_field.name}"
-												size="md"
+												{...input_attrs(sub_field)}
 												{...sub_field.component_props}
 											/>
 										{:else}
 											<Input
-												name="{sub_field.name}"
-												placeholder="{sub_field.placeholder}"
-												required="{sub_field.required}"
-												id="{sub_field.name}"
-												size="md"
-												bind:value="{$form[field.name]}"
+												{...input_attrs(sub_field)}
+												bind:value="{$form[sub_field.name]}"
+												on:input="{(e) => {
+													if (sub_field.name === 'phone') {
+														$form[sub_field.name] = new AsYouType('US').input(e.target.value);
+													}
+												}}"
 											/>
 										{/if}
 									</div>
