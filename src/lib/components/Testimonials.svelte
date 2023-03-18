@@ -10,6 +10,7 @@
 	export let data;
 	const { bg_photo, scott_photo, reviews } = data;
 	let Carousel;
+
 	onMount(async () => {
 		Carousel = (await import('svelte-carousel')).default;
 	});
@@ -62,16 +63,18 @@
 					use:getAnim="{'fade-in-up'}"
 					class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[772px] lg:py-[50px] lg:px-[100px] py-[20px] px-[20px] text-center"
 				>
-					<Carousel autoplay="{true}" dots="{false}">
-						{#each reviews.data as { attributes: { content, name } }}
-							<div class="review-container">
-								<p class="text-sm lg:text-base">
-									{content}
-								</p>
-								<h5 class="mt-5 italics">- {_.startCase(name)}</h5>
-							</div>
-						{/each}
-					</Carousel>
+					{#if reviews.data.length > 0}
+						<svelte:component this="{Carousel}" autoplay="{true}" dots="{false}">
+							{#each reviews.data as { attributes: { content, name } }}
+								<div class="review-container">
+									<p class="text-sm lg:text-base">
+										{content}
+									</p>
+									<h5 class="mt-5 italics">- {_.startCase(name)}</h5>
+								</div>
+							{/each}
+						</svelte:component>
+					{/if}
 
 					<div class="button-container text-white mt-5 lg:mt-20 uppercase">
 						<a

@@ -18,7 +18,7 @@
 							label: 'Name',
 							type: 'text',
 							placeholder: 'Full Name',
-							validation: yup.string(),
+							validation: yup.string().required('Name is required'),
 							class: 'md:w-1/2',
 							required: true
 						},
@@ -28,7 +28,7 @@
 							type: 'email',
 							placeholder: '[...]@email.com',
 
-							validation: yup.string(),
+							validation: yup.string().email("Must be valid email").required('Email is required'),
 							class: 'md:w-1/2',
 							required: true
 						}
@@ -46,7 +46,7 @@
 					placeholder: 'example.com'
 				},
 				{
-					name: 'review title',
+					name: 'title',
 					label: 'Review Title',
 					type: 'text',
 
@@ -72,7 +72,7 @@
 					}
 				},
 				{
-					name: 'review',
+					name: 'content',
 					label: 'Review',
 					type: 'text',
 
@@ -92,6 +92,6 @@
 
 <div class="w-full max-w-lg m-auto lg:m-0">
 	<div class="form-container mb-4">
-		<Form forms="{forms}" />
+		<Form forms="{forms}" form_name="{'review_form'}" />
 	</div>
 </div>

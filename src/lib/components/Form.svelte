@@ -3,45 +3,76 @@
 	export let forms;
 	export let show_header = true;
 	export let submitHandler;
-	import { createForm } from 'svelte-forms-lib';
+	import { reporter, ValidationMessage } from '@felte/reporter-svelte';
+	import { validator } from '@felte/validator-yup';
+	import { createForm } from 'felte';
 	import * as yup from 'yup';
-	import { AsYouType } from 'libphonenumber-js';
-	import { Label, Input } from 'flowbite-svelte';
-	import { getInitialValues, getValidationSchema, netlifyFormSubmit } from '$lib/utils/form_utils';
-	let phone_number = '';
+
+	import { getInitialValues, getValidationSchema, handleFormSubmit } from '$lib/utils/form_utils';
+	import { Input, Label, Spinner, Toast } from 'flowbite-svelte';
+	import { isValidPhoneNumber } from 'libphonenumber-js';
+	import { onMount, setContext } from 'svelte';
+	import PhoneInput from './PhoneInput.svelte';
+	import { writable } from 'svelte/store';
+
 	let fields = forms.reduce((acc, form_block) => {
 		acc.push(...form_block.fields);
 
 		return acc;
 	}, []);
-	const { form, errors, state, handleChange, handleSubmit } = createForm({
-		initialValues: { ...getInitialValues(fields) },
 
-		validationSchema: yup.object().shape(getValidationSchema(fields)),
-		onSubmit: async (values) => {
-			netlifyFormSubmit(form_name, values);
-		}
+	$: submitted = false;
+	const phoneStore = writable({
+		dialCode: '1',
+		country: 'US'
+	});
+	setContext('phoneContext', phoneStore);
+	const schema = yup.object().shape(getValidationSchema(fields));
+
+	const { form, isSubmitting, setData } = createForm({
+		async onSubmit(values, context) {
+			if (values.phone) {
+				values.phone = '+' + $phoneStore.dialCode + values.phone.replace(/\D/g, '');
+			}
+			return handleFormSubmit(form_name, values);
+		},
+		validate: (values) => {
+			const errors = {};
+			const phoneValid = isValidPhoneNumber(values.phone || '', $phoneStore.country);
+			if (!values.phone || !phoneValid) {
+				errors.phone = 'Please enter a valid phone number';
+			}
+			return errors;
+		},
+		transform: (values) => {
+			return values;
+		},
+		onSuccess: (values) => {
+			submitted = true;
+		},
+
+		initialValues: { ...getInitialValues(fields) },
+		extend: [validator({ schema }), reporter]
 	});
 
-	const input_attrs = (field) => {
+	$: input_attrs = (field) => {
 		return {
 			placeholder: field.placeholder,
 			required: field.required,
 			id: field.name,
-			size: 'md'
+			size: 'md',
+			name: field.name,
+			disabled: submitted
 		};
 	};
+	//set fields for email and rating and name
+	onMount(() => {
+		// setData('name', 'testing');
+		// setData('email', 'test@email.com');
+	});
 </script>
 
-<form
-	on:submit="{(e) => {
-		e.preventDefault();
-		handleSubmit();
-	}}"
-	name="{form_name}"
-	class=""
-	data-netlify="true"
->
+<form use:form name="{form_name}" class="" data-netlify="true">
 	<div>
 		{#each forms as form_block, i}
 			<div class="[&:nth-child(n+2)]:mt-6">
@@ -65,24 +96,22 @@
 										<span class="text-red-500 font-bold">*</span>
 									{/if}
 								</Label>
+
 								{#if field.component}
 									<svelte:component
 										this="{field.component}"
 										{...input_attrs(field)}
-										bind:value="{$form[field.name]}"
 										{...field.component_props}
+										setData="{setData}"
 									/>
 								{:else}
-									<Input
-										{...input_attrs(field)}
-										bind:value="{$form[field.name]}"
-										on:input="{(e) => {
-											if (field.name === 'phone') {
-												phone_number = new AsYouType('US').input(e.target.value);
-											}
-										}}"
-									/>
+									<Input {...input_attrs(field)} bind:value="{field.initial_value}" />
 								{/if}
+								<ValidationMessage for="{field.name}" let:messages="{message}">
+									<!-- We assume a single string will be passed as a validation message -->
+									<!-- This can be an array of strings depending on your validation strategy -->
+									<span class="text-sm text-red-600">{message || ''}</span>
+								</ValidationMessage>
 							</div>
 						{:else}
 							<div class="flex flex-wrap w-full space-y-2 md:space-y-0">
@@ -97,21 +126,24 @@
 										{#if sub_field.component}
 											<svelte:component
 												this="{sub_field.component}"
-												bind:value="{$form[sub_field.name]}"
 												{...input_attrs(sub_field)}
 												{...sub_field.component_props}
 											/>
 										{:else}
 											<Input
 												{...input_attrs(sub_field)}
-												bind:value="{$form[sub_field.name]}"
 												on:input="{(e) => {
 													if (sub_field.name === 'phone') {
-														$form[sub_field.name] = new AsYouType('US').input(e.target.value);
+														// $form[sub_field.name] = new AsYouType('US').input(e.target.value);
 													}
 												}}"
 											/>
 										{/if}
+										<ValidationMessage for="{sub_field.name}" let:messages="{message}">
+											<!-- We assume a single string will be passed as a validation message -->
+											<!-- This can be an array of strings depending on your validation strategy -->
+											<span class="text-sm text-red-600">{message || ''}</span>
+										</ValidationMessage>
 									</div>
 								{/each}
 							</div>
@@ -123,13 +155,38 @@
 	</div>
 	<div class="flex items-center justify-between w-full pt-7">
 		<button
-			class="bg-[#303030] text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline"
+			disabled="{submitted || $isSubmitting}"
+			class="bg-[#303030] text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline disabled:opacity-50"
 			type="submit"
 		>
 			Submit
 		</button>
+		<span>
+			{#if $isSubmitting}
+				<Spinner />
+			{/if}
+			{#if submitted}
+				<Toast color="green" class="mb-2 border-none" simple="{true}">
+					<svelte:fragment slot="icon">
+						<svg
+							aria-hidden="true"
+							class="w-5 h-5"
+							fill="currentColor"
+							viewBox="0 0 20 20"
+							xmlns="http://www.w3.org/2000/svg"
+							><path
+								fill-rule="evenodd"
+								d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+								clip-rule="evenodd"></path></svg
+						>
+						<span class="sr-only">Check icon</span>
+					</svelte:fragment>
+					Successfully submitted!
+				</Toast>
+			{/if}
+		</span>
 		<!-- <button type="reset" class="inline-block align-baseline font-bold text-sm text-red-600">
-			Cancel
-		</button> -->
+            Cancel
+        </button> -->
 	</div>
 </form>

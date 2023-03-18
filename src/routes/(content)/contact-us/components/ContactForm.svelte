@@ -3,20 +3,8 @@
 	import Form from '../../../../lib/components/Form.svelte';
 	import * as yup from 'yup';
 	import { Textarea } from 'flowbite-svelte';
-	let form;
-	let phone_number = '';
-	const handleSubmit = (event) => {
-		event.preventDefault();
+	import PhoneInput from '../../../../lib/components/PhoneInput.svelte';
 
-		const myForm = event.target;
-		const formData = new FormData(myForm);
-
-		fetch('/', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: new URLSearchParams(formData).toString()
-		});
-	};
 	const forms = [
 		{
 			header: 'Contact Us',
@@ -47,9 +35,11 @@
 					label: 'Phone',
 					type: 'tel',
 					placeholder: '123-456-7890',
-					initial_value: '',
+
 					required: false,
-					validation: yup.string(),
+					validation: null,
+					component: PhoneInput,
+					initial_value: '',
 					sub_fields: []
 				},
 

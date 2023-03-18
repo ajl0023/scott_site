@@ -1,12 +1,15 @@
-export const getInitialValues = (formFields, data) => {
+import { url_new } from '../dev';
 
+export const getInitialValues = (formFields, data) => {
 	return formFields.reduce((acc, field) => {
 		if (field.sub_fields.length > 0) {
 			field.sub_fields.forEach((sub_field) => {
 				acc[sub_field.name] = sub_field.initial_value;
 			});
 		} else {
-			acc[field.name] = field.initial_value;
+			if (field.initial_value !== undefined) {
+				acc[field.name] = field.initial_value;
+			}
 		}
 		return acc;
 	}, {});
@@ -23,13 +26,18 @@ export const getValidationSchema = (formFields) => {
 		return acc;
 	}, {});
 };
-export const netlifyFormSubmit = (formName, values) => {
-	console.log(values);
-	fetch('/', {
+export const handleFormSubmit = (form_name, values) => {
+	//this has to be appended due to netlify form handling
+	const body = JSON.stringify({
+		formName: form_name,
+		formData: values
+	});
+
+	return fetch(`/api/forms?formName=${form_name}`, {
 		method: 'POST',
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: new URLSearchParams(values).toString()
-	})
-		.then(() => console.log('Form successfully submitted'))
-		.catch((error) => alert(error));
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: body
+	}).then();
 };

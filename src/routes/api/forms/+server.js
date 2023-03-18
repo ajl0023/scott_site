@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import { url_new } from '../../../lib/dev';
 import { getJson } from '../../../lib/utils/utils';
 
-export async function POST({ fetch, request }) {
+export async function POST({ fetch, request, url }) {
 	// log all headers
 
 	//fetch will send the form data to the server,so the headers are needed for forms
@@ -16,7 +16,26 @@ export async function POST({ fetch, request }) {
 		body: request.body,
 		duplex: 'half'
 	});
-	const page_data = await fetch(`${url_new}/api/ezforms/submit`, newRequest);
+	const page_data = await fetch(newRequest);
+	//get query formName from url
 
-	return;
+	const formName = url.searchParams.get('formName');
+	const data = await getJson(page_data);
+	if (formName === 'review_form') {
+		await fetch(url_new + '/api/reviews', {
+			method: 'POST',
+			body: JSON.stringify({ data }),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+			}
+		})
+			.then((response) => {
+				return response;
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}
+	return json(data);
 }

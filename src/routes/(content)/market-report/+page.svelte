@@ -4,6 +4,7 @@
 	import { get_strapi_image_format } from '$lib/utils/utils';
 	import Modal from '$lib/components/Modal.svelte';
 	import { access_strapi_image } from '../../../lib/utils/utils';
+	import PhoneInput from '../../../lib/components/PhoneInput.svelte';
 	export let data;
 	const forms = [
 		{
@@ -32,8 +33,11 @@
 					label: 'Phone',
 					type: 'tel',
 					placeholder: '123-456-7890',
-					required: true,
-					validation: yup.string().required(),
+
+					required: false,
+					validation: null,
+					component: PhoneInput,
+					initial_value: '',
 					sub_fields: []
 				},
 				{
@@ -86,7 +90,6 @@
 		}
 	];
 	const { page_data } = data;
-
 
 	const {
 		market_report: { image: marketReportImage, is_external_link, link },

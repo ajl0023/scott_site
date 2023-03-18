@@ -21,7 +21,10 @@
 	import { url_new } from '../lib/dev';
 	import ContactBar from '../lib/components/ContactBar.svelte';
 	import { writable } from 'svelte/store';
+	import '$lib/utils/yup_methods.js';
+
 	export let data;
+
 	onMount(() => {
 		createLazyStore.init();
 	});

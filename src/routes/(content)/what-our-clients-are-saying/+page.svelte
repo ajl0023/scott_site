@@ -33,13 +33,12 @@
 <div class="wrapper w-full font-roboto">
 	<Form />
 	<div class="review-wrapper divide-y space-y-6">
-		{#each reviews as { attributes: { name, content, title, review, created_on }, id }}
+		{#each reviews as { attributes: { name, content, title, rating, createdAt }, id }}
 			<div class="review-container">
 				<div class="header-container flex md:items-center flex-col md:flex-row">
-					<Stars rating="{review}" id="{id}" active="{false}" />
+					<Stars rating="{rating}" id="{id}" active="{false}" />
 					<span class="date text-[12px] italic text-[#666666]"
-						>{moment(created_on).format('MMM D, YYYY')} by {_.startCase(name)} on Scott James Luxury
-						Estates</span
+						>{moment(createdAt).format('MMM D, YYYY')} by {_.startCase(name)} on Scott James Luxury Estates</span
 					>
 				</div>
 				<div class="text-content prose md:prose-xl">

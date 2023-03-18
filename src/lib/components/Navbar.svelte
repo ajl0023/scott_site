@@ -97,7 +97,12 @@
 				alt=""
 			/>
 		</a>
-		<a href="/" class="logo-container max-w-[220px] w-full inline-block h-auto">
+		<a
+			target="_blank"
+			rel="noreferrer"
+			href="https://www.elliman.com/"
+			class="logo-container max-w-[220px] w-full inline-block h-auto"
+		>
 			<img
 				height="56"
 				width="400"

@@ -1,48 +1,41 @@
 <script>
 	export let id;
 	export let i;
-
-	export let rating;
-
+	export let active;
 	export let rating_value;
-
-	console.log(rating_value);
+	export let name;
 </script>
 
 <input
 	bind:group="{rating_value}"
 	type="radio"
+	name="{name}"
 	id="{i}-stars_{id}"
 	class="star-input"
-	name="rating_{id}"
 	value="stars - {i}"
 />
-<label for="{i}-stars_{id}" class="star">&#9733;</label>
+<label for="{i}-stars_{id}" class="star"> &#9733; </label>
 
 <style lang="scss">
+	// when the label is hovered, all elements before should be yellow
+
 	input {
 		display: none;
 	}
 
-	:global(.star) {
-		&:hover {
-			color: #ffc857;
-		}
-		color: #ccc;
-		cursor: pointer;
-		&:hover ~ .star {
-			color: #f9a52b;
-		}
-	}
+	// .star {
+	// 	color: #ccc;
+	// 	cursor: pointer;
+	// }
 
-	.star-input {
-		&:checked ~ .star {
-			color: #f9a52b;
-		}
-		&:checked {
-			.star {
-				font-size: 40px;
-			}
-		}
-	}
+	// :global(.star) {
+	// 	&:hover {
+	// 		color: #ffc857;
+	// 	}
+	// 	color: #ccc;
+	// 	cursor: pointer;
+	// 	&:hover ~ .star {
+	// 		color: #f9a52b !important;
+	// 	}
+	// }
 </style>
