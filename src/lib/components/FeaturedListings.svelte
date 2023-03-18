@@ -1,5 +1,4 @@
 <script>
-
 	import { getContext, onMount } from 'svelte';
 	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
@@ -11,8 +10,9 @@
 	export let data;
 
 	let listings = data.data;
-	if (listings.length < 5) {
-		listings = [...listings, listings[0], listings[0]];
+
+	if (listings.length > 5) {
+		listings = listings.slice(0, 5);
 	}
 	onMount(() => {
 		createLazyStore.init();
