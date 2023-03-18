@@ -35,8 +35,8 @@
 		should_show_nav_dropdown = !main_navbar_visible;
 	}, 500);
 
-	const { nav_items, bg_image, nav_sj_logo, nav_de_logo } = data;
-
+	const { nav_items, nav_sj_logo, nav_de_logo } = data;
+	$: ({ bg_image } = data);
 	// onMount(() => {
 	// 	setTimeout(() => {
 	// 		const domElement = document.createElement('script');
@@ -64,6 +64,7 @@
 	// 		}, 2000);
 	// 	}, 1000);
 	// });
+
 </script>
 
 <!-- if navbar is out of view, this brings a small navbar from the into view, and vice versa -->
@@ -127,7 +128,8 @@
 		'top-0 left-0 right-0 w-full z-[2] whitespace-nowrap text-xs justify-center lg:py-8 lg:px-4',
 		{
 			absolute: is_home,
-			['relative dark-overlay bg-cover bg-center bg-no-repeat before:z-[-1]']: !is_home
+			['relative dark-overlay bg-cover bg-center bg-no-repeat before:z-[-1]']: !is_home,
+			['bg-[length:100%_100%] ']: $page.route.id === '/(content)/concierge'
 		}
 	)}"
 >

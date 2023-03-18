@@ -58,10 +58,7 @@
 		loaded: false,
 		play_prom: null
 	});
-	// Code does following (English)
-	function add(a, b) {
-		return a + b;
-	}
+
 	setContext('audio_info', audio_info_store);
 	const song_file = _.get(data, 'layout_data.song_file.data.attributes.url', '');
 
@@ -84,6 +81,7 @@
 		// if the user is on the home page, play the audio
 		// if the user is not on the home page, pause the audio
 	});
+	
 </script>
 
 <!-- <svelte:head>
@@ -131,7 +129,10 @@
 		<Navbar
 			data="{{
 				nav_items: data['navbar_data'],
-				bg_image: data['layout_data']['navbar']['bg_image'],
+				bg_image:
+					$page.route.id === '/(content)/concierge'
+						? data['layout_data']['navbar']['bg_concierge_image']
+						: data['layout_data']['navbar']['bg_image'],
 				nav_sj_logo: {
 					black: data['layout_data']['sj_black'],
 					white: data['layout_data']['sj_white']
