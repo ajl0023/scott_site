@@ -23,16 +23,9 @@
 <fieldset class="star-rating" class:pointer-events-none="{!active}" disabled="{disabled}">
 	{#each stars as _, i}
 		{#if active}
-			<Star
-				active="{true}"
-				name="{name}"
-				bind:rating_value="{value}"
-				rating="{rating}"
-				i="{5 - i}"
-				id="{id}"
-			/>
+			<Star active="{true}" name="{name}" bind:rating_value="{value}" i="{5 - i}" id="{id}" />
 		{:else}
-			<Star bind:rating_value="{rating}" active="{false}" rating="{rating}" i="{5 - i}" id="{id}" />
+			<Star bind:rating_value="{rating}" active="{false}" i="{5 - i}" id="{id}" name="{name}" />
 		{/if}
 	{/each}
 </fieldset>

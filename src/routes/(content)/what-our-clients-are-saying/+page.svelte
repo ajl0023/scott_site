@@ -1,4 +1,5 @@
 <script>
+	import { ChevronDown, ChevronUp } from 'flowbite-svelte';
 	import _ from 'lodash-es';
 	import moment from 'moment';
 	import { getJson } from '../../../lib/utils/utils';
@@ -6,7 +7,16 @@
 	import Paginator from '../components/Paginator.svelte';
 	import Form from './components/ReviewForm.svelte';
 	import Stars from './components/Stars.svelte';
-
+	import gsap from 'gsap';
+	let animContainer;
+	let animContainerHidden = true;
+	const dropDownAnim = (shouldDrop) => {
+		animContainerHidden = !shouldDrop;
+		gsap.to(animContainer, {
+			height: shouldDrop ? 'auto' : 0,
+			duration: 0.5
+		});
+	};
 	export let data;
 	let pagination = {
 		page: null,
@@ -27,11 +37,25 @@
 		pagination = res_data['data']['meta']['pagination'];
 		// has_more = pagination.page < pagination.pageCount;
 	};
-	const handleSubmit = () => {};
 </script>
 
 <div class="wrapper w-full font-roboto">
-	<Form />
+	<button
+		on:click="{() => {
+			dropDownAnim(animContainerHidden);
+		}}"
+		class="text-white bg-[#303030] px-8 py-4 transition-all hover:bg-[#41A7C3] uppercase flex mb-5"
+	>
+		{#if animContainerHidden}
+			Create Your Own Review <ChevronDown class="ml-2" />
+		{:else}
+			Close <ChevronUp class="ml-2" />
+		{/if}
+	</button>
+	<div class="anim-wrapper h-0 overflow-hidden" bind:this="{animContainer}">
+		<Form />
+	</div>
+
 	<div class="review-wrapper divide-y space-y-6">
 		{#each reviews as { attributes: { name, content, title, rating, createdAt }, id }}
 			<div class="review-container">

@@ -4,6 +4,8 @@
 	import { onMount, setContext } from 'svelte';
 	import _ from 'lodash-es';
 	import { writable } from 'svelte/store';
+	import classNames from 'classnames';
+	import { access_strapi_image } from '../../lib/utils/utils';
 	export let data;
 
 	$: mobile_bar_hidden = $page.route.id === '/(content)/neighborhood-guides';
@@ -13,7 +15,8 @@
 
 	const hide_routes = [
 		'/(content)/neighborhood-guides',
-		'/(content)/homes-for-sale-details/[address]/[id]'
+		'/(content)/homes-for-sale-details/[address]/[id]',
+		'/(content)/douglas-elliman'
 	];
 
 	$: {
@@ -30,6 +33,7 @@
 			$titleStore = _.startCase(page_title);
 		}
 	}
+	$: hide_title = hide_routes.includes($page.route.id);
 </script>
 
 <div class="wrapper">
@@ -40,8 +44,18 @@
 			>
 				<div class="header-container">
 					<!-- <span> Home » Sellers » Decide to Sell </span> -->
+					{#if $page.route.id === '/(content)/douglas-elliman'}
+						<div class="logo-container max-w-lg">
+							<img class="w-full" src="{access_strapi_image(data.layout_data.de_logo)}" alt="" />
+						</div>
+					{/if}
 					<h1
-						class="text-[#41A7C3] text-[40px] md:text-[62px] font-barlow leading-tight mt-3 text-center lg:text-left"
+						class="{classNames(
+							'text-[#41A7C3] text-[40px] md:text-[62px] font-barlow leading-tight mt-3 text-center lg:text-left ',
+							{
+								hidden: hide_title
+							}
+						)}"
 					>
 						{$titleStore}
 						<!-- {page_name} -->

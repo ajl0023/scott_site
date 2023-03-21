@@ -102,7 +102,7 @@
 			target="_blank"
 			rel="noreferrer"
 			href="https://www.elliman.com/"
-			class="logo-container max-w-[220px] w-full inline-block h-auto"
+			class="logo-container max-w-[280px] w-full inline-block h-auto"
 		>
 			<img
 				height="56"
@@ -150,7 +150,7 @@
 			>
 		</div>
 		<div class="nav-right-container text-right">
-			<div class="nav-right-logo-container hidden lg:inline-block max-w-[300px] lg:w-[auto]">
+			<div class="nav-right-logo-container hidden lg:inline-block max-w-[400px] lg:w-[auto]">
 				<a target="_blank" rel="noreferrer" class="block" href="https://www.elliman.com/">
 					<img
 						class="nav-logo object-contain w-full"
@@ -161,11 +161,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="nav-menu-container text-right flex justify-end lg:mt-5">
+	<div class="nav-menu-container text-right hidden lg:flex justify-end lg:mt-5">
 		<IntersectionObserver element="{main_navbar}" on:observe="{handleObserve}">
 			<div class="flex justify-between w-full items-center">
 				<TranslateWidget />
-				<ul class="nav-menu hidden lg:flex text-white uppercase" bind:this="{main_navbar}">
+				<ul class="nav-menu lg:flex text-white uppercase" bind:this="{main_navbar}">
 					{#each nav_items as nav_item, i}
 						<!-- might have to include language later -->
 

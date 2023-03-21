@@ -8,8 +8,10 @@
 	import AnimationWrapper from './AnimationWrapper.svelte';
 	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
-
-	let listings = data.data;
+	//sort by price
+	let listings = data.data.sort((a, b) => {
+		return b.attributes.price - a.attributes.price;
+	});
 
 	if (listings.length > 5) {
 		listings = listings.slice(0, 5);
@@ -100,9 +102,11 @@
 				</div>
 			</a>
 		{/each}
-		<!-- <div class="view-more-container py-7 md:py-0"> -->
-		<!-- <a class="view-more-button" href="">view all properties+</a> -->
-		<!-- </div> -->
+		<div class="view-more-container  aspect-w-16 aspect-h-11">
+			<div class="flex items-center justify-center">
+				<a class="view-more-button" href="/properties/our-listings">view all properties+</a>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -129,32 +133,32 @@
 			}
 		}
 	}
-	// .view-more-container {
-	// 	background-color: #1b1b1b;
-	// 	display: flex;
-	// 	align-items: center;
-	// 	justify-content: center;
-	// 	text-align: center;
-	// 	.view-more-button {
-	// 		width: 250px;
-	// 		height: 53px;
-	// 		display: inline-block;
-	// 		vertical-align: middle;
-	// 		color: #ffffff;
-	// 		font-size: 12px;
-	// 		font-weight: 500;
-	// 		text-transform: uppercase;
-	// 		border: 1px solid #b3b3b3;
-	// 		line-height: 51px;
+	.view-more-container {
+		background-color: #1b1b1b;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		.view-more-button {
+			width: 250px;
+			height: 53px;
+			display: inline-block;
+			vertical-align: middle;
+			color: #ffffff;
+			font-size: 12px;
+			font-weight: 500;
+			text-transform: uppercase;
+			border: 1px solid #b3b3b3;
+			line-height: 51px;
 
-	// 		text-decoration: none;
-	// 		transition: all 0.3s ease-in-out;
-	// 		&:hover {
-	// 			background-color: #41a7c3;
-	// 			border: 1px solid #41a7c3;
-	// 		}
-	// 	}
-	// }
+			text-decoration: none;
+			transition: all 0.3s ease-in-out;
+			&:hover {
+				background-color: #41a7c3;
+				border: 1px solid #41a7c3;
+			}
+		}
+	}
 	.container {
 		max-width: 1500px;
 		width: 100%;

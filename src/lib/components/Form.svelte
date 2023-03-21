@@ -72,7 +72,7 @@
 	});
 </script>
 
-<form use:form name="{form_name}" class="" data-netlify="true">
+<form use:form name="{form_name}">
 	<div>
 		{#each forms as form_block, i}
 			<div class="[&:nth-child(n+2)]:mt-6">

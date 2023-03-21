@@ -33,7 +33,7 @@
 <div class="wrapper pagin-wrapper flex space-x-1 mt-4">
 	<Paginator
 		label="‹"
-		inactive="{curr_page === 1}"
+		active="{curr_page === 1 ? false : true}"
 		fetchData="{() => {
 			if (curr_page > 1) {
 				handleFetch(curr_page - 1);
@@ -43,7 +43,7 @@
 	{#each gen_pages as page_num}
 		<Paginator
 			label="{page_num}"
-			active="{curr_page === page_num}"
+			active="{curr_page !== page_num}"
 			fetchData="{() => {
 				handleFetch(page_num);
 			}}"
@@ -51,7 +51,7 @@
 	{/each}
 	<Paginator
 		label="›"
-		inactive="{curr_page === pageCount}"
+		active="{curr_page === pageCount ? false : true}"
 		fetchData="{() => {
 			if (curr_page < pageCount) {
 				handleFetch(curr_page + 1);

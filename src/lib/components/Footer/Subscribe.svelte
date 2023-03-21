@@ -1,29 +1,35 @@
 <script>
 	import { get_strapi_image_format } from '../../utils/utils';
-	import { createForm } from 'svelte-forms-lib';
+	import { createForm } from 'felte';
 	import * as yup from 'yup';
 	import MiniLogo from '../MiniLogo.svelte';
 	export let data;
-
-	const { form, errors, state, handleChange, handleSubmit } = createForm({
+	import { reporter, ValidationMessage } from '@felte/reporter-svelte';
+	import { validator } from '@felte/validator-yup';
+	import { handleFormSubmit } from '$lib/utils/form_utils';
+	import { Spinner, Toast } from 'flowbite-svelte';
+	let submitted = false;
+	const { form, isSubmitting } = createForm({
 		initialValues: {
 			name: '',
 			email: '',
 			message: ''
 		},
-		validationSchema: yup.object().shape({
-			name: yup.string().required(),
-			email: yup.string().email().required(),
-			message: yup.string()
-		}),
-		onSubmit: (values) => {
-			fetch('/', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-				body: new URLSearchParams(values).toString()
-			})
-				.then(() => console.log('Form successfully submitted'))
-				.catch((error) => alert(error));
+		extend: [
+			validator({
+				schema: yup.object().shape({
+					name: yup.string().required(),
+					email: yup.string().email().required(),
+					message: yup.string()
+				})
+			}),
+			reporter
+		],
+		onSuccess: (values) => {
+			submitted = true;
+		},
+		async onSubmit(values, context) {
+			return handleFormSubmit('email-subscribe', values);
 		}
 	});
 </script>
@@ -40,58 +46,85 @@
 			<p>Keep up to date in the latest market trends and opportunities in Los Angeles</p>
 		</div>
 		<div class="form-container">
-			<form
-				method="post"
-				data-netlify="true"
-				name="join-my-network"
-				on:submit="{(e) => {
-					e.preventDefault();
-					handleSubmit();
-				}}"
-			>
+			<form use:form>
 				<div class="input-container">
 					<div class="form-group">
 						<label for="footname">Name</label>
 						<input
+							disabled="{$isSubmitting || submitted}"
+							id="footname"
 							type="text"
 							name="name"
-							bind:value="{$form.name}"
-							size="40"
-							class="form-input"
-							id="footname"
+							required
+							class="form-input disabled:opacity-50"
 							placeholder="Name *"
 						/>
+						<ValidationMessage for="name" let:messages="{message}">
+							<!-- We assume a single string will be passed as a validation message -->
+							<!-- This can be an array of strings depending on your validation strategy -->
+							<span class="text-sm text-red-600">{message || ''}</span>
+						</ValidationMessage>
 					</div>
 					<div class="form-group">
 						<label for="footemail">Email Address</label>
 						<span class="input-span"
 							><input
+								disabled="{$isSubmitting || submitted}"
 								type="email"
 								name="email"
-								size="40"
-								bind:value="{$form.email}"
-								class="form-input"
+								required
 								id="footemail"
+								class="form-input disabled:opacity-50"
 								placeholder="Email Address *"
 							/></span
 						>
+						<ValidationMessage for="email" let:messages="{message}">
+							<!-- We assume a single string will be passed as a validation message -->
+							<!-- This can be an array of strings depending on your validation strategy -->
+							<span class="text-sm text-red-600">{message || ''}</span>
+						</ValidationMessage>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="foot_field">
 						<label for="footmessage">Message</label>
 						<textarea
+							disabled="{$isSubmitting || submitted}"
 							name="message"
 							cols="40"
 							rows="10"
-							bind:value="{$form.message}"
-							class="input-textarea"
-							id="footmessage"
+							class="input-textarea disabled:opacity-50"
 							placeholder="Message"></textarea>
 					</div>
 				</div>
-				<div class="submit-btn-container">
-					<input type="submit" value="Submit" class="submit-btn" id="foot_submit" />
+				<div class="submit-btn-container sm:flex-row flex-col justify-center items-center flex ">
+					<button
+						disabled="{$isSubmitting || submitted}"
+						type="submit"
+						value="Submit"
+						class="submit-btn sm:mr-5 disabled:pointer-events-none cursor-pointer disabled:opacity-50"
+						id="foot_submit">Submit</button
+					>
+					{#if $isSubmitting}
+						<Spinner />
+					{/if}
+					{#if submitted}
+						<div class="thank-message flex mt-5 sm:mt-0">
+							<svg
+								aria-hidden="true"
+								class="w-5 h-5 text-green-500 mr-2"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg"
+								><path
+									fill-rule="evenodd"
+									d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+									clip-rule="evenodd"></path></svg
+							>
+
+							<span class="text-gray-400"> Thank you for subscribing! </span>
+						</div>
+					{/if}
 				</div>
 			</form>
 		</div>
@@ -120,7 +153,7 @@
 			.submit-btn {
 				width: 159px;
 				height: 53px;
-				cursor: pointer;
+
 				display: inline-block;
 				vertical-align: top;
 				padding: 0;
@@ -166,7 +199,6 @@
 			font-size: 11px;
 			text-transform: uppercase;
 			letter-spacing: 0.07em;
-			outline: none;
 
 			border: none;
 			border-bottom: 1px solid rgba(255, 255, 255, 0.5);
@@ -186,7 +218,7 @@
 			text-transform: uppercase;
 			letter-spacing: 0.07em;
 			outline: none;
-			appearance: none;
+
 			resize: none;
 			border: none;
 			border-bottom: 1px solid rgba(255, 255, 255, 0.5);
