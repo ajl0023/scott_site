@@ -15,8 +15,6 @@
 
 	const children = _.get(nav_item, 'attributes.children.data', []);
 	const parent_data = _.get(nav_item, 'attributes', {});
-
-
 </script>
 
 <li class="cursor-pointer ">

@@ -16,8 +16,6 @@
 
 		expanded = copy;
 	};
-
-	
 </script>
 
 <div class="side-nav-wrapper">

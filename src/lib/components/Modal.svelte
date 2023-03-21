@@ -24,7 +24,11 @@
 		}
 	}}"
 >
-	<CloseButton size='md' on:click="{() => (showModal = false)}" class='fixed top-10 right-10 text-white hover:bg-black/70'/>
+	<CloseButton
+		size="md"
+		on:click="{() => (showModal = false)}"
+		class="fixed top-10 right-10 text-white hover:bg-black/70"
+	/>
 
 	<div class="modal-content-wrapper p-4 max-w-2xl w-full">
 		<div class="modal-content">

@@ -23,7 +23,6 @@
 			menu_bar: { agent_image, profile_informations, services }
 		}
 	} = data;
-
 </script>
 
 <div class="wrapper">

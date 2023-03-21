@@ -28,7 +28,7 @@
 							type: 'email',
 							placeholder: '[...]@email.com',
 
-							validation: yup.string().email("Must be valid email").required('Email is required'),
+							validation: yup.string().email('Must be valid email').required('Email is required'),
 							class: 'md:w-1/2',
 							required: true
 						}

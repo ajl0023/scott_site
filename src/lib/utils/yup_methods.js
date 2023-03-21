@@ -9,7 +9,6 @@
 // 		// [path]  - property name,
 // 		// ...
 
-		
 // 		console.log(isValidPhoneNumber(value));
 // 		return isValidPhoneNumber(value);
 // 	});

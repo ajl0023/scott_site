@@ -10,8 +10,6 @@
 	export let data;
 	const page_data = _.get(data['page_data'], 'data[0].attributes', null);
 
-	
-
 	const components = {
 		'page-parts.content': MediaCkContent,
 		'page-parts.video': VideoEmbed,

@@ -40,6 +40,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@candidosales/svelte-google-translate": "^0.0.9",
 		"@felte/validator-yup": "^1.0.11",
 		"@sveltejs/adapter-netlify": "^2.0.2",
 		"dotenv": "^16.0.3",

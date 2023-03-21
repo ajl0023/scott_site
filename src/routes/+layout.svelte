@@ -81,26 +81,8 @@
 		// if the user is on the home page, play the audio
 		// if the user is not on the home page, pause the audio
 	});
-	
 </script>
 
-<!-- <svelte:head>
-	<script
-		type="text/javascript"
-		src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-	>
-	</script>
-
-	<script>
-		function googleTranslateElementInit() {
-			new google.translate.TranslateElement(
-				{ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL },
-				'google_translate_element'
-			);
-		}
-
-	</script>
-</svelte:head> -->
 <audio bind:this="{$audio_info_store.audio}" bind:paused="{$audio_info_store.is_paused}"> </audio>
 
 <ContactBar items="{data['layout_data']['contact_bar_items']}" />
@@ -143,6 +125,7 @@
 				}
 			}}"
 		/>
+
 		<div class="main-container  overflow-hidden">
 			<slot />
 

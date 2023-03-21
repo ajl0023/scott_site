@@ -21,12 +21,15 @@
 			</div>
 		</div>
 
-		<div
-			class="grid-container lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
-			
-		>
+		<div class="grid-container lg:grid-rows-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
 			{#each images as img}
-				<div class="grid-item grid-image aspect-w-16 aspect-h-9" use:getAnim="{'zoom-in'}">
+				<a
+					class="grid-item grid-image aspect-w-16 aspect-h-9"
+					use:getAnim="{'zoom-in'}"
+					href="{img.link}"
+					target="_blank"
+					rel="noreferrer"
+				>
 					<div class="grid-content-container">
 						<div class="image-container w-full h-full absolute">
 							<img
@@ -42,9 +45,12 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</a>
 			{/each}
-			<div  class="grid-item text-container hidden lg:block aspect-w-16 aspect-h-9" use:getAnim="{'zoom-in'}">
+			<div
+				class="grid-item text-container hidden lg:block aspect-w-16 aspect-h-9"
+				use:getAnim="{'zoom-in'}"
+			>
 				<div class="grid-content-container">
 					<div class="text-content">
 						<h3>GLOBAL LUXURY LISTINGS</h3>

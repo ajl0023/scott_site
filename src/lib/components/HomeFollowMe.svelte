@@ -11,7 +11,6 @@
 			attributes: { contact_info }
 		}
 	} = instagram_url;
-
 </script>
 
 <div id="hp_ig_feed_wrap" class="wrapper text-center pt-[105px] pb-[75px]">

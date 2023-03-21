@@ -2,7 +2,6 @@
 	import { image_url } from '../../dev';
 
 	export let data;
-	
 </script>
 
 <div class="wrapper">

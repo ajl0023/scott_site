@@ -19,7 +19,7 @@
 
 	<div class="lg:mt-[70px] container">
 		<div
-			class="flex main-content lg:flex-row flex-col lg:mt-[40px] lg:py-0 items-center lg:items-stretch p-8 lg:p-0 " 
+			class="flex main-content lg:flex-row flex-col lg:mt-[40px] lg:py-0 items-center lg:items-stretch p-8 lg:p-0 "
 		>
 			<div
 				use:getAnim="{'fade-in-left'}"
@@ -32,7 +32,9 @@
 				class="right-container flex flex-col justify-center items-center lg:px-10 lg:translate-y-[-40px] lg:w-[60%]"
 			>
 				<div class="title-container my-2 text-center lg:text-start lg:m-0 lg:self-start">
-					<div class="font-barlow title-container lg:items-start flex flex-col md:mb-3 items-center">
+					<div
+						class="font-barlow title-container lg:items-start flex flex-col md:mb-3 items-center"
+					>
 						<MiniLogo />
 						<div class="header-container">
 							<h2

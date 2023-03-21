@@ -9,8 +9,7 @@ export async function load({ fetch, params, depends, url }) {
 	const page_info = await getJson(
 		fetch(`${url_new}/api/pages?filters[slug][$eq]=${slug}`, {
 			headers: {
-				Authorization:
-						`Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
 			}
 		})
 	);
@@ -24,8 +23,7 @@ export async function load({ fetch, params, depends, url }) {
 		const page_data = await getJson(
 			fetch(`${url_new}/api/${api_url}?populate=deep`, {
 				headers: {
-					Authorization:
-							`Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+					Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
 				}
 			})
 		);

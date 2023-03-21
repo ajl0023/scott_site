@@ -6,6 +6,7 @@
 	import _ from 'lodash-es';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	import { onMount } from 'svelte';
+	import TranslateWidget from './TranslateWidget.svelte';
 	import { access_strapi_image } from '../utils/utils';
 	import NavbarButton from './NavbarButton.svelte';
 
@@ -64,7 +65,6 @@
 	// 		}, 2000);
 	// 	}, 1000);
 	// });
-
 </script>
 
 <!-- if navbar is out of view, this brings a small navbar from the into view, and vice versa -->
@@ -113,12 +113,16 @@
 			/>
 		</a>
 	</div>
-	<div class="">
-		<div class="flex uppercase justify-end">
+	<div class="flex justify-between w-full items-center mt-2">
+		<TranslateWidget is_drop_down="{true}" should_show_nav_dropdown="{should_show_nav_dropdown}" />
+
+		<ul class="nav-menu hidden lg:flex text-white uppercase" bind:this="{main_navbar}">
 			{#each nav_items as nav_item, i}
+				<!-- might have to include language later -->
+
 				<NavbarButton is_visible="{true}" nav_item="{nav_item}" is_drop_down="{true}" />
 			{/each}
-		</div>
+		</ul>
 	</div>
 </div>
 
@@ -159,13 +163,16 @@
 	</div>
 	<div class="nav-menu-container text-right flex justify-end lg:mt-5">
 		<IntersectionObserver element="{main_navbar}" on:observe="{handleObserve}">
-			<ul class="nav-menu hidden lg:flex text-white uppercase" bind:this="{main_navbar}">
-				{#each nav_items as nav_item, i}
-					<!-- might have to include language later -->
+			<div class="flex justify-between w-full items-center">
+				<TranslateWidget />
+				<ul class="nav-menu hidden lg:flex text-white uppercase" bind:this="{main_navbar}">
+					{#each nav_items as nav_item, i}
+						<!-- might have to include language later -->
 
-					<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
-				{/each}
-			</ul>
+						<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
+					{/each}
+				</ul>
+			</div>
 		</IntersectionObserver>
 	</div>
 </nav>

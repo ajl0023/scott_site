@@ -5,8 +5,6 @@
 	export let ele;
 	export let animation_name;
 	let root = null;
-
-	
 </script>
 
 <IntersectionObserver

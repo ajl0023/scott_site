@@ -55,9 +55,7 @@
 				</div>
 			</div>
 		</div>
-		<div
-			class="testi-container text-white text-center font-roboto lg:-mt-32 mt-0 relative z-10 lg:ml-5 "
-		>
+		<div class="testi-container text-white text-center font-roboto mt-0 relative z-10 lg:ml-5 ">
 			{#if browser && Carousel}
 				<div
 					use:getAnim="{'fade-in-up'}"
