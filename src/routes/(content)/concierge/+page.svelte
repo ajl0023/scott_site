@@ -1,6 +1,6 @@
 <script>
 	import { get_strapi_image_format } from '../../../lib/utils/utils';
-	import CkContent from '../components/CkContent.svelte';
+	import CkContent from '../../../lib/components/CKContent.svelte';
 
 	export let data;
 	const { main_image, main_text } = data.page_data;
