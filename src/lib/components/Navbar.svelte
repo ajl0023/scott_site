@@ -113,15 +113,17 @@
 			/>
 		</a>
 	</div>
-	<div class="flex justify-between w-full items-center mt-2">
-		<TranslateWidget is_drop_down="{true}" should_show_nav_dropdown="{should_show_nav_dropdown}" />
-
-		<ul class="nav-menu hidden lg:flex text-white uppercase" bind:this="{main_navbar}">
+	<div class="flex justify-end w-full items-center mt-2">
+		<ul class="nav-menu hidden lg:flex text-white uppercase  space-x-10" bind:this="{main_navbar}">
 			{#each nav_items as nav_item, i}
 				<!-- might have to include language later -->
 
 				<NavbarButton is_visible="{true}" nav_item="{nav_item}" is_drop_down="{true}" />
 			{/each}
+			<TranslateWidget
+				is_drop_down="{true}"
+				should_show_nav_dropdown="{should_show_nav_dropdown}"
+			/>
 		</ul>
 	</div>
 </div>
@@ -163,16 +165,14 @@
 	</div>
 	<div class="nav-menu-container text-right hidden lg:flex justify-end lg:mt-5">
 		<IntersectionObserver element="{main_navbar}" on:observe="{handleObserve}">
-			<div class="flex justify-between w-full items-center">
-				<TranslateWidget />
-				<ul class="nav-menu lg:flex text-white uppercase" bind:this="{main_navbar}">
-					{#each nav_items as nav_item, i}
-						<!-- might have to include language later -->
+			<ul class="nav-menu lg:flex text-white uppercase space-x-10" bind:this="{main_navbar}">
+				{#each nav_items as nav_item, i}
+					<!-- might have to include language later -->
 
-						<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
-					{/each}
-				</ul>
-			</div>
+					<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
+				{/each}
+				<TranslateWidget />
+			</ul>
 		</IntersectionObserver>
 	</div>
 </nav>

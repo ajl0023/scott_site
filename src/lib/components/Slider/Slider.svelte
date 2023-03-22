@@ -11,6 +11,7 @@
 			index: i
 		};
 	});
+
 	animStore.init(formatted);
 
 	onMount(async () => {
@@ -27,15 +28,8 @@
 	> -->
 
 	<div id="stage" class="hero slider-container h-full">
-		{#each $animStore as { image, id, type, video_url, should_play, index }, i (index)}
-			<Slide
-				id="{id}"
-				index="{i}"
-				shouldPlay="{should_play}"
-				video_url="{video_url}"
-				slide_type="{type}"
-				image="{image}"
-			/>
+		{#each $animStore as { id, type, should_play, index, media }, i (index)}
+			<Slide id="{id}" index="{i}" shouldPlay="{should_play}" media="{media}" slide_type="{type}" />
 		{/each}
 	</div>
 </div>

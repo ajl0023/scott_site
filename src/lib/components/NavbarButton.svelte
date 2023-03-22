@@ -34,7 +34,7 @@
 		dropDownAnim(false);
 		is_hovered = false;
 	}}"
-	class="mr-4 menu-item-container"
+	class="menu-item-container"
 >
 	<li class="list-item text-white">
 		{#if parent_data['url']}
@@ -47,8 +47,6 @@
 				class="list-link {is_visible ? 'text-xs' : 'lg:text-md md:text-sm'}  group"
 				href="{parent_data['url']}">{parent_data['title']}</a
 			>
-	
-		
 		{/if}
 	</li>
 
@@ -110,13 +108,6 @@
 	}
 	.menu-item-container {
 		position: relative;
-
-		&:first-child {
-			margin-left: 0;
-		}
-		&:last-child {
-			margin-right: 0;
-		}
 
 		&:hover .list-item::after {
 			width: 100%;

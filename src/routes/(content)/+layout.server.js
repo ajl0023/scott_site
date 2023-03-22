@@ -22,8 +22,12 @@ export async function load({ fetch, url, params }) {
 		throw error(404);
 	}
 	const getPageData = async () => {
+		const fetch_url =
+			path === '/properties/our-listings'
+				? `${url_new}/api/${api_url}?sort=price%3Adesc&populate=deep`
+				: `${url_new}/api/${api_url}?populate=deep`;
 		const page_data = await getJson(
-			fetch(`${url_new}/api/${api_url}?populate=deep`, {
+			fetch(fetch_url, {
 				headers: {
 					Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
 				}

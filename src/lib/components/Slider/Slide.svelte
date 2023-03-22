@@ -5,8 +5,7 @@
 	import classnames from 'classnames';
 	export let index;
 	export let slide_type;
-	export let video_url;
-	export let image;
+	export let media;
 	export let id;
 	let should_animate;
 	let video;
@@ -24,6 +23,7 @@
 			return store;
 		});
 	});
+	
 </script>
 
 <div
@@ -49,13 +49,13 @@
 		<img
 			class="slide lazy object-cover w-full h-full object-center"
 			alt="'"
-			src="{access_strapi_image(image)}"
+			src="{access_strapi_image(media)}"
 		/>{:else}
 		<video
 			bind:this="{video}"
 			class="slide object-cover w-full h-full object-center"
 			alt="'"
-			src="{video_url}"
+			src="{access_strapi_image(media)}"
 			muted
 			on:ended="{() => {
 				should_animate = true;
