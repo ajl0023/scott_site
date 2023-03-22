@@ -13,8 +13,8 @@
 		return b.attributes.price - a.attributes.price;
 	});
 
-	if (listings.length > 5) {
-		listings = listings.slice(0, 5);
+	if (listings.length > 7) {
+		listings = listings.slice(0, 7);
 	}
 	onMount(() => {
 		createLazyStore.init();
@@ -167,7 +167,7 @@
 
 	.listing-container {
 		position: relative;
-		@for $i from 1 through 6 {
+		@for $i from 1 through 8 {
 			&:nth-child(#{$i}) {
 				@if $i ==2 {
 					.listing-hovered {
@@ -188,16 +188,26 @@
 				}
 				@if $i ==5 {
 					.listing-hovered {
-						left: auto;
+						left: -30px;
 						right: 0;
 						top: -30px;
 					}
 				}
 				@if $i ==6 {
 					.listing-hovered {
-						left: auto;
+						top: 0;
 						right: 0;
+					}
+				}
+				@if $i ==7 {
+					.listing-hovered {
+						left: 0;
 						top: -30px;
+					}
+				}
+				@if $i ==8 {
+					.listing-hovered {
+						top: 0;
 					}
 				}
 			}

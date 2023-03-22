@@ -14,10 +14,11 @@
 	let propertyType_to_display = {
 		House: 'House',
 		Lot: 'Lots / Land',
-		'Multi-Unit Residential': 'Multi-Unit Residential'
+		'Multi-Unit Residential': 'Multi-Unit Residential',
+		Rental: 'Rental'
 	};
 	let features_to_display = (type) => {
-		if (type === 'house') {
+		if (type === 'house' || type === 'rental') {
 			return [
 				{
 					key: 'Beds',
@@ -25,7 +26,7 @@
 				},
 				{
 					key: 'Baths',
-					val: `${interior_features['full_baths']} | ${interior_features['half_baths']}`
+					val: `${interior_features['full_baths']} | ${interior_features['half_baths'] || 0}`
 				},
 				{
 					key: 'SqFt',

@@ -31,10 +31,30 @@
 			location_info: _.get(item, 'attributes.location_info', null)
 		};
 	});
+
 	//i want to define a listing_features object that will determine what to display in the listing component, but interior_features is undefined in lot, i might do it in the map above
 
 	const features_to_display = {
 		House: {
+			features: [
+				{
+					key: 'bedrooms',
+					category: 'interior_features',
+					icon: Bed
+				},
+				{
+					key: 'half_baths',
+					category: 'interior_features',
+					icon: Bath
+				},
+				{
+					key: 'full_baths',
+					category: 'interior_features',
+					icon: null
+				}
+			]
+		},
+		Rental: {
 			features: [
 				{
 					key: 'bedrooms',
@@ -72,8 +92,6 @@
 			]
 		}
 	};
-	const place_holders =
-		listings_formatted.length % 2 == 0 ? listings_formatted.push('empty') : null;
 </script>
 
 <div class="wrapper m-auto lg:m-0">

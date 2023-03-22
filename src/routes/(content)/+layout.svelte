@@ -13,14 +13,10 @@
 	const titleStore = writable('');
 	setContext('title', titleStore);
 
-	const hide_routes = [
-		'/(content)/neighborhood-guides',
-		'/(content)/homes-for-sale-details/[address]/[id]',
-		'/(content)/douglas-elliman'
-	];
-
+	const hide_routes = ['/(content)/neighborhood-guides', '/(content)/douglas-elliman'];
+	const ignore_routes = ['/(content)/homes-for-sale-details/[address]/[id]'];
 	$: {
-		if (!hide_routes.includes($page.route.id)) {
+		if (!hide_routes.includes($page.route.id) && !ignore_routes.includes($page.route.id)) {
 			// Get the page URL and split it into an array
 			let url = $page.url.pathname;
 			let urlParts = url.split('/');

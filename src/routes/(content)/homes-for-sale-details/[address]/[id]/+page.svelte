@@ -20,6 +20,7 @@
 
 	export let data;
 	const property_data = data['property_data'];
+	let curr_carousel_index = 0;
 	const {
 		address,
 		description,
@@ -45,7 +46,25 @@
 			},
 			{
 				label: 'Sq.Ft',
-				val: parseInt(exterior_features['lot_size_in_sq_ft']).toLocaleString()
+				val: parseInt(exterior_features['approximate_size']).toLocaleString()
+			},
+			{
+				label: 'Type',
+				val: property_type
+			}
+		],
+		rental: () => [
+			{
+				label: 'Beds',
+				val: interior_features['bedrooms']
+			},
+			{
+				label: 'Baths',
+				val: `${interior_features['full_baths']}|${interior_features['half_baths'] || 0}`
+			},
+			{
+				label: 'Sq.Ft',
+				val: parseInt(exterior_features['approximate_size']).toLocaleString()
 			},
 			{
 				label: 'Type',
@@ -94,9 +113,12 @@
 			data: location_info
 		}
 	};
-	const value_mapper = {
+	const feature_fields_map = {
 		true: 'Yes',
 		false: 'No'
+	};
+	const value_mapper = (value) => {
+		return feature_fields_map[value] || value;
 	};
 	const title = getContext('title');
 
@@ -116,7 +138,10 @@
 		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between flex-row items-start md:text-md text-sm w-full"
 	>
 		<Address location_info="{location_info}" />
-		<span>${parseInt(price).toLocaleString()}</span>
+		<span
+			>${parseInt(price).toLocaleString()}
+			{property_type.toLowerCase() === 'rental' ? '(rental)' : ''}</span
+		>
 	</div>
 	<div class="field-header-container flex space-x-4 mt-10">
 		{#each header_fields[property_type.toLowerCase()]() as { label, val }}
@@ -134,9 +159,16 @@
 	<!--left arrow svg -->
 
 	{#if Carousel && browser}
-		<div class="carousel-wrapper w-full">
+		<div class="carousel-wrapper w-full relative">
 			{#if browser}
-				<Carousel let:showPrevPage let:showNextPage>
+				<Carousel
+					let:showPrevPage
+					let:showNextPage
+					dots="{false}"
+					on:pageChange="{(event) => {
+						curr_carousel_index = event.detail;
+					}}"
+				>
 					<div
 						on:keydown
 						on:click="{showPrevPage}"
@@ -194,6 +226,17 @@
 					</div>
 				</Carousel>
 			{/if}
+			<!-- position bottom center -->
+			<div
+				class="absolute bottom-5
+			left-[50%] transform -translate-x-1/2 
+			bg-gray-400 text-white text-sm font-roboto font-medium px-2 py-1 rounded-md
+			"
+			>
+				<span class="drop-shadow-md">
+					{curr_carousel_index + 1} / {images.data.length}
+				</span>
+			</div>
 		</div>
 	{/if}
 	<h2 class="font-medium font-roboto text-xl mt-16">About This Home</h2>
@@ -227,10 +270,16 @@
 
 					"
 							>
-								<span class="font-medium">{_.startCase(label)}:</span>
+								<!-- if label contains orsym, replace with /  -->
+
+								<span class="font-medium"
+									>{label.includes('orsym')
+										? _.startCase(label).replace(/(orsym)/gi, '/')
+										: _.startCase(label)}:</span
+								>
 
 								{#if typeof val === 'boolean'}
-									{value_mapper[val]}
+									{value_mapper(val)}
 								{:else}
 									{val}
 								{/if}

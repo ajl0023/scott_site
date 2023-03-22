@@ -1,10 +1,10 @@
 <script>
 	import classNames from 'classnames';
-	import { Button, Chevron, Dropdown, DropdownItem, Select, Popover } from 'flowbite-svelte';
+	import { Popover } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	export let is_drop_down = false;
 	export let should_show_nav_dropdown = false;
-	let elementId = 'google-translate-element';
+
 	let curr_lang;
 	let is_rendering = true;
 	const countries = [

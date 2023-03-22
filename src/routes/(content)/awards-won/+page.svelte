@@ -3,7 +3,7 @@
 	import { get_strapi_image_format } from '../../../lib/utils/utils';
 
 	export let data;
-	const images = data['page_data']['images']['data'];
+	const images = data['page_data']['awards'];
 	let selectedImage = null;
 
 	//write a function that will return the image url based on the size passed in
@@ -11,7 +11,7 @@
 
 <div class="wrapper">
 	<div class="awards-container flex w-full flex-wrap -m-5">
-		{#each images as img}
+		{#each images as { image: img }}
 			<div class="item-wrapper md:basis-4/12 p-5 w-full">
 				<div
 					on:keydown
