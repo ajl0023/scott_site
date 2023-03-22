@@ -1,5 +1,5 @@
 <script>
-	import CkContent from '../../components/CKContent.svelte';
+	import CkContent from '$lib/components/CKContent.svelte';
 
 	export let data;
 
