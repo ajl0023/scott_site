@@ -9,11 +9,14 @@
 	import _ from 'lodash-es';
 	import Address from '../../../properties/our-listings/components/Address.svelte';
 
-	import { onMount } from 'svelte';
+	import { createLazyStore } from '$lib/stores/lazy';
+	import { onMount, tick } from 'svelte';
 	import { getContext } from 'svelte';
 	let Carousel;
+	let mounted = false;
 	onMount(async () => {
 		Carousel = (await import('svelte-carousel')).default;
+		mounted = true;
 	});
 
 	// this will have to be manually included in svelte kits routes, because these will be pre-rendered, but are not "static" pages
@@ -33,7 +36,18 @@
 		additional_info,
 		property_type
 	} = property_data;
+	$: images_loaded = images.data.length > 0;
 
+	// $: {
+	// 	(async () => {
+	// 		$createLazyStore.lazy &&
+	// 			Carousel &&
+	// 			browser &&
+	// 			mounted &&
+	// 			images_loaded &&
+	// 			createLazyStore.update_lazy();
+	// 	})();
+	// }
 	const header_fields = {
 		house: () => [
 			{
@@ -135,10 +149,10 @@
 
 <div class="wrapper w-full">
 	<div
-		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between flex-row items-start md:text-md text-sm w-full"
+		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between flex-row items-start md:text-base text-sm w-full"
 	>
 		<Address location_info="{location_info}" />
-		<span
+		<span class="text-right ml-4"
 			>${parseInt(price).toLocaleString()}
 			{property_type.toLowerCase() === 'rental' ? '(rental)' : ''}</span
 		>
@@ -159,86 +173,86 @@
 	<!--left arrow svg -->
 
 	{#if Carousel && browser}
-		<div class="carousel-wrapper w-full relative">
-			{#if browser}
-				<Carousel
-					let:showPrevPage
-					let:showNextPage
-					dots="{false}"
-					on:pageChange="{(event) => {
-						curr_carousel_index = event.detail;
-					}}"
+		<div class="carousel-wrapper w-full h-full relative">
+			<Carousel
+				let:showPrevPage
+				let:showNextPage
+				let:loaded
+				dots="{false}"
+				on:pageChange="{(event) => {
+					curr_carousel_index = event.detail;
+				}}"
+			>
+				<div
+					on:keydown
+					on:click="{showPrevPage}"
+					slot="prev"
+					class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] left-5 z-10 bg-black rounded-full"
 				>
-					<div
-						on:keydown
-						on:click="{showPrevPage}"
-						slot="prev"
-						class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] left-0 z-10"
+					<svg
+						class="arrow"
+						xmlns="http://www.w3.org/2000/svg"
+						width="30"
+						height="30"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="white"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
 					>
-						<svg
-							class="arrow"
-							xmlns="http://www.w3.org/2000/svg"
-							width="50"
-							height="50"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="white"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<path d="M15 18l-6-6 6-6"></path>
-						</svg>
-					</div>
+						<path d="M15 18l-6-6 6-6"></path>
+					</svg>
+				</div>
 
-					{#each images.data as image}
-						<div class="">
-							<div class="carousel-item bg-black aspect-h-12 aspect-w-16 w-full">
-								<img
-									class="object-cover w-full"
-									draggable="false"
-									src="{access_strapi_image(image)}"
-									alt="{image.alternativeText}"
-								/>
-							</div>
-						</div>
-					{/each}
-					<div
-						on:keydown
-						on:click="{showNextPage}"
-						slot="next"
-						class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] right-0 z-10 rotate-180"
-					>
-						<svg
-							class="arrow"
-							xmlns="http://www.w3.org/2000/svg"
-							width="50"
-							height="50"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="white"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<path d="M15 18l-6-6 6-6"></path>
-						</svg>
+				{#each images.data as image, imageIndex (image.id)}
+					<div class="carousel-item bg-gray-200 aspect-h-12 aspect-w-16 w-full relative">
+						{#if loaded.includes(imageIndex)}
+							<img
+								draggable="{false}"
+								class="object-cover w-auto h-full m-auto"
+								src="{access_strapi_image(image)}"
+								alt="{image.alt}"
+							/>
+						{/if}
 					</div>
-				</Carousel>
-			{/if}
-			<!-- position bottom center -->
+				{/each}
+				<div
+					on:keydown
+					on:click="{showNextPage}"
+					slot="next"
+					class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] right-5 z-10 rotate-180 bg-black rounded-full"
+				>
+					<svg
+						class="arrow"
+						xmlns="http://www.w3.org/2000/svg"
+						width="30"
+						height="30"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="white"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M15 18l-6-6 6-6"></path>
+					</svg>
+				</div>
+			</Carousel>
 			<div
-				class="absolute bottom-5
-			left-[50%] transform -translate-x-1/2 
-			bg-gray-400 text-white text-sm font-roboto font-medium px-2 py-1 rounded-md
-			"
+				class="absolute bottom-5 
+	left-[50%] transform -translate-x-1/2 
+	bg-gray-400 text-white text-sm font-roboto font-medium px-2 py-1 rounded-md
+	"
 			>
 				<span class="drop-shadow-md">
 					{curr_carousel_index + 1} / {images.data.length}
 				</span>
 			</div>
+			<!-- position bottom center -->
 		</div>
 	{/if}
+
 	<h2 class="font-medium font-roboto text-xl mt-16">About This Home</h2>
 	<div class="agent-info-container roboto text-lg text-gray-600 ">
 		<span>

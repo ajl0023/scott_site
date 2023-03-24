@@ -35,16 +35,7 @@
 					]
 				},
 
-				{
-					name: 'website',
-					label: 'Website',
-					type: 'url',
-
-					validation: yup.string(),
-					sub_fields: [],
-					required: false,
-					placeholder: 'example.com'
-				},
+			
 				{
 					name: 'title',
 					label: 'Review Title',

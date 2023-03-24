@@ -10,7 +10,7 @@
 </script>
 
 <div class="wrapper">
-	<div class="awards-container flex w-full flex-wrap -m-5">
+	<div class="awards-container flex flex-wrap -m-5">
 		{#each images as { image: img }}
 			<div class="item-wrapper md:basis-4/12 p-5 w-full">
 				<div

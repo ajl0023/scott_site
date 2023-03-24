@@ -1,7 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, setContext, tick } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import Slide from './Slide.svelte';
-	import { animStore } from './store';
+	import { getAnimStore } from './store';
 
 	export let items = [];
 
@@ -12,10 +13,52 @@
 		};
 	});
 
+	const animStore = getAnimStore();
+	setContext('animStore', animStore);
+	
+
 	animStore.init(formatted);
 
+	$: duration = $animStore[0].ele && $animStore[0].ele.duration > 0;
+	$: slide_type = $animStore[0].type;
+	$: {
+		if (slide_type === 'video' && duration) {
+			animStore.start();
+		}
+	}
+
 	onMount(async () => {
-		animStore.start();
+		let currIndex = 0;
+		let slides = $animStore;
+
+		function slideShow() {
+			function fadeIn(e) {
+				if (slides[currIndex].type === 'video') {
+					slides[currIndex].ele.play();
+				}
+				e.parentElement.classList.add('fade-anim');
+			}
+
+			function fadeOut(e) {
+				e.parentElement.classList.remove('fade-anim');
+			}
+
+			fadeOut(slides[currIndex].ele);
+			currIndex++;
+			if (currIndex === slides.length) {
+				currIndex = 0;
+			}
+
+			fadeIn(slides[currIndex].ele);
+		
+			setTimeout(
+				function () {
+					slideShow();
+				},
+				slides[currIndex].type === 'video' ? slides[currIndex].ele.duration * 1000 : 3000
+			);
+		}
+		slideShow();
 	});
 </script>
 
@@ -28,8 +71,24 @@
 	> -->
 
 	<div id="stage" class="hero slider-container h-full">
-		{#each $animStore as { id, type, should_play, index, media }, i (index)}
-			<Slide id="{id}" index="{i}" shouldPlay="{should_play}" media="{media}" slide_type="{type}" />
+		<!-- <video
+			src="https://www.w3schools.com/howto/rain.mp4"
+			bind:duration="{video_length}"
+			class="slide object-cover w-full h-full object-center"
+			muted
+			autoplay
+		>
+		</video> -->
+
+		{#each $animStore as { id, type, should_play, index, media, shouldAnim }, i (id)}
+			<Slide
+				id="{id}"
+				index="{i}"
+				shouldPlay="{should_play}"
+				media="{media}"
+				slide_type="{type}"
+				shouldAnim="{shouldAnim}"
+			/>
 		{/each}
 	</div>
 </div>
@@ -54,4 +113,16 @@
 			pointer-events: none;
 		}
 	}
+
+	// @keyframes fader {
+	// 	from {
+	// 		opacity: 1;
+	// 	}
+	// 	to {
+	// 		opacity: 1;
+	// 	}
+	// }
+	// .fader {
+	// 	opacity: 1;
+	// }
 </style>

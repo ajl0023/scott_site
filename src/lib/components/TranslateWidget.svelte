@@ -101,7 +101,7 @@
 			id="widget-trigger"
 			class="list-link lg:text-md md:text-sm group cursor-pointer uppercase flex items-center"
 		>
-			<img class="mr-2 w-4" src="{`/images/lang/lang__${selected.value}.png`}" alt="" />
+			<img class="mr-2 w-4 h-[11px]" src="{`/images/lang/lang__${selected.value}.png`}" alt="" />
 			<span>
 				{selected.label}
 			</span>
@@ -127,7 +127,7 @@
 								handleTranslate(country);
 							}}"
 						>
-							<img class="mr-2 w-4" src="{`/images/lang/lang__${country.value}.png`}" alt="" />
+							<img class="mr-2 w-4 h-[11px]" src="{`/images/lang/lang__${country.value}.png`}" alt="" />
 							<div class="text-[10px]">
 								{country.label}
 							</div>

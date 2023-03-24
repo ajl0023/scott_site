@@ -138,11 +138,11 @@
 							component: Select,
 							component_props: {
 								items: [
-									{ name: '1', value: 'single_family_home' },
-									{ name: '2', value: 'condo_or_town' },
-									{ name: '3', value: 'income_property' },
-									{ name: '4', value: 'single_family_home' },
-									{ name: '5+', value: 'condo_or_town' }
+									{ name: '1', value: '1' },
+									{ name: '2', value: '2' },
+									{ name: '3', value: '3' },
+									{ name: '4', value: '4' },
+									{ name: '5+', value: '5' }
 								]
 							},
 							validation: yup.string(),
@@ -156,11 +156,11 @@
 							component: Select,
 							component_props: {
 								items: [
-									{ name: '1', value: 'single_family_home' },
-									{ name: '2', value: 'condo_or_town' },
-									{ name: '3', value: 'income_property' },
-									{ name: '4', value: 'single_family_home' },
-									{ name: '5+', value: 'condo_or_town' }
+									{ name: '1', value: '1' },
+									{ name: '2', value: '2' },
+									{ name: '3', value: '3' },
+									{ name: '4', value: '4' },
+									{ name: '5+', value: '5' }
 								]
 							},
 							validation: yup.string(),
@@ -204,6 +204,6 @@
 		report.
 	</p>
 	<div class="max-w-2xl m-auto lg:m-0">
-		<Form forms="{forms}" />
+		<Form forms="{forms}" form_name="{'home-valuation'}" />
 	</div>
 </div>

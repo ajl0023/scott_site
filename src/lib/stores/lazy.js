@@ -8,10 +8,18 @@ function createLazy() {
 
 	const methods = {
 		init: () => {
-			state.lazy = new LazyLoad({});
+			update((state) => {
+				state.lazy = new LazyLoad();
+				return state;
+			});
 		},
 		update_lazy: () => {
-			state.lazy.update();
+			update((state) => {
+				if (state.lazy) {
+					state.lazy.update();
+				}
+				return state;
+			});
 		}
 	};
 	return { ...methods, subscribe };

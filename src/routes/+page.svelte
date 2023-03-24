@@ -94,9 +94,6 @@
 	<Testimonials data="{data['page_data']['testimonial']}" />
 	<MediaRelationsHome data="{data['page_data']['media_relations']}" />
 
-	<!-- these below should be all finished, simple html and responsive. 
-		these probably dont need to be worked on.
-	 -->
 	<HomeFollowMe data="{data['page_data']['follow_me']}" />
 	<RealDealNews data="{data['page_data']['real_deal_news']}" />
 

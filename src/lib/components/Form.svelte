@@ -22,12 +22,15 @@
 	}, []);
 
 	$: submitted = false;
+
 	const phoneStore = writable({
 		dialCode: '1',
 		country: 'US'
 	});
 	setContext('phoneContext', phoneStore);
 	const schema = yup.object().shape(getValidationSchema(fields));
+	let contains_phone = schema.fields['phone'];
+	// let contains_phone = schema.fields.includes('phone');
 
 	const { form, isSubmitting, setData } = createForm({
 		async onSubmit(values, context) {
@@ -39,7 +42,7 @@
 		validate: (values) => {
 			const errors = {};
 			const phoneValid = isValidPhoneNumber(values.phone || '', $phoneStore.country);
-			if (!values.phone || !phoneValid) {
+			if (contains_phone && (!values.phone || !phoneValid)) {
 				errors.phone = 'Please enter a valid phone number';
 			}
 			return errors;

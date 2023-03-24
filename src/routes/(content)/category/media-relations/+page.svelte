@@ -48,7 +48,7 @@
 						href="{is_external_link ? link : '/' + link}"
 						target="{is_external_link ? '_blank' : ''}"
 						rel="{is_external_link ? 'noreferrer' : ''}"
-						class="hover:text-[#41A7C3]  text-container font-barlow text-2xl font-medium">{title}</a
+						class="hover:text-[#41A7C3] text-container font-barlow text-2xl font-medium block">{title}</a
 					>
 					<span class="block hover:text-[#41A7C3] mt-5">
 						<a
