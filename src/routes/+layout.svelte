@@ -108,7 +108,7 @@
 	</div>
 
 	<div class="content-wrapper lg:mt-[0px] mt-[40px] relative">
-		<Navbar
+		<!-- <Navbar
 			data="{{
 				nav_items: data['navbar_data'],
 				bg_image:
@@ -124,7 +124,7 @@
 					white: data['layout_data']['de_logo_white']
 				}
 			}}"
-		/>
+		/> -->
 
 		<div class="main-container  overflow-hidden">
 			<slot />

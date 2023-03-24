@@ -15,7 +15,6 @@
 
 	const animStore = getAnimStore();
 	setContext('animStore', animStore);
-	
 
 	animStore.init(formatted);
 
@@ -30,7 +29,8 @@
 	onMount(async () => {
 		let currIndex = 0;
 		let slides = $animStore;
-
+		let last = slides.pop();
+		slides.unshift(last);
 		function slideShow() {
 			function fadeIn(e) {
 				if (slides[currIndex].type === 'video') {
@@ -50,7 +50,7 @@
 			}
 
 			fadeIn(slides[currIndex].ele);
-		
+
 			setTimeout(
 				function () {
 					slideShow();
@@ -63,32 +63,9 @@
 </script>
 
 <div class="wrapper h-[100vh] bg-black">
-	<!-- <button
-		class="z-30 cursor-pointer relative translate-y-[50vh] text-white"
-		on:click="{() => {
-			$animStore[0].ele.currentTime = 10000;
-		}}">123123123</button
-	> -->
-
 	<div id="stage" class="hero slider-container h-full">
-		<!-- <video
-			src="https://www.w3schools.com/howto/rain.mp4"
-			bind:duration="{video_length}"
-			class="slide object-cover w-full h-full object-center"
-			muted
-			autoplay
-		>
-		</video> -->
-
-		{#each $animStore as { id, type, should_play, index, media, shouldAnim }, i (id)}
-			<Slide
-				id="{id}"
-				index="{i}"
-				shouldPlay="{should_play}"
-				media="{media}"
-				slide_type="{type}"
-				shouldAnim="{shouldAnim}"
-			/>
+		{#each $animStore as { id, type, should_play, media }, i (id)}
+			<Slide id="{id}" index="{i}" shouldPlay="{should_play}" media="{media}" slide_type="{type}" />
 		{/each}
 	</div>
 </div>
@@ -113,16 +90,4 @@
 			pointer-events: none;
 		}
 	}
-
-	// @keyframes fader {
-	// 	from {
-	// 		opacity: 1;
-	// 	}
-	// 	to {
-	// 		opacity: 1;
-	// 	}
-	// }
-	// .fader {
-	// 	opacity: 1;
-	// }
 </style>
