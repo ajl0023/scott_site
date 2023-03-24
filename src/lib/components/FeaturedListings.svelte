@@ -43,7 +43,7 @@
 			</div>
 		</div>
 
-		{#each listings as { attributes: { listing_id, address, thumbnail, price, location_info: { address: { street_address, state_province, postal_code } } } }}
+		{#each listings as { attributes: { listing_id, address, thumbnail, price, location_info: { address: { street_address, state_province, postal_code, city } } } }}
 			<a
 				href="/homes-for-sale-details/{slugify_address(address)}/{listing_id}"
 				class="block listing-container relative aspect-w-16 aspect-h-11"
@@ -63,8 +63,10 @@
 								${parseInt(price).toLocaleString()}
 							</h5>
 							<span class="inline-block lg:text-base text-sm">
-								{_.startCase(street_address) +
+								{_.startCase(street_address.toLowerCase()) +
 									', ' +
+									_.startCase(city.toLowerCase()) +
+									' ' +
 									stateToAbbr(state_province.toLowerCase()).toUpperCase() +
 									' ' +
 									postal_code}
@@ -83,13 +85,15 @@
 							<div
 								class="content-container absolute text-black bottom-0 left-0 z-[1] font-roboto max-w-[230px] w-full"
 							>
-								<div class="bg-[#B7DEE8] pl-10 py-6">
+								<div class="bg-[#B7DEE8] pl-10 py-6  pr-3">
 									<h5 class="text-2xl font-semibold">
 										${parseInt(price).toLocaleString()}
 									</h5>
 									<span class="">
-										{_.startCase(street_address) +
+										{_.startCase(street_address.toLowerCase()) +
 											', ' +
+											_.startCase(city.toLowerCase()) +
+											' ' +
 											stateToAbbr(state_province.toLowerCase()).toUpperCase() +
 											' ' +
 											postal_code}
