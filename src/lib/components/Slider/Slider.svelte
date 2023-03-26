@@ -5,13 +5,16 @@
 	import { getAnimStore } from './store';
 
 	export let items = [];
-
+	let loaded = [];
 	let formatted = [...items].map((item, i) => {
 		return {
 			...item,
+			loaded: item['type'] === 'image' ? true : false,
 			index: i
 		};
 	});
+	let videos_length = formatted.filter((item) => item.type === 'video').length;
+	// formatted = formatted.filter((item) => item.type === 'video');
 
 	const animStore = getAnimStore();
 	setContext('animStore', animStore);
@@ -26,7 +29,7 @@
 		}
 	}
 
-	onMount(async () => {
+	const startSlide = () => {
 		let currIndex = 0;
 		let slides = $animStore;
 		let last = slides.pop();
@@ -59,13 +62,26 @@
 			);
 		}
 		slideShow();
-	});
+	};
+	$: loaded_length = loaded.length === videos_length;
+	$: {
+		loaded_length && startSlide();
+	}
 </script>
 
 <div class="wrapper h-[100vh] bg-black">
 	<div id="stage" class="hero slider-container h-full">
 		{#each $animStore as { id, type, should_play, media }, i (id)}
-			<Slide id="{id}" index="{i}" shouldPlay="{should_play}" media="{media}" slide_type="{type}" />
+			<Slide
+				on:loaded="{() => {
+					loaded = [...loaded, ''];
+				}}"
+				id="{id}"
+				index="{i}"
+				shouldPlay="{should_play}"
+				media="{media}"
+				slide_type="{type}"
+			/>
 		{/each}
 	</div>
 </div>

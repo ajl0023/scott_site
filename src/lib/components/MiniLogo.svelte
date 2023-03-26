@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte';
 	import { access_strapi_image } from '../utils/utils';
 
-	export let img;
+	
 	export let color = 'black';
 	const sj_logos = getContext('sj_logos');
 </script>

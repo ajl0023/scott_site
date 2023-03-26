@@ -22,7 +22,7 @@
 	const audio_info_store = getContext('audio_info');
 </script>
 
-<div class="wrapper fixed  lg:block hidden z-10 top-[270px] right-3 space-y-2">
+<div class="wrapper fixed  lg:block hidden z-20 top-[270px] right-3 space-y-2">
 	{#each contacts as { attributes: { contact_info, contact_info_type } }}
 		{@const isPhone = contact_info_type === 'phone'}
 		<div class=" {isPhone ? '' : ''} relative">
@@ -45,29 +45,29 @@
 	<div class="bg-gray-300 w-[2px] h-8 m-auto mt-1"></div>
 	<button
 		on:click="{() => {
-			if ($audio_info_store.loaded && $audio_info_store.audio) {
-				if ($audio_info_store.is_paused) {
-					$audio_info_store.user_paused = false;
-					$audio_info_store.play_prom = $audio_info_store.audio.play();
-				} else {
+			const audio = $audio_info_store.audio;
+
+			if (audio && audio.state() === 'loaded') {
+				const playing = !$audio_info_store.is_paused;
+				if (playing) {
+					$audio_info_store.audio.pause();
+
 					$audio_info_store.user_paused = true;
-					$audio_info_store.audio.play().then(() => {
-						$audio_info_store.audio.pause();
-					});
+				} else {
+					$audio_info_store.audio.play();
+
+					$audio_info_store.user_paused = false;
 				}
 			}
 		}}"
-		class="mt-3 icon-wrapper p-3 rounded-full cursor-pointer group hover:bg-[#3f88d5] transition-all items-center justify-center flex {$audio_info_store.is_paused ||
-		$audio_info_store.is_paused === null ||
-		$audio_info_store.audio === null
+		class="mt-3 icon-wrapper p-3 rounded-full cursor-pointer group hover:bg-[#3f88d5] transition-all items-center justify-center flex {$audio_info_store.audio &&
+		!$audio_info_store.audio.playing()
 			? 'bg-[#cbcbcb]'
 			: 'bg-[#3f88d5]'}"
 	>
 		<div
-			class="icon-container w-[20px] h-[20px] block group-hover:text-white transition-all {$audio_info_store.is_paused ===
-				true ||
-			$audio_info_store.is_paused === null ||
-			$audio_info_store.audio === null
+			class="icon-container w-[20px] h-[20px] block group-hover:text-white transition-all {$audio_info_store.audio &&
+			!$audio_info_store.audio.playing()
 				? 'icon-paused text-black'
 				: 'icon-playing text-white'} font-agentImage_icon -translate-y-[1px]"
 		></div>

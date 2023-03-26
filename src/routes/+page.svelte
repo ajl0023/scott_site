@@ -13,27 +13,32 @@
 	import Testimonials from '../lib/components/Testimonials.svelte';
 	import { getContext, onDestroy, onMount } from 'svelte';
 	import { url_new } from '../lib/dev';
+	import { page } from '$app/stores';
 	export let data;
 
 	const audio_info_store = getContext('audio_info');
 	const song_file = _.get(data, 'layout_data.song_file.data.attributes.url', '');
-
+	$: ({ audio, is_paused, user_paused } = $audio_info_store);
+	let played = false;
 	onDestroy(() => {
-		if ($audio_info_store.audio && !$audio_info_store.is_paused && $audio_info_store.play_prom) {
-			$audio_info_store.play_prom.then(() => {
-				$audio_info_store.audio.pause();
-			});
+		if (audio) {
+			audio.stop();
 		}
 	});
+	//on first load, play the song
+	//if the user pauses the song, don't play it again
+	//if the user navigates away from the page, stop the song
+	//if the user navigates back to the page, play the song only if it wasnt paused by the user
 
+	// the issue is that i also have a button that pauses the song, so
+	// weird race conditions are happening
 	$: {
-		if (
-			$audio_info_store.loaded &&
-			$audio_info_store.audio &&
-			!$audio_info_store.user_paused &&
-			$audio_info_store.is_paused
-		) {
-			$audio_info_store.play_prom = $audio_info_store.audio.play();
+		if (!played && audio) {
+			let is_playing = audio.playing();
+			if (!is_playing && !user_paused) {
+				audio.play();
+				played = true;
+			}
 		}
 	}
 </script>
