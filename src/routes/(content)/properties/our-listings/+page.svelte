@@ -1,11 +1,9 @@
 <script>
-	import { dev } from '$app/environment';
+	import Bath from '$lib/images/icons/bath.svelte';
+	import Bed from '$lib/images/icons/bed.svelte';
+	import { slugify_address } from '$lib/utils/utils';
 	import _ from 'lodash-es';
 	import Listing from './components/Listing.svelte';
-	import { slugify } from '$lib/utils/utils';
-	import { slugify_address } from '../../../../lib/utils/utils';
-	import Bed from '../../../../lib/images/icons/bed.svelte';
-	import Bath from '../../../../lib/images/icons/bath.svelte';
 	export let data;
 
 	const listings = data['page_data'].data;

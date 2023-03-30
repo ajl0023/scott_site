@@ -1,4 +1,4 @@
-import { strapi_token, url_new } from '../lib/dev';
+import { strapi_token, url_new } from '$lib/dev';
 export const prerender = true;
 
 export async function load({ fetch }) {

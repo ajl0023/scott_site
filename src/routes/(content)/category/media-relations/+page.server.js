@@ -1,6 +1,6 @@
 import _ from 'lodash-es';
-import { strapi_token, url_new } from '../../../../lib/dev';
-import { getJson } from '../../../../lib/utils/utils';
+import { strapi_token, url_new } from '$lib/dev';
+import { getJson } from '$lib/utils/utils';
 
 export async function load({ fetch, url }) {
 	const getPageData = async () => {

@@ -1,6 +1,6 @@
 <script>
-	import Modal from '../../../lib/components/Modal.svelte';
-	import { get_strapi_image_format } from '../../../lib/utils/utils';
+	import Modal from '$lib/components/Modal.svelte';
+	import { get_strapi_image_format } from '$lib/utils/utils';
 
 	export let data;
 	const images = data['page_data']['awards'];

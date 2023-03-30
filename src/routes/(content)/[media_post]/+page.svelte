@@ -1,7 +1,6 @@
 <script>
+	import VideoEmbed from '$lib/components/VideoEmbed.svelte';
 	import _ from 'lodash-es';
-	import { onMount } from 'svelte';
-	import VideoEmbed from '../../../lib/components/VideoEmbed.svelte';
 	import Carousel from './components/Carousel.svelte';
 	import Header from './components/Header.svelte';
 	import ImageLink from './components/ImageLink.svelte';

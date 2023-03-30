@@ -1,17 +1,11 @@
 <script>
-	import {
-		access_strapi_image,
-		get_strapi_image_format,
-		stateToAbbr
-	} from '../../../../../lib/utils/utils';
+	import { access_strapi_image, stateToAbbr } from '$lib/utils/utils';
 
 	import { browser } from '$app/environment';
 	import _ from 'lodash-es';
 	import Address from '../../../properties/our-listings/components/Address.svelte';
 
-	import { createLazyStore } from '$lib/stores/lazy';
-	import { onMount, tick } from 'svelte';
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	let Carousel;
 	let mounted = false;
 	onMount(async () => {
@@ -174,7 +168,8 @@
 
 	{#if Carousel && browser}
 		<div class="carousel-wrapper w-full h-full relative">
-			<Carousel
+			<svelte:component
+				this="{Carousel}"
 				let:showPrevPage
 				let:showNextPage
 				let:loaded
@@ -238,7 +233,7 @@
 						<path d="M15 18l-6-6 6-6"></path>
 					</svg>
 				</div>
-			</Carousel>
+			</svelte:component>
 			<div
 				class="absolute bottom-5 
 	left-[50%] transform -translate-x-1/2 

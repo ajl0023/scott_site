@@ -1,11 +1,11 @@
 <script>
-	import MenuBar from './components/MenuBar.svelte';
 	import { page } from '$app/stores';
-	import { onMount, setContext } from 'svelte';
-	import _ from 'lodash-es';
-	import { writable } from 'svelte/store';
+	import { access_strapi_image } from '$lib/utils/utils';
 	import classNames from 'classnames';
-	import { access_strapi_image } from '../../lib/utils/utils';
+	import _ from 'lodash-es';
+	import { setContext } from 'svelte';
+	import { writable } from 'svelte/store';
+	import MenuBar from './components/MenuBar.svelte';
 	export let data;
 
 	$: mobile_bar_hidden = $page.route.id === '/(content)/neighborhood-guides';

@@ -1,18 +1,18 @@
 <script>
-	import FeaturedListings from '../lib/components/FeaturedListings.svelte';
-	import FutureProjects from '../lib/components/FutureProjects.svelte';
-	import GlobalListings from '../lib/components/GlobalListings.svelte';
-	import HomeFollowMe from '../lib/components/HomeFollowMe.svelte';
-	import HomeScottInfo from '../lib/components/HomeScottInfo.svelte';
-	import HomeServices from '../lib/components/HomeServices.svelte';
-	import MediaRelationsHome from '../lib/components/MediaRelationsHome.svelte';
-	import RealDealNews from '../lib/components/RealDealNews.svelte';
+	import FeaturedListings from '$lib/components/FeaturedListings.svelte';
+	import FutureProjects from '$lib/components/FutureProjects.svelte';
+	import GlobalListings from '$lib/components/GlobalListings.svelte';
+	import HomeFollowMe from '$lib/components/HomeFollowMe.svelte';
+	import HomeScottInfo from '$lib/components/HomeScottInfo.svelte';
+	import HomeServices from '$lib/components/HomeServices.svelte';
+	import MediaRelationsHome from '$lib/components/MediaRelationsHome.svelte';
+	import RealDealNews from '$lib/components/RealDealNews.svelte';
 	import _ from 'lodash-es';
-	import SalesStats from '../lib/components/SalesStats.svelte';
-	import Slider from '../lib/components/Slider/Slider.svelte';
-	import Testimonials from '../lib/components/Testimonials.svelte';
+	import SalesStats from '$lib/components/SalesStats.svelte';
+	import Slider from '$lib/components/Slider/Slider.svelte';
+	import Testimonials from '$lib/components/Testimonials.svelte';
 	import { getContext, onDestroy, onMount } from 'svelte';
-	import { url_new } from '../lib/dev';
+	import { url_new } from '$lib/dev';
 	import { page } from '$app/stores';
 	export let data;
 

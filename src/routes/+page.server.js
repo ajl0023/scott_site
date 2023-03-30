@@ -1,7 +1,5 @@
-import { browser, building, dev, version } from '$app/environment';
-import fs from 'fs';
-import { strapi_token, url_new } from '../lib/dev';
-import { getJson } from '../lib/utils/utils';
+import { strapi_token, url_new } from '$lib/dev';
+import { getJson } from '$lib/utils/utils';
 export const prerender = true;
 
 export async function load({ fetch }) {

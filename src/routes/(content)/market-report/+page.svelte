@@ -1,10 +1,9 @@
 <script>
-	import * as yup from 'yup';
 	import Form from '$lib/components/Form.svelte';
-	import { get_strapi_image_format } from '$lib/utils/utils';
 	import Modal from '$lib/components/Modal.svelte';
-	import { access_strapi_image } from '../../../lib/utils/utils';
-	import PhoneInput from '../../../lib/components/PhoneInput.svelte';
+	import PhoneInput from '$lib/components/PhoneInput.svelte';
+	import { get_strapi_image_format } from '$lib/utils/utils';
+	import * as yup from 'yup';
 	export let data;
 	const forms = [
 		{

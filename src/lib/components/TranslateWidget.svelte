@@ -1,7 +1,6 @@
 <script>
 	import classNames from 'classnames';
 	import { Popover } from 'flowbite-svelte';
-	import { onMount } from 'svelte';
 	export let is_drop_down = false;
 	export let should_show_nav_dropdown = false;
 

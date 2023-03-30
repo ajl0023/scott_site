@@ -1,8 +1,7 @@
 <script>
-	import Modal from '../../../lib/components/Modal.svelte';
-	import VideoEmbed from '../../../lib/components/VideoEmbed.svelte';
-
-	import { access_strapi_image, get_strapi_image_format } from '../../../lib/utils/utils';
+	import Modal from '$lib/components/Modal.svelte';
+	
+	import { access_strapi_image, get_strapi_image_format } from '$lib/utils/utils';
 
 	export let data;
 

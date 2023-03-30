@@ -1,6 +1,6 @@
+import { strapi_token, url_new } from '$lib/dev';
+import { getJson } from '$lib/utils/utils';
 import { json } from '@sveltejs/kit';
-import { strapi_token, url_new } from '../../../lib/dev';
-import { getJson } from '../../../lib/utils/utils';
 
 export async function POST({ fetch, request, url }) {
 	// log all headers

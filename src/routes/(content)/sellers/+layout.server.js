@@ -1,7 +1,7 @@
-import { strapi_token, url_new } from '../../../lib/dev';
-import { getJson, slugify } from '../../../lib/utils/utils';
-import _ from 'lodash-es';
+import { strapi_token, url_new } from '$lib/dev';
+import { getJson, slugify } from '$lib/utils/utils';
 import { error } from '@sveltejs/kit';
+import _ from 'lodash-es';
 export async function load({ fetch, params, depends, url }) {
 	let path = url.pathname;
 	const slug = slugify(path);

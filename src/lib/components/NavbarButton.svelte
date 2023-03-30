@@ -1,7 +1,7 @@
 <script>
+	import classNames from 'classnames';
 	import gsap from 'gsap';
 	import _ from 'lodash-es';
-	import { onMount } from 'svelte';
 	export let nav_item;
 	export let is_visible;
 
@@ -34,17 +34,26 @@
 		dropDownAnim(false);
 		is_hovered = false;
 	}}"
-	class="menu-item-container"
+	class="menu-item-container group relative"
 >
-	<li class="list-item text-white">
+	<li
+		class="list-item relative font-[500] text-white group-hover:after:w-full after:w-0 after:absolute after:bg-[#41a7c3] after:h-[1px] 
+	after:left-0 after:right-0 after:-bottom-[5px] after:m-auto after:transition-[width] after:duration-300 after:ease-out after:pointer-events-none
+	"
+	>
 		{#if parent_data['url']}
 			<a
 				on:mouseenter="{() => {
 					is_hovered = true;
 					dropDownAnim(true);
 				}}"
-				class:main-nav="{!is_visible}"
-				class="list-link {is_visible ? 'text-xs' : 'lg:text-md md:text-sm'}  group"
+				class="{classNames(
+					'text-white no-underline transition-color duration-300 ease-out hover:text-[#41a7c3]',
+					{
+						'text-xs main-nav': !is_visible,
+						'lg:text-md md:text-xs': is_visible
+					}
+				)}"
 				href="{parent_data['url']}">{parent_data['title']}</a
 			>
 		{/if}
@@ -52,10 +61,13 @@
 
 	<div
 		bind:this="{dropdown_parent}"
-		class="padding-drop-container"
+		class="padding-drop-container group-hover:pointer-events-auto absolute left-[calc(-200%-0.25rem)] right-[calc(-200%-0.25rem)] min-w-[205px] max-w-full mx-auto pt-[10px] pointer-events-none"
 		class:hidden="{children.length <= 0}"
 	>
-		<div bind:this="{dropdown}" class="drop-down-container z-10 h-0">
+		<div
+			bind:this="{dropdown}"
+			class="drop-down-container z-10 h-0 flex-col text-sm bg-[rgb(183,222,232)]/80 overflow-hidden"
+		>
 			<ul class="list-drop-down-container ">
 				{#each children as { attributes: { title, url, target } }}
 					<li
@@ -85,72 +97,13 @@
 	</div>
 </div>
 
-<style lang="postcss">
-	.padding-drop-container {
-		pointer-events: none;
-		padding-top: 10px;
-
-		position: absolute;
-		left: -200%;
-		right: -200%;
-		min-width: 205px;
-
-		max-width: 100%;
-		margin: 0 auto;
-	}
-	.drop-down-container {
-		flex-direction: column;
-
-		font-size: 14px;
-		background-color: rgba(183, 222, 232, 0.8);
-
-		overflow: hidden;
-	}
-	.menu-item-container {
-		position: relative;
-
-		&:hover .list-item::after {
-			width: 100%;
-		}
-		&:hover .padding-drop-container {
-			pointer-events: auto;
-		}
-	}
+<style lang="css">
 	@keyframes colorChange {
 		from {
 			color: white;
 		}
 		to {
 			color: #41a7c3;
-		}
-	}
-
-	.list-item {
-		font-weight: 500;
-		position: relative;
-
-		&::after {
-			position: absolute;
-			content: '';
-			background-color: #41a7c3;
-			height: 1px;
-			left: 0;
-			right: 0;
-			bottom: -5px;
-			margin: auto;
-			width: 0px;
-			transition: width 0.3s ease-out;
-			pointer-events: none;
-		}
-
-		.list-link {
-			text-decoration: none;
-			color: white;
-			transition: color 0.3s ease-out;
-
-			&:hover {
-				color: #41a7c3;
-			}
 		}
 	}
 </style>

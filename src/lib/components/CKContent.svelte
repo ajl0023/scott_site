@@ -8,20 +8,4 @@
 	{@html html}
 </div>
 
-<style lang="postcss">
-	.ck-content {
-		& :global(li) {
-			list-style: inherit;
-		}
-	}
 
-	.ck-content {
-		text-align: center;
-		& :global(li) {
-			text-align: left;
-		}
-		@media screen(lg) {
-			text-align: left;
-		}
-	}
-</style>

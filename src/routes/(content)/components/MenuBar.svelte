@@ -1,12 +1,10 @@
 <script>
-	import { image_url } from '../../../lib/dev';
 	import Facebook from '$lib/images/icons/facebook.svelte';
 	import Instagram from '$lib/images/icons/instagram.svelte';
 	import Linkedin from '$lib/images/icons/linkedin.svelte';
 	import Youtube from '$lib/images/icons/youtube.svelte';
 	import Zillow from '$lib/images/icons/zillow.svelte';
-	import { access_strapi_image, get_strapi_image_format } from '../../../lib/utils/utils';
-	import { createEventDispatcher } from 'svelte';
+	import { access_strapi_image, get_strapi_image_format } from '$lib/utils/utils';
 
 	export let data;
 

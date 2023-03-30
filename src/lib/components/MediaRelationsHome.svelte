@@ -1,7 +1,7 @@
 <script>
+	import { getAnim } from '$lib/actions/get_anim.js';
 	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
-	import { getAnim } from '$lib/actions/get_anim.js';
 
 	export let data; // this is the data from strapi for the page
 
@@ -126,17 +126,6 @@
 				margin-right: 10px;
 				background-color: #818181;
 			}
-		}
-	}
-	.logo-container {
-		&::after {
-			width: 38px;
-			height: 5px;
-			content: '';
-			position: absolute;
-			bottom: 13px;
-			right: 0;
-			background-color: #41a7c3;
 		}
 	}
 </style>

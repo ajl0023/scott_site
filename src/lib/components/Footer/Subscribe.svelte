@@ -1,13 +1,13 @@
 <script>
-	import { get_strapi_image_format } from '../../utils/utils';
-	import { createForm } from 'felte';
-	import * as yup from 'yup';
-	import MiniLogo from '../MiniLogo.svelte';
-	export let data;
+	import { handleFormSubmit } from '$lib/utils/form_utils';
 	import { reporter, ValidationMessage } from '@felte/reporter-svelte';
 	import { validator } from '@felte/validator-yup';
-	import { handleFormSubmit } from '$lib/utils/form_utils';
-	import { Spinner, Toast } from 'flowbite-svelte';
+	import { createForm } from 'felte';
+	import { Spinner } from 'flowbite-svelte';
+	import * as yup from 'yup';
+	import { get_strapi_image_format } from '../../utils/utils';
+	import MiniLogo from '../MiniLogo.svelte';
+	export let data;
 	let submitted = false;
 	const { form, isSubmitting } = createForm({
 		initialValues: {

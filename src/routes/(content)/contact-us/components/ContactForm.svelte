@@ -1,9 +1,8 @@
 <script>
-	import { AsYouType } from 'libphonenumber-js';
-	import Form from '../../../../lib/components/Form.svelte';
-	import * as yup from 'yup';
+	import Form from '$lib/components/Form.svelte';
+	import PhoneInput from '$lib/components/PhoneInput.svelte';
 	import { Textarea } from 'flowbite-svelte';
-	import PhoneInput from '../../../../lib/components/PhoneInput.svelte';
+	import * as yup from 'yup';
 
 	const forms = [
 		{

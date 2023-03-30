@@ -1,8 +1,6 @@
-import _ from 'lodash-es';
-import { url_new } from '$lib/dev';
+import { strapi_token, url_new } from '$lib/dev';
 import { getJson } from '$lib/utils/utils';
 import { error } from '@sveltejs/kit';
-import { strapi_token } from '../../../../../lib/dev';
 
 export async function load({ fetch, url, params }) {
 	let slug = params.media_post;

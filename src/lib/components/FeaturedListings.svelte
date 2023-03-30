@@ -1,12 +1,10 @@
 <script>
-	import { getContext, onMount } from 'svelte';
+	import { getAnim } from '$lib/actions/get_anim.js';
+	import { createLazyStore } from '$lib/stores/lazy';
+	import _ from 'lodash-es';
+	import { onMount } from 'svelte';
 	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
-	import { createLazyStore } from '$lib/stores/lazy';
-	import IntersectionObserver from 'svelte-intersection-observer';
-	import _ from 'lodash-es';
-	import AnimationWrapper from './AnimationWrapper.svelte';
-	import { getAnim } from '$lib/actions/get_anim.js';
 	export let data;
 	//sort by price
 	let listings = data.data.sort((a, b) => {

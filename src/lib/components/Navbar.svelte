@@ -4,11 +4,11 @@
 	import classNames from 'classnames';
 	import gsap from 'gsap';
 	import _ from 'lodash-es';
-	import IntersectionObserver from 'svelte-intersection-observer';
 	import { onMount } from 'svelte';
-	import TranslateWidget from './TranslateWidget.svelte';
+	import IntersectionObserver from 'svelte-intersection-observer';
 	import { access_strapi_image } from '../utils/utils';
 	import NavbarButton from './NavbarButton.svelte';
+	import TranslateWidget from './TranslateWidget.svelte';
 
 	export let data;
 
@@ -213,5 +213,4 @@
 	</div>
 </nav>
 
-<style lang="postcss">
-</style>
+

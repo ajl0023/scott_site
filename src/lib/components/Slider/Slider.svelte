@@ -1,6 +1,5 @@
 <script>
 	import { onMount, setContext, tick } from 'svelte';
-	import { fade } from 'svelte/transition';
 	import Slide from './Slide.svelte';
 	import { getAnimStore } from './store';
 

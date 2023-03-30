@@ -1,12 +1,11 @@
 <script>
-	import { onMount } from 'svelte';
-	import { image_url } from '../dev';
 	import { browser } from '$app/environment';
-	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
+	import { onMount } from 'svelte';
+	import { access_strapi_image } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 
-	import _ from 'lodash-es';
 	import { getAnim } from '$lib/actions/get_anim.js';
+	import _ from 'lodash-es';
 	export let data;
 	const { bg_photo, scott_photo, reviews } = data;
 	let Carousel;
@@ -16,9 +15,9 @@
 	});
 </script>
 
-<div class="wrapper overflow-hidden ">
+<div class="wrapper overflow-hidden relative">
 	<div
-		class="lazy bg-banner bg-no-repeat bg-cover relative grayscale opacity-20 after:inset-0 after:absolute"
+		class="lazy bg-banner bg-no-repeat bg-cover absolute grayscale opacity-20 w-screen top-[200px] bottom-0 left-0 translate-x-0  after:inset-0 after:absolute "
 		data-bg="{access_strapi_image(bg_photo)}"
 	></div>
 	<div class="overflow-container m-auto z-10 relative w-full">
@@ -27,7 +26,7 @@
         lg:flex-row flex-col-reverse lg:p-0"
 		>
 			<div
-				class="w-full bg-black pt-9 lg:p-0 lg:bg-default lg:w-[50%] lg:pr-10 flex justify-center lg:justify-end image-wrapper relative"
+				class="w-full bg-black pt-9 lg:p-0 lg:bg-default lg:w-[50%] lg:pr-10 flex justify-center lg:justify-end relative after:absolute after:z-[2] after:w-full after:bg-black after:inset-0 after:hidden lg:after:bottom-0 lg:after:right-0 lg:after:w-screen lg:after:left-auto lg:after:block"
 			>
 				<div class="lg:max-w-[500px] max-w-[350px] relative z-10 lg:pt-5 lg:pr-5">
 					<img
@@ -44,7 +43,8 @@
 				<div class="font-barlow title-container items-center lg:pl-6" use:getAnim="{'zoom-in'}">
 					<div class="align-bottom text-[0] text-center lg:text-left lg:mb-2"><MiniLogo /></div>
 					<h2
-						class="text-header uppercase font-medium text-black-white leading-[56px] lg:text-[90px] text-[50px] relative text-center"
+						class="text-header uppercase font-medium text-black-white leading-[56px] lg:text-[90px] text-[50px] relative text-center after:absolute after:h-[4px]
+						after:top-1/2 after:left-[calc(100%+20px)] after:-translate-y-1/2 after:z-1 after:w-[200%] after:bg-[#b0b0b0]"
 					>
 						what our
 					</h2>
@@ -59,7 +59,7 @@
 			{#if browser && Carousel}
 				<div
 					use:getAnim="{'fade-in-up'}"
-					class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[772px] lg:py-[50px] lg:px-[100px] py-[20px] px-[20px] text-center"
+					class="testi-content bg-[#1b1b1b] inline-block w-full lg:max-w-[772px] lg:py-[50px] lg:px-[100px] py-[20px] px-[20px] text-center relative after:hidden lg:after:absolute lg:after:bg-black lg:after:bg-opacity-75 lg:after:content-'' lg:after:w-screen lg:after:block lg:after:top-0 lg:after:bottom-0 lg:after:left-full"
 				>
 					{#if reviews.data.length > 0}
 						<svelte:component this="{Carousel}" autoplay="{true}" dots="{false}">
@@ -85,79 +85,3 @@
 		</div>
 	</div>
 </div>
-
-<style lang="postcss">
-	.testi-content {
-		position: relative;
-		&::after {
-			display: none;
-			@screen lg {
-				background-color: rgba(0, 0, 0, 0.75);
-				position: absolute;
-				content: '';
-				width: 100vw;
-				display: block;
-				top: 0;
-				bottom: 0;
-				left: 100%;
-			}
-		}
-	}
-	.rev-container {
-		position: relative;
-		&::after {
-			background-color: black;
-			position: absolute;
-			content: '';
-			width: 100vw;
-			top: 0px;
-			bottom: 0;
-			left: 0;
-		}
-	}
-	.wrapper {
-		position: relative;
-		.bg-banner {
-			content: '';
-			position: absolute;
-			width: 100vw;
-			top: 200px;
-			bottom: 0;
-			left: 0;
-			transform: translateX(0px);
-		}
-	}
-	.text-header {
-		&::after {
-			content: '';
-			position: absolute;
-			height: 4px;
-			content: '';
-			top: 50%;
-			left: calc(100% + 20px);
-			transform: translateY(-50%);
-			z-index: 1;
-			width: 200%;
-			background-color: #b0b0b0;
-		}
-	}
-	.image-wrapper {
-		&::after {
-			position: absolute;
-			z-index: 2;
-			width: 100%;
-			content: '';
-			background: black;
-			inset: 0;
-			display: none;
-			z-index: 1;
-			@screen lg {
-				bottom: 0;
-				right: 0;
-				width: 100vw;
-				left: auto;
-				display: block;
-			}
-		}
-	}
-</style>

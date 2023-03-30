@@ -4,7 +4,7 @@
 	import { normalizedCountries } from '$lib/utils/allCountry';
 	import { AsYouType } from 'libphonenumber-js';
 	import { getContext } from 'svelte';
-	export let setData;
+
 	export let placeholder;
 	export let disabled;
 	let phoneContext = getContext('phoneContext');

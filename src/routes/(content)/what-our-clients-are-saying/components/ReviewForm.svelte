@@ -1,9 +1,8 @@
 <script>
-	import Stars from './Stars.svelte';
-	import * as yup from 'yup';
-	import Form from '../../../../lib/components/Form.svelte';
+	import Form from '$lib/components/Form.svelte';
 	import { Textarea } from 'flowbite-svelte';
-	import { Rating } from 'flowbite-svelte';
+	import * as yup from 'yup';
+	import Stars from './Stars.svelte';
 
 	let form;
 

@@ -1,5 +1,5 @@
 <script>
-	import { stateToAbbr } from '../../../../../lib/utils/utils';
+	import { stateToAbbr } from '$lib/utils/utils';
 
 	export let location_info;
 </script>

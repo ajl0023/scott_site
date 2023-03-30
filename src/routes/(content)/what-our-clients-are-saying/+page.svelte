@@ -1,13 +1,12 @@
 <script>
+	import { getJson } from '$lib/utils/utils';
 	import { ChevronDown, ChevronUp } from 'flowbite-svelte';
+	import gsap from 'gsap';
 	import _ from 'lodash-es';
 	import moment from 'moment';
-	import { getJson } from '../../../lib/utils/utils';
 	import PaginationBar from '../components/PaginationBar.svelte';
-	import Paginator from '../components/Paginator.svelte';
 	import Form from './components/ReviewForm.svelte';
 	import Stars from './components/Stars.svelte';
-	import gsap from 'gsap';
 	let animContainer;
 	let animContainerHidden = true;
 	const dropDownAnim = (shouldDrop) => {

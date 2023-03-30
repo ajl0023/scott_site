@@ -1,11 +1,15 @@
 import { dev } from '$app/environment';
 
-export const image_url = dev
+let test_prod = false;
+let dev_test = !dev ? false : test_prod ? true : false;
+
+export const image_url = !dev_test
 	? import.meta.env.VITE_DEV_SERVER_URL
 	: import.meta.env.VITE_PROD_SERVER_URL;
-export const url_new = dev
+export const url_new = !dev_test
 	? import.meta.env.VITE_DEV_SERVER_URL
 	: import.meta.env.VITE_PROD_SERVER_URL;
-export const strapi_token = dev
+
+export const strapi_token = !dev_test
 	? import.meta.env.VITE_STRAPI_DEV_TOKEN
 	: import.meta.env.VITE_STRAPI_TOKEN;

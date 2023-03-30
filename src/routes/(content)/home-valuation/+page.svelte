@@ -1,9 +1,8 @@
 <script>
+	import Form from '$lib/components/Form.svelte';
 	import * as yup from 'yup';
-	import Form from '../../../lib/components/Form.svelte';
 
-	import { Select } from 'flowbite-svelte';
-	import { Textarea } from 'flowbite-svelte';
+	import { Select, Textarea } from 'flowbite-svelte';
 	const forms = [
 		{
 			header: 'Contact Information',

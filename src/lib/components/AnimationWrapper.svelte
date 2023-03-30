@@ -1,6 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
 	import IntersectionObserver from 'svelte-intersection-observer';
 	export let ele;
 	export let animation_name;

@@ -1,7 +1,7 @@
 <script>
+	import { CloseButton } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import VideoEmbed from './VideoEmbed.svelte';
-	import { CloseButton } from 'flowbite-svelte';
 
 	const dispatch = createEventDispatcher();
 	export let data;

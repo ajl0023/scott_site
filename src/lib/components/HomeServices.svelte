@@ -1,7 +1,6 @@
 <script>
-	import { image_url } from '../dev';
-	import { get_strapi_image_format } from '../utils/utils';
 	import { getAnim } from '$lib/actions/get_anim.js';
+	import { get_strapi_image_format } from '../utils/utils';
 
 	export let data;
 

@@ -1,8 +1,5 @@
 <script>
-	import { each } from 'svelte/internal';
-	import Bath from '../../../../../lib/images/icons/bath.svelte';
-	import Bed from '../../../../../lib/images/icons/bed.svelte';
-	import { get_strapi_image_format, slugify, stateToAbbr } from '../../../../../lib/utils/utils';
+	import { get_strapi_image_format } from '$lib/utils/utils';
 	import Address from './Address.svelte';
 
 	export let property_data;

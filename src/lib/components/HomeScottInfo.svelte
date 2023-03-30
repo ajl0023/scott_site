@@ -1,11 +1,8 @@
 <script>
 	import { image_url } from '../dev';
 
-	import IntersectionObserver from 'svelte-intersection-observer';
-	import { onMount } from 'svelte';
-	import MiniLogo from './MiniLogo.svelte';
-	import AnimationWrapper from './AnimationWrapper.svelte';
 	import { getAnim } from '$lib/actions/get_anim.js';
+	import MiniLogo from './MiniLogo.svelte';
 
 	export let data;
 
@@ -126,13 +123,6 @@
 			bottom: 0;
 
 			pointer-events: none;
-			.banner {
-				background-size: cover;
-				background-position: bottom center;
-				background-repeat: no-repeat;
-				width: 100%;
-				filter: grayscale(100%);
-			}
 		}
 		&:after {
 			display: block;
@@ -215,21 +205,5 @@
 			}
 		}
 	}
-	.sm-logo-container {
-		display: inline-block;
-		vertical-align: top;
-		// margin: 0 0 10px 5px;
-		padding-right: 46px;
-		position: relative;
-		font-size: 0;
-		&::after {
-			width: 38px;
-			height: 5px;
-			content: '';
-			position: absolute;
-			bottom: 13px;
-			right: 0;
-			background-color: #41a7c3;
-		}
-	}
+
 </style>

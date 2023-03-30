@@ -1,7 +1,7 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import _ from 'lodash-es';
 	import { goto } from '$app/navigation';
+	import _ from 'lodash-es';
+	import { createEventDispatcher } from 'svelte';
 	export let nav_item;
 	export let expanded;
 	export let handleExpand;

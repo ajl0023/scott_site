@@ -2,7 +2,7 @@
 	export let form_name;
 	export let forms;
 	export let show_header = true;
-	export let submitHandler;
+
 	import { reporter, ValidationMessage } from '@felte/reporter-svelte';
 	import { validator } from '@felte/validator-yup';
 	import { createForm } from 'felte';
@@ -12,7 +12,6 @@
 	import { Input, Label, Spinner, Toast } from 'flowbite-svelte';
 	import { isValidPhoneNumber } from 'libphonenumber-js';
 	import { onMount, setContext } from 'svelte';
-	import PhoneInput from './PhoneInput.svelte';
 	import { writable } from 'svelte/store';
 
 	let fields = forms.reduce((acc, form_block) => {
@@ -172,7 +171,6 @@
 				<Toast color="green" class="mb-2 border-none" simple="{true}">
 					<svelte:fragment slot="icon">
 						<svg
-							aria-hidden="true"
 							class="w-5 h-5"
 							fill="currentColor"
 							viewBox="0 0 20 20"

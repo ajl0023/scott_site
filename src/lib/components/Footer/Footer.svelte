@@ -1,5 +1,4 @@
 <script>
-	import { image_url } from '../../dev';
 	import { get_strapi_image_format } from '../../utils/utils';
 	import ContactBanner from './ContactBanner.svelte';
 	import LegalBanner from './LegalBanner.svelte';

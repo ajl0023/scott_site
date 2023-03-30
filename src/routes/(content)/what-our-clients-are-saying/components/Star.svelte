@@ -1,7 +1,7 @@
 <script>
 	export let id;
 	export let i;
-	export let active;
+
 	export let rating_value;
 	export let name;
 </script>

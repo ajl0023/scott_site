@@ -1,5 +1,5 @@
 <script>
-	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
+	import { access_strapi_image } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 	export let { background_image, logo, text, link } = data;

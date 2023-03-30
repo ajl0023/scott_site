@@ -1,8 +1,8 @@
 <script>
-	import ContactForm from './components/ContactForm.svelte';
-	import _ from 'lodash-es';
+	import { access_strapi_image, get_strapi_image_format } from '$lib/utils/utils';
 	import parsePhoneNumber from 'libphonenumber-js';
-	import { access_strapi_image, get_strapi_image_format } from '../../../lib/utils/utils';
+	import _ from 'lodash-es';
+	import ContactForm from './components/ContactForm.svelte';
 
 	export let data;
 

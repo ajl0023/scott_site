@@ -1,6 +1,6 @@
 <script>
-	import { access_strapi_image } from '../../../lib/utils/utils';
 	import CkContent from '$lib/components/CKContent.svelte';
+	import { access_strapi_image } from '$lib/utils/utils';
 
 	export let data;
 

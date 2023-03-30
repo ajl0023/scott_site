@@ -1,8 +1,8 @@
 <script>
 	// import SV_Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
-	import _ from 'lodash-es';
 	import { access_strapi_image } from '$lib/utils/utils';
+	import _ from 'lodash-es';
 	import { onMount } from 'svelte';
 	export let data;
 
@@ -16,7 +16,7 @@
 <div class="wrapper">
 	{#if browser && Carousel}
 		<div class="carousel-container max-w-[700px] w-full m-auto">
-			<Carousel>
+			<svelte:component this="{Carousel}">
 				{#each images as img}
 					<div class="image-container w-full">
 						<img
@@ -27,7 +27,7 @@
 						/>
 					</div>
 				{/each}
-			</Carousel>
+			</svelte:component>
 		</div>
 	{/if}
 </div>

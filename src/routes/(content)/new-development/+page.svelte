@@ -1,7 +1,7 @@
 <script>
 	export let data;
-	import VideoEmbed from '../../../lib/components/VideoEmbed.svelte';
-	import { get_strapi_image_format } from '../../../lib/utils/utils';
+	import VideoEmbed from '$lib/components/VideoEmbed.svelte';
+	import { get_strapi_image_format } from '$lib/utils/utils';
 
 	const { intro_image, intro_text, developments } = data['page_data'];
 </script>

@@ -1,9 +1,8 @@
 <script>
-	import { image_url } from '../dev';
-	import Counter from './Counter.svelte';
 	import IntersectionObserver from 'svelte-intersection-observer';
-	import MiniLogo from './MiniLogo.svelte';
 	import { get_strapi_image_format } from '../utils/utils';
+	import Counter from './Counter.svelte';
+	import MiniLogo from './MiniLogo.svelte';
 
 	export let data;
 	let bg_photo = get_strapi_image_format(data['background_photo'], 'large');

@@ -1,27 +1,26 @@
 <script>
-	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
-	import '../app.css';
 	import '$lib/global.scss';
 	import '$lib/styles.css';
+	import '../app.css';
 
 	import '$lib/animations.scss';
 
+	import ContactBar from '$lib/components/ContactBar.svelte';
+	import Footer from '$lib/components/Footer/Footer.svelte';
+	import Navbar from '$lib/components/Navbar.svelte';
+	import SideNav from '$lib/components/SideNav.svelte';
+	import { url_new } from '$lib/dev';
 	import '$lib/fonts/fonts.css';
 	import '$lib/icons.scss';
+	import Mail from '$lib/images/icons/mail.svelte';
+	import Phone from '$lib/images/icons/phone.svelte';
 	import { createLazyStore } from '$lib/stores/lazy';
-	import Footer from '../lib/components/Footer/Footer.svelte';
-	import Navbar from '../lib/components/Navbar.svelte';
-	import { Howl, Howler } from 'howler';
-	import { onMount, setContext, tick } from 'svelte';
-	import SideNav from '../lib/components/SideNav.svelte';
-	import Mail from '../lib/images/icons/mail.svelte';
-	import Phone from '../lib/images/icons/phone.svelte';
+
+	import { Howl } from 'howler';
 	import _ from 'lodash-es';
-	import { url_new } from '../lib/dev';
-	import ContactBar from '../lib/components/ContactBar.svelte';
+	import { onMount, setContext, tick } from 'svelte';
 	import { writable } from 'svelte/store';
-	import '$lib/utils/yup_methods.js';
 
 	export let data;
 
@@ -92,6 +91,7 @@
 		// if the user is not on the home page, pause the audio
 	});
 </script>
+
 <svelte:head>
 	<script async src="https://translate.google.com/translate_a/element.js"></script>
 </svelte:head>
