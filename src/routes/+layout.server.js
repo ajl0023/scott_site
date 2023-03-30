@@ -1,11 +1,11 @@
-import { url_new } from '../lib/dev';
+import { strapi_token, url_new } from '../lib/dev';
 export const prerender = true;
 
 export async function load({ fetch }) {
 	const getLayoutData = async () => {
 		const data = await fetch(`${url_new}/api/global?populate=deep`, {
 			headers: {
-				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+				Authorization: `Bearer ${strapi_token}`
 			}
 		});
 
@@ -16,7 +16,7 @@ export async function load({ fetch }) {
 	const navBarData = async () => {
 		const data = await fetch(`${url_new}/api/menus/1?populate=*&nested`, {
 			headers: {
-				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+				Authorization: `Bearer ${strapi_token}`
 			}
 		});
 

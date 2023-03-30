@@ -92,7 +92,9 @@
 		// if the user is not on the home page, pause the audio
 	});
 </script>
-
+<svelte:head>
+	<script async src="https://translate.google.com/translate_a/element.js"></script>
+</svelte:head>
 <ContactBar items="{data['layout_data']['contact_bar_items']}" />
 <div class="wrapper">
 	<div

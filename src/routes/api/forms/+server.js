@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { url_new } from '../../../lib/dev';
+import { strapi_token, url_new } from '../../../lib/dev';
 import { getJson } from '../../../lib/utils/utils';
 
 export async function POST({ fetch, request, url }) {
@@ -9,7 +9,7 @@ export async function POST({ fetch, request, url }) {
 
 	const newRequest = new Request(`${url_new}/api/ezforms/submit`, {
 		headers: {
-			Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`,
+			Authorization: `Bearer ${strapi_token}`,
 			'Content-Type': request.headers.get('content-type')
 		},
 		method: 'POST',
@@ -27,7 +27,7 @@ export async function POST({ fetch, request, url }) {
 			body: JSON.stringify({ data }),
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+				Authorization: `Bearer ${strapi_token}`
 			}
 		})
 			.then((response) => {

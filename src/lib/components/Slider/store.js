@@ -33,6 +33,19 @@ function createStore() {
 			update((state) => {
 				let copy = { ...state[index] };
 				copy['ele'] = ele;
+				copy['ended'] = () => {
+					return new Promise((resolve, reject) => {
+						if (copy.type === 'image') {
+							setTimeout(() => {
+								resolve();
+							}, 3500);
+						} else {
+							ele.addEventListener('ended', () => {
+								resolve();
+							});
+						}
+					});
+				};
 				state[index] = copy;
 
 				return state;
@@ -52,7 +65,6 @@ function createStore() {
 			const curr_state = get(store);
 
 			if (curr_state[0].type === 'image') {
-		
 				setTimeout(() => {
 					update((state) => {
 						curr_state[0].shouldAnim = true;
@@ -63,7 +75,6 @@ function createStore() {
 				}, 2 * 1000);
 				return;
 			} else {
-			
 				curr_state[0].ele.play();
 				setTimeout(() => {
 					update((state) => {

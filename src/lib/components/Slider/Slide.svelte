@@ -1,15 +1,14 @@
 <script>
 	import classNames from 'classnames';
-	import { createEventDispatcher, getContext, onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import { access_strapi_image } from '../../utils/utils';
 
-	let duration;
 	export let slide_type;
 	export let media;
 	export let id;
 	export let index;
 	let media_element;
-	const dispatch = createEventDispatcher();
+
 	let animStore = getContext('animStore');
 	// let shouldAnim = $animStore[index].shouldAnim;
 
@@ -18,10 +17,6 @@
 
 		//convert ms to seconds
 	});
-
-	$: {
-		duration && dispatch('loaded');
-	}
 </script>
 
 <div id="{id}" class="{classNames('slide-container absolute inset-0 opacity-0 fade')}">
@@ -33,11 +28,10 @@
 			src="{access_strapi_image(media)}"
 		/>{:else}
 		<video
-			bind:duration="{duration}"
-			data-setup="{'{}'}"
 			bind:this="{media_element}"
 			class="slide object-cover w-full h-full object-center"
 			alt="'"
+			playsinline
 			preload="auto"
 			muted
 		>

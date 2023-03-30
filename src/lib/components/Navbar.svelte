@@ -65,6 +65,40 @@
 	// 		}, 2000);
 	// 	}, 1000);
 	// });
+	function googleTranslateInit() {
+		setTimeout(function () {
+			if (
+				typeof google !== 'undefined' &&
+				google != null &&
+				google.translate != null &&
+				google.translate.TranslateElement != null
+			) {
+				new google.translate.TranslateElement({
+					pageLanguage: 'en',
+					includedLanguages: 'pt,en,es,fr,nl,ja,zh-CN,ar,ru,de,it',
+					autoDisplay: false
+				});
+			}
+
+			// let script = document.createElement('script');
+		}, 300);
+	}
+
+	let curr_lang;
+
+	let should_render = false;
+	onMount(() => {
+		googleTranslateInit();
+
+		curr_lang = Cookies.get('googtrans');
+
+		if (curr_lang) {
+			curr_lang = curr_lang.split('/')[2];
+		} else {
+			curr_lang = 'en';
+		}
+		should_render = true;
+	});
 </script>
 
 <!-- if navbar is out of view, this brings a small navbar from the into view, and vice versa -->
@@ -114,13 +148,15 @@
 		</a>
 	</div>
 	<div class="flex justify-end w-full items-center mt-2">
-		<ul class="nav-menu hidden lg:flex text-white uppercase  space-x-10" bind:this="{main_navbar}">
+		<ul class="nav-menu hidden lg:flex text-white uppercase space-x-10 flex-wrap justify-end" bind:this="{main_navbar}">
 			{#each nav_items as nav_item, i}
 				<!-- might have to include language later -->
 
 				<NavbarButton is_visible="{true}" nav_item="{nav_item}" is_drop_down="{true}" />
 			{/each}
 			<TranslateWidget
+				curr_lang="{curr_lang}"
+				should_render="{should_render}"
 				is_drop_down="{true}"
 				should_show_nav_dropdown="{should_show_nav_dropdown}"
 			/>
@@ -165,13 +201,13 @@
 	</div>
 	<div class="nav-menu-container text-right hidden lg:flex justify-end lg:mt-5">
 		<IntersectionObserver element="{main_navbar}" on:observe="{handleObserve}">
-			<ul class="nav-menu lg:flex text-white uppercase space-x-10" bind:this="{main_navbar}">
+			<ul class="nav-menu lg:flex text-white uppercase space-x-10 flex-wrap justify-end" bind:this="{main_navbar}">
 				{#each nav_items as nav_item, i}
 					<!-- might have to include language later -->
 
 					<NavbarButton is_visible="{false}" nav_item="{nav_item}" />
 				{/each}
-				<TranslateWidget />
+				<TranslateWidget curr_lang="{curr_lang}" should_render="{should_render}" />
 			</ul>
 		</IntersectionObserver>
 	</div>

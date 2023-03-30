@@ -5,7 +5,7 @@
 	import { getAnimStore } from './store';
 
 	export let items = [];
-	let loaded = [];
+
 	let formatted = [...items].map((item, i) => {
 		return {
 			...item,
@@ -13,21 +13,13 @@
 			index: i
 		};
 	});
-	let videos_length = formatted.filter((item) => item.type === 'video').length;
+
 	// formatted = formatted.filter((item) => item.type === 'video');
 
 	const animStore = getAnimStore();
 	setContext('animStore', animStore);
 
 	animStore.init(formatted);
-
-	$: duration = $animStore[0].ele && $animStore[0].ele.duration > 0;
-	$: slide_type = $animStore[0].type;
-	$: {
-		if (slide_type === 'video' && duration) {
-			animStore.start();
-		}
-	}
 
 	const startSlide = () => {
 		let currIndex = 0;
@@ -36,10 +28,11 @@
 		slides.unshift(last);
 		function slideShow() {
 			function fadeIn(e) {
+				e.parentElement.classList.add('fade-anim');
+
 				if (slides[currIndex].type === 'video') {
 					slides[currIndex].ele.play();
 				}
-				e.parentElement.classList.add('fade-anim');
 			}
 
 			function fadeOut(e) {
@@ -53,35 +46,22 @@
 			}
 
 			fadeIn(slides[currIndex].ele);
-
-			setTimeout(
-				function () {
-					slideShow();
-				},
-				slides[currIndex].type === 'video' ? slides[currIndex].ele.duration * 1000 : 3000
-			);
+			slides[currIndex].ended().then(() => {
+				slideShow();
+			});
 		}
 		slideShow();
 	};
-	$: loaded_length = loaded.length === videos_length;
-	$: {
-		loaded_length && startSlide();
-	}
+	onMount(async () => {
+		await tick();
+		startSlide();
+	});
 </script>
 
 <div class="wrapper h-[100vh] bg-black">
 	<div id="stage" class="hero slider-container h-full">
 		{#each $animStore as { id, type, should_play, media }, i (id)}
-			<Slide
-				on:loaded="{() => {
-					loaded = [...loaded, ''];
-				}}"
-				id="{id}"
-				index="{i}"
-				shouldPlay="{should_play}"
-				media="{media}"
-				slide_type="{type}"
-			/>
+			<Slide id="{id}" index="{i}" shouldPlay="{should_play}" media="{media}" slide_type="{type}" />
 		{/each}
 	</div>
 </div>

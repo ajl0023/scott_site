@@ -1,4 +1,4 @@
-import { url_new } from '../../lib/dev';
+import { strapi_token, url_new } from '../../lib/dev';
 import { getJson, slugify } from '../../lib/utils/utils';
 import _ from 'lodash-es';
 import { error } from '@sveltejs/kit';
@@ -11,7 +11,7 @@ export async function load({ fetch, url, params }) {
 	const page_info = await getJson(
 		fetch(`${url_new}/api/pages?filters[slug][$eq]=${slug}`, {
 			headers: {
-				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+				Authorization: `Bearer ${strapi_token}`
 			}
 		})
 	);
@@ -29,7 +29,7 @@ export async function load({ fetch, url, params }) {
 		const page_data = await getJson(
 			fetch(fetch_url, {
 				headers: {
-					Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+					Authorization: `Bearer ${strapi_token}`
 				}
 			})
 		);
@@ -40,7 +40,7 @@ export async function load({ fetch, url, params }) {
 	const getLayoutData = async () => {
 		const req = await fetch(`${url_new}/api/page-layout?populate=deep`, {
 			headers: {
-				Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`
+				Authorization: `Bearer ${strapi_token}`
 				// 'Content-Type': 'application/x-www-form-urlencoded',
 			}
 		});
