@@ -30,18 +30,15 @@
 		additional_info,
 		property_type
 	} = property_data;
-	$: images_loaded = images.data.length > 0;
 
-	// $: {
-	// 	(async () => {
-	// 		$createLazyStore.lazy &&
-	// 			Carousel &&
-	// 			browser &&
-	// 			mounted &&
-	// 			images_loaded &&
-	// 			createLazyStore.update_lazy();
-	// 	})();
-	// }
+	//sort by filename the same way windows does
+	const collator = new Intl.Collator(undefined, { numeric: true });
+
+	//sort images by filename
+	images.data = images.data.sort((a, b) => {
+		return collator.compare(a.attributes.name, b.attributes.name);
+	});
+
 	const header_fields = {
 		house: () => [
 			{
@@ -251,7 +248,7 @@
 	<h2 class="font-medium font-roboto text-xl mt-16">About This Home</h2>
 	<div class="agent-info-container roboto text-lg text-gray-600 ">
 		<span>
-			{list_by}
+			List By {list_by}
 		</span>
 	</div>
 	<div class="description-container mt-10">
