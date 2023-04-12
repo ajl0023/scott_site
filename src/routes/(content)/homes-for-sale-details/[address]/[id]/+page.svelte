@@ -248,7 +248,7 @@
 	<h2 class="font-medium font-roboto text-xl mt-16">About This Home</h2>
 	<div class="agent-info-container roboto text-lg text-gray-600 ">
 		<span>
-			List By {list_by}
+			{list_by}
 		</span>
 	</div>
 	<div class="description-container mt-10">
