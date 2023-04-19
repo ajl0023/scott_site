@@ -1,7 +1,7 @@
 <script>
 	import { access_strapi_image, getJson } from '$lib/utils/utils';
 	import PaginationBar from '../../components/PaginationBar.svelte';
-
+	import _ from 'lodash-es';
 	export let data;
 	let pagination = {
 		page: null,
@@ -47,7 +47,7 @@
 						target="{is_external_link ? '_blank' : ''}"
 						rel="{is_external_link ? 'noreferrer' : ''}"
 						class="hover:text-[#41A7C3] text-container font-barlow text-2xl font-medium block"
-						>{title}</a
+						>{_.startCase(title)}</a
 					>
 					<span class="block hover:text-[#41A7C3] mt-5">
 						<a
