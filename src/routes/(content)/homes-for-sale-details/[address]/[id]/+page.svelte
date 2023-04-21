@@ -38,7 +38,12 @@
 	images.data = images.data.sort((a, b) => {
 		return collator.compare(a.attributes.name, b.attributes.name);
 	});
-
+	const property_type_map = {
+		house: 'House',
+		rental: 'Rental',
+		lot: 'Lots /Land',
+		['multi-unit residential']: 'Multi-Unit Residential'
+	};
 	const header_fields = {
 		house: () => [
 			{
@@ -79,7 +84,7 @@
 		lot: () => [
 			{
 				label: 'Type',
-				val: property_type
+				val: 'Lots / Land'
 			}
 		],
 		['multi-unit residential']: () => [
