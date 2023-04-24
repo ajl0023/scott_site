@@ -8,7 +8,7 @@ export async function GET({ fetch, url }) {
 
 	const page_data = await getJson(
 		fetch(
-			`${url_new}/api/media-posts?pagination[page]=${page}&pagination[pageSize]=10&populate=deep`,
+			`${url_new}/api/media-posts?pagination[page]=${page}&pagination[pageSize]=10&populate=deep&sort=created_on%3Adesc`,
 			{
 				headers: {
 					Authorization: `Bearer ${strapi_token}`

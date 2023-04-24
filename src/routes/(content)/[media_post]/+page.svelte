@@ -17,7 +17,8 @@
 		'page-parts.carousel': Carousel,
 		'page-parts.sub-header': Header,
 		'page-parts.image-link': ImageLink,
-		'page-parts.image': SingleImage
+		'page-parts.image': SingleImage,
+		'page-parts.ck-editor-v2': MediaCkContent
 	};
 
 	const titleStore = getContext('title');
