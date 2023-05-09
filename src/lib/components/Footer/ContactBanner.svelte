@@ -26,9 +26,14 @@
 
 <div class="wrapper flex justify-center">
 	<div class="container flex justify-center flex-col items-center z-10">
-		<div class="logo-container max-w-sm">
+		<a
+			target="_blank"
+			rel="'noreferrer"
+			class="logo-container max-w-sm"
+			href="https://www.elliman.com/?fbclid=IwAR1JddBjpqu4NwL5787b-FCG_Ck_QYC_tmNe_I8dnBTmXaiYBuoATkJ6w9E"
+		>
 			<img src="{access_strapi_image(data.de_logo)}" alt="" />
-		</div>
+		</a>
 		<div
 			class="contact-container flex flex-wrap  justify-center items-center flex-col md:flex-row md:space-y-0 space-y-2"
 		>
