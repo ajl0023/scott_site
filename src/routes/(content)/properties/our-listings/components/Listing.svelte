@@ -27,7 +27,11 @@
 				},
 				{
 					key: 'SqFt',
-					val: `${parseInt(exterior_features['approximate_size']).toLocaleString()}`
+					val: `${
+						parseInt(exterior_features['approximate_size'])
+							? parseInt(exterior_features['approximate_size']).toLocaleString()
+							: 'N/A'
+					}`
 				}
 			];
 		} else if (type === 'lot') {
@@ -35,7 +39,11 @@
 			return [
 				{
 					key: 'Lot Acres',
-					val: `${parseInt(exterior_features['lot_size_in_sq_ft']).toLocaleString()}`
+					val: `${
+						parseInt(exterior_features['lot_size_in_sq_ft'])
+							? parseInt(exterior_features['lot_size_in_sq_ft']).toLocaleString()
+							: 'N/A'
+					}`
 				}
 			];
 		} else if (type === 'multi-unit residential') {
@@ -43,7 +51,11 @@
 			return [
 				{
 					key: 'Number of Units',
-					val: `${parseInt(interior_features['total_number_of_units']).toLocaleString()}`
+					val: `${
+						parseInt(exterior_features['total_number_of_units'])
+							? parseInt(exterior_features['total_number_of_units']).toLocaleString()
+							: 'N/A'
+					}`
 				}
 			];
 		}
