@@ -8,7 +8,7 @@
 	export let data;
 	//sort by price
 	let listings = data.data.sort((a, b) => {
-		return b.attributes.price - a.attributes.price;
+		return a.attributes.rank - b.attributes.rank;
 	});
 
 	if (listings.length > 7) {
