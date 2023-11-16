@@ -98,5 +98,5 @@ export const stateToAbbr = (state) => {
 		wisconsin: 'WI',
 		wyoming: 'WY'
 	};
-	return states[state.toLowerCase()];
+	return state && states[state.toLowerCase()] ? states[state.toLowerCase()] : state;
 };
