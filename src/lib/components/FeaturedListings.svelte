@@ -7,12 +7,14 @@
 	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 	//sort by price
-	let listings = data.data.sort((a, b) => {
-		return a.attributes.rank - b.attributes.rank;
-	});
+
+	//might need to sort listings by some attributes, but for now the rank is null for some reason
+	let listings = data.data;
 
 	if (listings.length > 7) {
 		listings = listings.slice(0, 7);
+
+		listings = a.attributes.rank - b.attributes.rank;
 	}
 	onMount(() => {
 		createLazyStore.init();
