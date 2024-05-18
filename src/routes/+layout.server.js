@@ -19,7 +19,6 @@ export async function load({ fetch }) {
 				Authorization: `Bearer ${strapi_token}`
 			}
 		});
-
 		const json = await data.json();
 
 		// json.data.attributes.items.data.push({

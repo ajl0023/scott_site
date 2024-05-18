@@ -5,6 +5,10 @@ export async function getJson(fetch) {
 	const data = await req.json();
 	return data;
 }
+export function parseIfTruthy(str) {
+	return str ? Number(str) : null;
+}
+
 export const slugify = (string) => {
 	// Remove leading and trailing slashes
 	string = string.replace(/^\/|\/$/g, '');

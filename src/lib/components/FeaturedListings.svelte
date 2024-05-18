@@ -3,19 +3,18 @@
 	import { createLazyStore } from '$lib/stores/lazy';
 	import _ from 'lodash-es';
 	import { onMount } from 'svelte';
-	import { access_strapi_image, slugify_address, stateToAbbr } from '../utils/utils';
+	import { access_strapi_image, parseIfTruthy, slugify_address, stateToAbbr } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 	//sort by price
 
 	//might need to sort listings by some attributes, but for now the rank is null for some reason
 	let listings = data.data;
-
-	if (listings.length > 7) {
-		listings = listings.slice(0, 7);
-
-		listings = a.attributes.rank - b.attributes.rank;
-	}
+	listings = listings
+		.sort((a, b) => {
+			return parseIfTruthy(b.attributes.price) - parseIfTruthy(a.attributes.price);
+		})
+		.slice(0, 7);
 	onMount(() => {
 		createLazyStore.init();
 	});
