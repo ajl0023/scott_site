@@ -25,6 +25,8 @@
 		pagination = res_data['data']['meta']['pagination'];
 		// has_more = pagination.page < pagination.pageCount;
 	};
+
+	//changed the titles for the articles to uppercase, looks decent and not worth for every edge case to have a proper title case as it can simply be edited in Strapi
 </script>
 
 <div class="wrapper w-full">
@@ -47,7 +49,7 @@
 						target="{is_external_link ? '_blank' : ''}"
 						rel="{is_external_link ? 'noreferrer' : ''}"
 						class="hover:text-[#41A7C3] text-container font-barlow text-2xl font-medium block"
-						>{_.startCase(title)}</a
+						>{title.toUpperCase()}</a
 					>
 					<span class="block hover:text-[#41A7C3] mt-5">
 						<a
