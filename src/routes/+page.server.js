@@ -15,7 +15,7 @@ export async function load({ fetch }) {
 	data.media_relations = {
 		...data.media_relations,
 		media_posts: await getJson(
-			fetch(`${url_new}/api/media-posts?pagination[limit]=4&populate=deep`, {
+			fetch(`${url_new}/api/media-posts?pagination[limit]=4&populate=deep&sort[0]=created_on:desc`, {
 				headers: {
 					Authorization: `Bearer ${strapi_token}`
 					// 'Content-Type': 'application/x-www-form-urlencoded',
