@@ -52,16 +52,16 @@
 			},
 			{
 				label: 'Baths',
-				val: `${interior_features['full_baths']}|${interior_features['half_baths']}`
+				val: `${interior_features['full_baths']}|${interior_features['half_baths'] ?? 0}`
 			},
 			{
 				label: 'Sq.Ft',
 				val: parseInt(exterior_features['approximate_size']).toLocaleString()
-			},
-			{
-				label: 'Type',
-				val: property_type
 			}
+			// {
+			// 	label: 'Type',
+			// 	val: property_type
+			// }
 		],
 		rental: () => [
 			{
@@ -70,32 +70,32 @@
 			},
 			{
 				label: 'Baths',
-				val: `${interior_features['full_baths']}|${interior_features['half_baths'] || 0}`
+				val: `${interior_features['full_baths']}|${interior_features['half_baths'] ?? 0}`
 			},
 			{
 				label: 'Sq.Ft',
 				val: parseInt(exterior_features['approximate_size']).toLocaleString()
-			},
-			{
-				label: 'Type',
-				val: property_type
 			}
+			// {
+			// 	label: 'Type',
+			// 	val: property_type
+			// }
 		],
 		lot: () => [
-			{
-				label: 'Type',
-				val: 'Lots / Land'
-			}
+			// {
+			// 	label: 'Type',
+			// 	val: 'Lots / Land'
+			// }
 		],
 		['multi-unit residential']: () => [
 			{
 				label: 'Number of Units',
 				val: interior_features['total_number_of_units']
-			},
-			{
-				label: 'Type',
-				val: property_type
 			}
+			// {
+			// 	label: 'Type',
+			// 	val: property_type
+			// }
 		]
 	};
 	const category_order = [

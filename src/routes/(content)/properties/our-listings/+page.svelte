@@ -13,7 +13,6 @@
 	};
 
 	//will look into data and return the value attributes
-
 	const listings_formatted = listings.map((item) => {
 		return {
 			interior_features: _.get(item, 'attributes.interior_features', null),
@@ -24,7 +23,8 @@
 				address: _.get(item, 'attributes.address', null),
 				id: _.get(item, 'attributes.listing_id', null),
 				type: _.get(item, 'attributes.property_type', null),
-				price: _.get(item, 'attributes.price', null)
+				price: _.get(item, 'attributes.price', null),
+				property_note: _.get(item, 'attributes.property_note', null)
 			},
 			location_info: _.get(item, 'attributes.location_info', null)
 		};

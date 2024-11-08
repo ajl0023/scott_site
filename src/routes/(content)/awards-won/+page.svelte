@@ -10,6 +10,9 @@
 </script>
 
 <div class="wrapper">
+	<div class="disclaimer-container mb-4 italic">
+		*List of awards won by Scott at Douglas Elliman and Coldwell Banker since 2011
+	</div>
 	<div class="awards-container flex flex-wrap -m-5">
 		{#each images as { image: img }}
 			<div class="item-wrapper md:basis-4/12 p-5 w-full">

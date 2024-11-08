@@ -10,7 +10,6 @@
 	class="lazy wrapper bg-no-repeat bg-cover bg-fixed bg-bottom pt-[90px] pb-[110px] relative"
 >
 	<div class="content-wrapper flex flex-col items-center p-5 z-10 relative">
-		<MiniLogo color="white" />
 		<div class="logo-container md:max-w-[600px] lg:max-w-[900px] w-full m-auto">
 			<img class="w-full lazy" src="{access_strapi_image(logo)}" alt="" />
 		</div>

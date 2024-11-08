@@ -80,7 +80,7 @@
 								{propertyType_to_display[property_data.type]}
 							</p>
 							<span class="text-gray-500 font-light text-xs">
-								#{property_data.id}
+								{property_data.property_note ?? ''}
 							</span>
 						</div>
 						<p class="text-2xl text-gray-900">
