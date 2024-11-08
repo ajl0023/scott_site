@@ -4,7 +4,7 @@
 	import MiniLogo from './MiniLogo.svelte';
 
 	export let data; // this is the data from strapi for the page
-	console.log(data)
+
 	const text_content = data['content'];
 	const media_posts = data['media_posts']['data'];
 

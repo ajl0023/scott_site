@@ -10,11 +10,7 @@
 
 	//might need to sort listings by some attributes, but for now the rank is null for some reason
 	let listings = data.data;
-	listings = listings
-		.sort((a, b) => {
-			return parseIfTruthy(b.attributes.price) - parseIfTruthy(a.attributes.price);
-		})
-		.slice(0, 7);
+	
 	onMount(() => {
 		createLazyStore.init();
 	});
