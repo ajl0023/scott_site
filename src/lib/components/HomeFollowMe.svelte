@@ -1,7 +1,7 @@
 <script>
 	import { access_strapi_image, get_strapi_image_format } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
-
+	import { getContext, onMount } from 'svelte';
 	import { getAnim } from '$lib/actions/get_anim.js';
 
 	export let data;
@@ -11,6 +11,9 @@
 			attributes: { contact_info }
 		}
 	} = instagram_url;
+	onMount(() => {
+		window.instgrm.Embeds.process();
+	});
 </script>
 
 <div class="content-wrapper p-5">
@@ -167,7 +170,6 @@
 				</div>
 			</blockquote>
 		</div>
-		<script async src="//www.instagram.com/embed.js"></script>
 	</div>
 </div>
 
