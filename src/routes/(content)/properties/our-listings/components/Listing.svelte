@@ -14,6 +14,7 @@
 		'Multi-Unit Residential': 'Multi-Unit Residential',
 		Rental: 'Rental'
 	};
+
 	let features_to_display = (type) => {
 		if (type === 'house' || type === 'rental') {
 			return [
@@ -77,10 +78,10 @@
 					<div class="p-4">
 						<div class="flex justify-between">
 							<p class="uppercase tracking-wide text-sm font-medium text-gray-700 mb-2">
-								{propertyType_to_display[property_data.type]}
+								{property_data.nickname ?? '\u00A0'}
 							</p>
 							<span class="text-gray-500 font-light text-xs">
-								{property_data.property_note ?? ''}
+								{property_data.property_note ?? '\u00A0'}
 							</span>
 						</div>
 						<p class="text-2xl text-gray-900">

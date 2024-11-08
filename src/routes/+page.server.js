@@ -11,6 +11,7 @@ export async function load({ fetch }) {
 			}
 		})
 	);
+
 	const data = homeData['data']['attributes'];
 	data.media_relations = {
 		...data.media_relations,

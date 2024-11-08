@@ -28,7 +28,8 @@
 		interior_features,
 		exterior_features,
 		additional_info,
-		property_type
+		property_type,
+		nickname
 	} = property_data;
 
 	//sort by filename the same way windows does
@@ -143,7 +144,8 @@
 	}`;
 </script>
 
-<div class="wrapper w-full">
+<div class="wrapper w-full font-roboto">
+	<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{nickname ?? ''}</h5>
 	<div
 		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between flex-row items-start md:text-base text-sm w-full"
 	>

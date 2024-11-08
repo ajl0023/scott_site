@@ -24,7 +24,8 @@
 				id: _.get(item, 'attributes.listing_id', null),
 				type: _.get(item, 'attributes.property_type', null),
 				price: _.get(item, 'attributes.price', null),
-				property_note: _.get(item, 'attributes.property_note', null)
+				property_note: _.get(item, 'attributes.property_note', null),
+				nickname: _.get(item, 'attributes.nickname', null)
 			},
 			location_info: _.get(item, 'attributes.location_info', null)
 		};
