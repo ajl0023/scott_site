@@ -81,7 +81,13 @@
 								{property_data.nickname ?? '\u00A0'}
 							</p>
 							<span class="text-gray-500 font-light text-xs">
-								{property_data.property_note ?? '\u00A0'}
+								{#if property_data.nickname}
+									{property_data.nickname}
+								{:else if property_data.id}
+									#{property_data.id}
+								{:else}
+									{'\u00A0'}
+								{/if}
 							</span>
 						</div>
 						<p class="text-2xl text-gray-900">

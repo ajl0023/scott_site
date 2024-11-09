@@ -8,7 +8,10 @@ export async function getJson(fetch) {
 export function parseIfTruthy(str) {
 	return str ? Number(str) : null;
 }
-
+export function isExternalLink(link) {
+	const linkURL = new URL(link.href);
+	return linkURL.hostname !== window.location.hostname;
+}
 export const slugify = (string) => {
 	// Remove leading and trailing slashes
 	string = string.replace(/^\/|\/$/g, '');

@@ -1,6 +1,6 @@
 <script>
 	import CkContent from '$lib/components/CKContent.svelte';
-	import { access_strapi_image } from '$lib/utils/utils';
+	import { access_strapi_image, isExternalLink } from '$lib/utils/utils';
 
 	export let data;
 
@@ -30,7 +30,12 @@
 			class="flex-container flex flex-col flex-nowrap md:flex-row md:flex-wrap m-auto w-full items-center md:items-baseline md:max-w-[700px]"
 		>
 			{#each navigation_menu as nav_item}
-				<a href="/{nav_item.link}" class="group block w-[300px] md:w-4/12 link-container p-1">
+				<a
+					href="{nav_item.is_external_link ? nav_item.link : '/' + nav_item.link}"
+					target="{nav_item.is_external_link ? '_blank' : ''}"
+					rel="{nav_item.is_external_link ? 'noreferrer' : ''}"
+					class="group block w-[300px] md:w-4/12 link-container p-1"
+				>
 					<div class="item-container transition-all relative flex justify-center items-center">
 						<div
 							class="bg-container w-full aspect-w-6 aspect-h-6 md:aspect-w-16 md:aspect-h-16 flex justify-center items-center"
