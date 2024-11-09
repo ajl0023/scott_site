@@ -14,9 +14,9 @@
 				{data['disclaimer']}
 			</p>
 		</div>
-		<div class="eh-logo-container">
+		<!-- <div class="eh-logo-container">
 			<img src="{image_url + data['eh_logo']['data']['attributes']['url']}" alt="" />
-		</div>
+		</div> -->
 		<div class="partner-logos-wrapper flex justify-center items-center flex-wrap">
 			{#each data['partner_logos']['data'] as logo}
 				<div class="partner-logo-container">
