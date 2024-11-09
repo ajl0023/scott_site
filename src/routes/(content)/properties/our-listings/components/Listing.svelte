@@ -81,8 +81,8 @@
 								{property_data.nickname ?? '\u00A0'}
 							</p>
 							<span class="text-gray-500 font-light text-xs">
-								{#if property_data.nickname}
-									{property_data.nickname}
+								{#if property_data.property_note}
+									{property_data.property_note}
 								{:else if property_data.id}
 									#{property_data.id}
 								{:else}
