@@ -10,7 +10,7 @@
 
 	//might need to sort listings by some attributes, but for now the rank is null for some reason
 	let listings = data.data;
-	
+	listings = listings.slice(0, 7);
 	onMount(() => {
 		createLazyStore.init();
 	});
