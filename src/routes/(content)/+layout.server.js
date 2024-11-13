@@ -24,7 +24,7 @@ export async function load({ fetch, url, params }) {
 	const getPageData = async () => {
 		const fetch_url =
 			path === '/properties/our-listings'
-				? `${url_new}/api/${api_url}?sort=rank%3Aasc&populate=deep`
+				? `${url_new}/api/home-page?fields[0]=listings&populate=deep`
 				: `${url_new}/api/${api_url}?populate=deep`;
 		const page_data = await getJson(
 			fetch(fetch_url, {
@@ -33,7 +33,7 @@ export async function load({ fetch, url, params }) {
 				}
 			})
 		);
-
+		
 		return Array.isArray(page_data.data) ? page_data : page_data.data['attributes'];
 	};
 

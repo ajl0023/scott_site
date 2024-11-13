@@ -5,13 +5,13 @@
 	import _ from 'lodash-es';
 	import Listing from './components/Listing.svelte';
 	export let data;
-
-	const listings = data['page_data'].data;
+	
+	const listings = data['page_data'].listings.data;
 
 	const getData = (data) => {
 		_.get(data, 'data.attributes', null);
 	};
-
+	
 	//will look into data and return the value attributes
 	const listings_formatted = listings.map((item) => {
 		return {
