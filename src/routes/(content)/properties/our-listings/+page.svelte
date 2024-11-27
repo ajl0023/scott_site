@@ -11,7 +11,7 @@
 	const getData = (data) => {
 		_.get(data, 'data.attributes', null);
 	};
-	
+	console.log(listings)
 	//will look into data and return the value attributes
 	const listings_formatted = listings.map((item) => {
 		return {

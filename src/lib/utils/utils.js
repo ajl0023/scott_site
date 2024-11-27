@@ -47,7 +47,8 @@ export const get_strapi_image_format = (img, format) => {
 		? _.get(img, 'data.attributes.formats', null)
 		: _.get(img, 'attributes.formats', null);
 
-	if (Object.keys(formats).length === 1) return access_strapi_image(img);
+	if (Object.keys(formats).length === 1 || !formats[format]) return access_strapi_image(img);
+
 	return formats && formats[format] ? image_url + formats[format].url : null;
 };
 // Convert state to abbreviation, the keys will be the state names and the values will be the abbreviations

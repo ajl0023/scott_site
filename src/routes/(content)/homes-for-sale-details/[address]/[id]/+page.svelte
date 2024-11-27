@@ -20,6 +20,7 @@
 	let curr_carousel_index = 0;
 	const {
 		address,
+		listing_id,
 		description,
 		price,
 		images,
@@ -155,17 +156,20 @@
 			{property_type.toLowerCase() === 'rental' ? '(rental)' : ''}</span
 		>
 	</div>
-	<div class="field-header-container flex space-x-4 mt-10">
-		{#each header_fields[property_type.toLowerCase()]() as { label, val }}
-			<div class="field-header">
-				<span class="font-roboto font-normal text-sm text-gray-600 tracking-wider font-">
-					{label}:
-				</span>
-				<span class="font-roboto font-normal text-sm text-gray-600 tracking-wider">
-					{val}
-				</span>
-			</div>
-		{/each}
+	<div class="field-header-container  mt-10 flex justify-between">
+		<div class="field-header-container flex space-x-4">
+			{#each header_fields[property_type.toLowerCase()]() as { label, val }}
+				<div class="field-header">
+					<span class="font-roboto font-normal text-sm text-gray-600 tracking-wider font-">
+						{label}:
+					</span>
+					<span class="font-roboto font-normal text-sm text-gray-600 tracking-wider">
+						{val}
+					</span>
+				</div>
+			{/each}
+		</div>
+		<div class="mls-number">{listing_id}</div>
 	</div>
 
 	<!--left arrow svg -->
