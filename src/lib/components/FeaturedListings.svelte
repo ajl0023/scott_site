@@ -38,9 +38,9 @@
 			</div>
 		</div>
 
-		{#each listings as { attributes: { listing_id, address, thumbnail, price, location_info: { address: { street_address, state_province, postal_code, city } } } }}
+		{#each listings as { id, attributes: { listing_id, address, thumbnail, price, location_info: { address: { street_address, state_province, postal_code, city } } } }}
 			<a
-				href="/homes-for-sale-details/{slugify_address(address)}/{listing_id}"
+				href="/homes-for-sale-details/{slugify_address(address)}/{id}"
 				class="block listing-container relative aspect-w-16 aspect-h-11"
 			>
 				<div class="content-wrapper">

@@ -17,6 +17,7 @@
 
 	let features_to_display = (type) => {
 		if (type === 'house' || type === 'rental') {
+			
 			return [
 				{
 					key: 'Beds',
@@ -66,7 +67,7 @@
 <div class="antialiased font-sans inline-block max-w-lg min-w-[340px] w-1/2 flex-grow p-2">
 	<div class="w-full inline-block">
 		<div class="w-full sm:w-full lg:w-full">
-			<a href="/homes-for-sale-details/{slug_url}/{property_data.id}" class="block">
+			<a href="/homes-for-sale-details/{slug_url}/{property_data.db_id}" class="block">
 				<div class="bg-white shadow-xl">
 					<div class="h-56 overflow-hidden">
 						<img

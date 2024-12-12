@@ -5,13 +5,13 @@
 	import _ from 'lodash-es';
 	import Listing from './components/Listing.svelte';
 	export let data;
-	
+
 	const listings = data['page_data'].listings.data;
 
 	const getData = (data) => {
 		_.get(data, 'data.attributes', null);
 	};
-	console.log(listings)
+
 	//will look into data and return the value attributes
 	const listings_formatted = listings.map((item) => {
 		return {
@@ -25,7 +25,8 @@
 				type: _.get(item, 'attributes.property_type', null),
 				price: _.get(item, 'attributes.price', null),
 				property_note: _.get(item, 'attributes.property_note', null),
-				nickname: _.get(item, 'attributes.nickname', null)
+				nickname: _.get(item, 'attributes.nickname', null),
+				db_id: item.id
 			},
 			location_info: _.get(item, 'attributes.location_info', null)
 		};
@@ -96,12 +97,13 @@
 <div class="wrapper m-auto lg:m-0">
 	<div class="main-container">
 		<div class="flex flex-wrap justify-center lg:justify-start -m-2">
-			{#each listings_formatted as { interior_features, property_data, exterior_features, thumbnail, location_info }}
+			{#each listings_formatted as { interior_features, property_data, exterior_features, thumbnail, location_info, db_id }}
 				<Listing
 					exterior_features="{exterior_features}"
 					interior_features="{interior_features}"
 					property_data="{property_data}"
 					thumbnail="{thumbnail}"
+					db_id="{db_id}"
 					location_info="{location_info}"
 					slug_url="{slugify_address(property_data.address)}"
 					features_to_display="{features_to_display[property_data.type].features}"

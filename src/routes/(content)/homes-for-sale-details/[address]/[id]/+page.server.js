@@ -8,7 +8,7 @@ export async function load({ fetch, url, params }) {
 
 	const getPropertyData = async () => {
 		const page_data = await getJson(
-			fetch(`${url_new}/api/listing-properties?filters[listing_id][$eq]=${id}&populate=deep`, {
+			fetch(`${url_new}/api/listing-properties?filters[id][$eq]=${id}&populate=deep`, {
 				headers: {
 					Authorization: `Bearer ${strapi_token}`
 				}

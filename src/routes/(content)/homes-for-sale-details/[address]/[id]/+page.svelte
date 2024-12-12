@@ -30,7 +30,8 @@
 		exterior_features,
 		additional_info,
 		property_type,
-		nickname
+		nickname,
+		property_note
 	} = property_data;
 
 	//sort by filename the same way windows does
@@ -58,7 +59,9 @@
 			},
 			{
 				label: 'Sq.Ft',
-				val: parseInt(exterior_features['approximate_size']).toLocaleString()
+				val: exterior_features['approximate_size']
+					? parseInt(exterior_features['approximate_size']).toLocaleString()
+					: 'N/A'
 			}
 			// {
 			// 	label: 'Type',
@@ -76,7 +79,9 @@
 			},
 			{
 				label: 'Sq.Ft',
-				val: parseInt(exterior_features['approximate_size']).toLocaleString()
+				val: exterior_features['approximate_size']
+					? parseInt(exterior_features['approximate_size']).toLocaleString()
+					: 'N/A'
 			}
 			// {
 			// 	label: 'Type',
@@ -146,7 +151,10 @@
 </script>
 
 <div class="wrapper w-full font-roboto">
-	<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{nickname ?? ''}</h5>
+	<div class="top-header flex">
+		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{nickname ?? ''}</h5>
+		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{property_note ?? ''}</h5>
+	</div>
 	<div
 		class="font-roboto font-semibold text-gray-600 uppercase tracking-wider flex justify-between flex-row items-start md:text-base text-sm w-full"
 	>
