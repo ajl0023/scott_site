@@ -48,6 +48,22 @@
 		['multi-unit residential']: 'Multi-Unit Residential'
 	};
 	const header_fields = {
+		condo: () => [
+			{
+				label: 'Beds',
+				val: interior_features['bedrooms']
+			},
+			{
+				label: 'Baths',
+				val: `${interior_features['full_baths']}|${interior_features['half_baths'] ?? 0}`
+			},
+			{
+				label: 'Sq.Ft',
+				val: exterior_features['approximate_size']
+					? parseInt(exterior_features['approximate_size']).toLocaleString()
+					: 'N/A'
+			}
+		],
 		house: () => [
 			{
 				label: 'Beds',
