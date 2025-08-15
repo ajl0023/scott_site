@@ -168,7 +168,8 @@
 
 <div class="wrapper w-full font-roboto">
 	<div class="top-header flex">
-		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{nickname ?? ''}</h5>
+		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic mr-3">{nickname ?? ''}</h5>
+		
 		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{property_note ?? ''}</h5>
 	</div>
 	<div
