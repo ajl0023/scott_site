@@ -16,7 +16,7 @@
 	};
 
 	let features_to_display = (type) => {
-		if (type === 'house' || type === 'rental') {
+		if (type === 'house' || type === 'rental' || type === 'condo') {
 			
 			return [
 				{
