@@ -54,6 +54,25 @@
 				}
 			]
 		},
+		Condo: {
+			features: [
+				{
+					key: 'bedrooms',
+					category: 'interior_features',
+					icon: Bed
+				},
+				{
+					key: 'half_baths',
+					category: 'interior_features',
+					icon: Bath
+				},
+				{
+					key: 'full_baths',
+					category: 'interior_features',
+					icon: null
+				}
+			]
+		},
 		Rental: {
 			features: [
 				{
