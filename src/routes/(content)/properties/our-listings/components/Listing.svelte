@@ -16,8 +16,7 @@
 	};
 
 	let features_to_display = (type) => {
-		if (type === 'house' || type === 'rental' || type === 'condo') {
-			
+		if (type === 'house' || type === 'rental' || type === 'condo' || type === 'commercial') {
 			return [
 				{
 					key: 'Beds',
