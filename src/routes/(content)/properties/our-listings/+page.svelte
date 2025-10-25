@@ -109,6 +109,15 @@
 					icon: null
 				}
 			]
+		},
+		['Commercial']: {
+			features: [
+				{
+					key: 'lot_size_in_sq_ft',
+					category: 'exterior_features',
+					icon: null
+				}
+			]
 		}
 	};
 </script>

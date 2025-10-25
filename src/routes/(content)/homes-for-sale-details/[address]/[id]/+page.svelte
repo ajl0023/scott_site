@@ -119,6 +119,16 @@
 			// 	label: 'Type',
 			// 	val: property_type
 			// }
+		],
+		['commercial']: () => [
+			{
+				label: 'Number of Units',
+				val: interior_features['total_number_of_units']
+			}
+			// {
+			// 	label: 'Type',
+			// 	val: property_type
+			// }
 		]
 	};
 	const category_order = [
@@ -169,7 +179,7 @@
 <div class="wrapper w-full font-roboto">
 	<div class="top-header flex">
 		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic mr-3">{nickname ?? ''}</h5>
-		
+
 		<h5 class="mb-5 text-xl font-serif text-gray-800 shadow-sm italic">{property_note ?? ''}</h5>
 	</div>
 	<div
