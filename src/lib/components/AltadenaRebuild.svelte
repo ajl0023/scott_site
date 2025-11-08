@@ -22,8 +22,6 @@
 		// Responsive behavior
 
 		updateItemsPerSlide();
-		window.addEventListener('resize', updateItemsPerSlide);
-		return () => window.removeEventListener('resize', updateItemsPerSlide);
 	});
 
 	// Dev-only test data
@@ -35,7 +33,11 @@
 		}));
 		image_slider = testData;
 	}
-
+	let resizeTimeout;
+    const onResize = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(updateItemsPerSlide, 300);
+    };
 	const updateItemsPerSlide = () => {
 		if (window.matchMedia('(max-width: 640px)').matches) {
 			itemsPerSlide = 2;
@@ -50,7 +52,7 @@
 	};
 </script>
 
-<svelte:window on:resize="{updateItemsPerSlide}" />
+<svelte:window on:resize="{onResize}" />
 <div
 	data-bg="{access_strapi_image(background_image)}"
 	class="lazy wrapper bg-no-repeat bg-cover bg-fixed bg-bottom pt-[90px] pb-[110px] relative"
