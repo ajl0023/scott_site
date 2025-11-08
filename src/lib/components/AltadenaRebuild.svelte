@@ -10,15 +10,17 @@
 	let Carousel;
 	let carousel;
 	let mounted = false;
-	let curr_carousel_index = 0;
-	let itemsPerSlide = 6; // default
-	let initialPage = 0;
+
+	let itemsPerSlide = 9; // default
+
+	let carouselModuleLoaded = false;
+	let currentPageIndex = 0;
 	// Dynamically import the carousel only in browser
 	onMount(async () => {
 		if (!browser) return;
 		Carousel = (await import('svelte-carousel')).default;
 		mounted = true;
-
+		carouselModuleLoaded = true;
 		// Responsive behavior
 
 		updateItemsPerSlide();
@@ -26,19 +28,22 @@
 
 	// Dev-only test data
 
-	if (dev) {
-		let testData = Array.from({ length: 8 }, (_, i) => ({
-			...structuredClone(image_slider[0]),
-			id: `test-image-${i + 1}`
-		}));
-		image_slider = testData;
-	}
+	// if (dev) {
+	// 	let testData = Array.from({ length: 8 }, (_, i) => ({
+	// 		...structuredClone(image_slider[0]),
+	// 		id: `test-image-${i + 1}`
+	// 	}));
+	// 	// image_slider = testData;
+	// }
 	let resizeTimeout;
-    const onResize = () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(updateItemsPerSlide, 300);
-    };
+	const onResize = () => {
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(updateItemsPerSlide, 300);
+	};
 	const updateItemsPerSlide = () => {
+		if (!browser) return;
+		if (!carouselModuleLoaded) return;
+
 		if (window.matchMedia('(max-width: 640px)').matches) {
 			itemsPerSlide = 2;
 		} else if (window.matchMedia('(max-width: 1024px)').matches) {
@@ -48,6 +53,8 @@
 		}
 		if (carousel) {
 			carousel.goTo(0);
+			console.log(currentPageIndex);
+			console.log(itemsPerSlide);
 		}
 	};
 </script>
@@ -88,77 +95,78 @@
 			{main_text}
 		</h5>
 
-		{#if Carousel && browser}
-			<div class="carousel-wrapper w-full max-w-[1100px] mt-5">
-				<svelte:component
-					this="{Carousel}"
-					key="{itemsPerSlide}"
-					particlesToShow="{itemsPerSlide}"
-					let:showPrevPage
-					let:showNextPage
-					let:loaded
-					dots="{false}"
-					bind:this="{carousel}"
-					on:pageChange="{(event) => (curr_carousel_index = event.detail)}"
-				>
-					<div
-						on:click="{showPrevPage}"
-						slot="prev"
-						class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] left-[-50px] z-10 bg-black rounded-full"
+		{#if browser && carouselModuleLoaded && Carousel}
+			{#key itemsPerSlide}
+				<div class="carousel-wrapper w-full max-w-[1100px] mt-5">
+					<svelte:component
+						this="{Carousel}"
+						let:currentPageIndex
+						particlesToShow="{itemsPerSlide}"
+						let:showPrevPage
+						let:showNextPage
+						let:loaded
+						dots="{false}"
+						bind:this="{carousel}"
 					>
-						<svg
-							class="arrow"
-							xmlns="http://www.w3.org/2000/svg"
-							width="30"
-							height="30"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="white"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+						<div
+							on:click="{showPrevPage}"
+							slot="prev"
+							class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] left-[-50px] z-10 bg-black rounded-full"
 						>
-							<path d="M15 18l-6-6 6-6"></path>
-						</svg>
-					</div>
-
-					{#each image_slider as image, imageIndex (image.id)}
-						<div class="image-wrapper relative px-2">
-							<div class="aspect-w-8 aspect-h-12 w-full">
-								{#if loaded.includes(imageIndex)}
-									<img
-										draggable="{false}"
-										class="object-cover w-full"
-										src="{access_strapi_image(image.media)}"
-										alt="{image.alt}"
-									/>
-								{/if}
-							</div>
+							<svg
+								class="arrow"
+								xmlns="http://www.w3.org/2000/svg"
+								width="30"
+								height="30"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="white"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M15 18l-6-6 6-6"></path>
+							</svg>
 						</div>
-					{/each}
 
-					<div
-						on:click="{showNextPage}"
-						slot="next"
-						class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] right-[-50px] z-10 rotate-180 bg-black rounded-full"
-					>
-						<svg
-							class="arrow"
-							xmlns="http://www.w3.org/2000/svg"
-							width="30"
-							height="30"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="white"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+						{#each image_slider as image, imageIndex (image.id)}
+							<div class="image-wrapper relative px-2">
+								<div class="aspect-w-8 aspect-h-12 w-full">
+									{#if loaded.includes(imageIndex)}
+										<img
+											draggable="{false}"
+											class="object-cover w-full"
+											src="{access_strapi_image(image.media)}"
+											alt="{image.alt}"
+										/>
+									{/if}
+								</div>
+							</div>
+						{/each}
+
+						<div
+							on:click="{showNextPage}"
+							slot="next"
+							class="cursor-pointer arrow-container absolute top-[50%] translate-y-[-50%] right-[-50px] z-10 rotate-180 bg-black rounded-full"
 						>
-							<path d="M15 18l-6-6 6-6"></path>
-						</svg>
-					</div>
-				</svelte:component>
-			</div>
+							<svg
+								class="arrow"
+								xmlns="http://www.w3.org/2000/svg"
+								width="30"
+								height="30"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="white"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M15 18l-6-6 6-6"></path>
+							</svg>
+						</div>
+					</svelte:component>
+				</div>
+			{/key}
 		{/if}
 
 		<div class="button-container mt-5">
@@ -167,7 +175,7 @@
 				rel="{'noreferrer'}"
 				href=""
 			>
-				Read More +
+				Coming Soon +
 			</a>
 		</div>
 	</div>
