@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 
-let test_prod = true;
+let test_prod = false;
 let dev_test = !dev ? false : test_prod ? false : true;
 
 export const image_url = dev_test

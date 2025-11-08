@@ -249,7 +249,7 @@
 							<img
 								draggable="{false}"
 								class="object-cover w-auto h-full m-auto"
-								src="{access_strapi_image(image)}"
+								src="{access_strapi_image(image.media)}"
 								alt="{image.alt}"
 							/>
 						{/if}

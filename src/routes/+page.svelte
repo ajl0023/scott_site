@@ -14,6 +14,7 @@
 	import { getContext, onDestroy, onMount } from 'svelte';
 	import { url_new } from '$lib/dev';
 	import { page } from '$app/stores';
+	import AltadenaRebuild from '../lib/components/AltadenaRebuild.svelte';
 	export let data;
 
 	const audio_info_store = getContext('audio_info');
@@ -93,6 +94,7 @@
 
 	<FeaturedListings data="{data['page_data']['listings']}" />
 	<HomeScottInfo data="{data['page_data']['home_agent']}" />
+	<AltadenaRebuild data="{data['page_data']['altadena_rebuild']}" />
 	<GlobalListings data="{data['page_data']['global_listings']}" />
 	<HomeServices data="{data['page_data']['services']}" />
 	<SalesStats data="{data['page_data']['sales_statistics']}" />
