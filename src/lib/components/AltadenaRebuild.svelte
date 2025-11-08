@@ -8,10 +8,11 @@
 	export let { background_image, logo, link, main_text, image_slider } = data;
 
 	let Carousel;
+	let carousel;
 	let mounted = false;
 	let curr_carousel_index = 0;
 	let itemsPerSlide = 6; // default
-
+	let initialPage = 0;
 	// Dynamically import the carousel only in browser
 	onMount(async () => {
 		if (!browser) return;
@@ -19,15 +20,6 @@
 		mounted = true;
 
 		// Responsive behavior
-		const updateItemsPerSlide = () => {
-			if (window.matchMedia('(max-width: 640px)').matches) {
-				itemsPerSlide = 2;
-			} else if (window.matchMedia('(max-width: 1024px)').matches) {
-				itemsPerSlide = 4;
-			} else {
-				itemsPerSlide = 6;
-			}
-		};
 
 		updateItemsPerSlide();
 		window.addEventListener('resize', updateItemsPerSlide);
@@ -43,8 +35,22 @@
 		}));
 		image_slider = testData;
 	}
+
+	const updateItemsPerSlide = () => {
+		if (window.matchMedia('(max-width: 640px)').matches) {
+			itemsPerSlide = 2;
+		} else if (window.matchMedia('(max-width: 1024px)').matches) {
+			itemsPerSlide = 4;
+		} else {
+			itemsPerSlide = 6;
+		}
+		if (carousel) {
+			carousel.goTo(0);
+		}
+	};
 </script>
 
+<svelte:window on:resize="{updateItemsPerSlide}" />
 <div
 	data-bg="{access_strapi_image(background_image)}"
 	class="lazy wrapper bg-no-repeat bg-cover bg-fixed bg-bottom pt-[90px] pb-[110px] relative"
@@ -84,11 +90,13 @@
 			<div class="carousel-wrapper w-full max-w-[1100px] mt-5">
 				<svelte:component
 					this="{Carousel}"
+					key="{itemsPerSlide}"
 					particlesToShow="{itemsPerSlide}"
 					let:showPrevPage
 					let:showNextPage
 					let:loaded
 					dots="{false}"
+					bind:this="{carousel}"
 					on:pageChange="{(event) => (curr_carousel_index = event.detail)}"
 				>
 					<div
@@ -154,7 +162,6 @@
 		<div class="button-container mt-5">
 			<a
 				class="font-roboto border transition-[background-color] border-[#b3b3b3] py-4 px-8 hover:bg-[#B7DEE8] hover:border-[#b3b3b3] inline-block text-[white] uppercase hover:text-black text-xs tracking-widest"
-				target="{'_blank'}"
 				rel="{'noreferrer'}"
 				href=""
 			>
