@@ -35,11 +35,12 @@
 	});
 
 	// Dev-only test data
-	let testData = Array.from({ length: 8 }, (_, i) => ({
-		...structuredClone(image_slider[0]),
-		id: `test-image-${i + 1}`
-	}));
+
 	if (dev) {
+		let testData = Array.from({ length: 8 }, (_, i) => ({
+			...structuredClone(image_slider[0]),
+			id: `test-image-${i + 1}`
+		}));
 		image_slider = testData;
 	}
 </script>
