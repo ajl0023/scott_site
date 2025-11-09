@@ -250,7 +250,7 @@
 							<img
 								draggable="{false}"
 								class="object-cover w-auto h-full m-auto"
-								src="{get_strapi_image_format(image.media, 'large')}"
+								src="{get_strapi_image_format(image, 'large')}"
 								alt="{image.alt}"
 							/>
 						{/if}
