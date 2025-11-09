@@ -4,6 +4,7 @@
 	import { access_strapi_image } from '$lib/utils/utils';
 	import _ from 'lodash-es';
 	import { onMount } from 'svelte';
+	import { get_strapi_image_format } from '../../../../lib/utils/utils';
 	export let data;
 
 	const images = _.get(data, 'images.data');
@@ -22,7 +23,7 @@
 						<img
 							draggable="false"
 							class="w-full select-none"
-							src="{access_strapi_image(img)}"
+							src="{get_strapi_image_format(img, 'large')}"
 							alt=""
 						/>
 					</div>

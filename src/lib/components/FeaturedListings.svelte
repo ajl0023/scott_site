@@ -3,7 +3,12 @@
 	import { createLazyStore } from '$lib/stores/lazy';
 	import _ from 'lodash-es';
 	import { onMount } from 'svelte';
-	import { access_strapi_image, parseIfTruthy, slugify_address, stateToAbbr } from '../utils/utils';
+	import {
+		get_strapi_image_format,
+		parseIfTruthy,
+		slugify_address,
+		stateToAbbr
+	} from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	export let data;
 	//sort by price
@@ -47,7 +52,7 @@
 					<div class="image-container w-full h-full">
 						<img
 							class="grayscale-0 lg:grayscale lazy w-full h-full"
-							data-src="{access_strapi_image(thumbnail)}"
+							data-src="{get_strapi_image_format(thumbnail, 'large')}"
 							alt=""
 						/>
 					</div>
@@ -73,7 +78,7 @@
 						<div class="content-wrapper">
 							<img
 								class="listing-image lazy w-full h-full"
-								data-src="{access_strapi_image(thumbnail)}"
+								data-src="{get_strapi_image_format(thumbnail, 'large')}"
 								alt=""
 							/>
 

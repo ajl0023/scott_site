@@ -6,6 +6,7 @@
 	import Address from '../../../properties/our-listings/components/Address.svelte';
 
 	import { getContext, onMount } from 'svelte';
+	import { get_strapi_image_format } from '../../../../../lib/utils/utils';
 	let Carousel;
 	let mounted = false;
 	onMount(async () => {
@@ -249,7 +250,7 @@
 							<img
 								draggable="{false}"
 								class="object-cover w-auto h-full m-auto"
-								src="{access_strapi_image(image.media)}"
+								src="{get_strapi_image_format(image.media, 'large')}"
 								alt="{image.alt}"
 							/>
 						{/if}

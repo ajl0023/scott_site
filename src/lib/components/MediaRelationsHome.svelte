@@ -7,8 +7,6 @@
 
 	const text_content = data['content'];
 	const media_posts = data['media_posts']['data'];
-
-
 </script>
 
 <!-- the div below will have a black backdrop -->
@@ -61,7 +59,7 @@
 					rel="{is_external_link ? 'noreferrer' : ''}"
 					href="{is_external_link ? link : '/' + link}"
 					class="aspect-wrapper flex flex-wrap md:w-[50%] w-full bg-no-repeat bg-cover bg-center lazy"
-					data-bg="{access_strapi_image(image)}"
+					data-bg="{get_strapi_image_format(image, 'large')}"
 				>
 					<div class="item-container  aspect-w-1 aspect-h-1 w-full">
 						<div class="content-wrapper">

@@ -1,5 +1,5 @@
 <script>
-	import { access_strapi_image } from '../utils/utils';
+	import { get_strapi_image_format, access_strapi_image } from '../utils/utils';
 	import MiniLogo from './MiniLogo.svelte';
 	import { browser, dev } from '$app/environment';
 	import { onMount } from 'svelte';
@@ -61,7 +61,7 @@
 
 <svelte:window on:resize="{onResize}" />
 <div
-	data-bg="{access_strapi_image(background_image)}"
+	data-bg="{get_strapi_image_format(background_image, 'large')}"
 	class="lazy wrapper bg-no-repeat bg-cover bg-fixed bg-bottom pt-[90px] pb-[110px] relative"
 >
 	<div class="content-wrapper flex flex-col items-center p-5 z-10 relative">
@@ -136,7 +136,7 @@
 										<img
 											draggable="{false}"
 											class="object-cover w-full"
-											src="{access_strapi_image(image.media)}"
+											src="{get_strapi_image_format(image.media, 'large')}"
 											alt="{image.alt}"
 										/>
 									{/if}
