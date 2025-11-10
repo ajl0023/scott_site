@@ -53,8 +53,6 @@
 		}
 		if (carousel) {
 			carousel.goTo(0);
-			console.log(currentPageIndex);
-			console.log(itemsPerSlide);
 		}
 	};
 </script>
@@ -65,24 +63,22 @@
 	class="lazy wrapper bg-no-repeat bg-cover bg-fixed bg-bottom pt-[90px] pb-[110px] relative"
 >
 	<div class="content-wrapper flex flex-col items-center p-5 z-10 relative">
-		<div class="logo-container md:max-w-[600px] lg:max-w-[900px] w-full m-auto">
-			<img class="w-full lazy" src="{access_strapi_image(logo)}" alt="" />
-		</div>
-
 		<div class="font-barlow title-container lg:items-start flex flex-col md:mb-3 items-center">
 			<MiniLogo color="white" />
 
-			<div class="header-container">
-				<h2
-					class="md:mt-4 mt-2 text-header uppercase font-[600] text-white leading-[56px] md:text-[130px] text-[90px] relative text-center"
-				>
-					Altadena
-				</h2>
-			</div>
-			<div class="span-container w-full md:mt-4 mt-2 lg:text-end">
-				<span class="span-text text-[#41A7C3] text-[30px] md:text-[70px] font-[400] uppercase">
-					Rebuild
-				</span>
+			<div class="title-container mb-5">
+				<div class="header-container">
+					<h2
+						class="md:mt-4 mt-2 text-header uppercase font-[600] text-white leading-[56px] md:text-[130px] text-[70px] relative text-center"
+					>
+						Altadena
+					</h2>
+				</div>
+				<div class="span-container w-full md:mt-4 mt-2 lg:text-end">
+					<span class="span-text text-[#41A7C3] text-[30px] md:text-[70px] font-[400] uppercase">
+						Rebuild
+					</span>
+				</div>
 			</div>
 		</div>
 
